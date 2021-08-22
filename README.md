@@ -1,5 +1,5 @@
 # My-Django 🤠
 
-👋 Hello future employer:
-This is just a directory of my Django learning progress
-and as means to re-learn how git/Github works
+👋 Hello future employer: </br>
+This is just a directory of my Django learning progress  </br>
+...and as means to understand how git/Github works
