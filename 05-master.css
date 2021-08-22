@@ -1,0 +1,32 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #71EFA3;
+  background-color: #54436B;
+  text-align: center;
+  border: 40px solid #50CB93;
+  border-top: 0px;
+  margin: 0px;
+}
+
+.content p {
+  padding: 5% 25% 0% 25%;
+}
+
+form {
+  display: block;
+}
+
+input {
+  border-radius: 3px;
+  border-width: 0px;
+  background-color: #ACFFAD;
+  height: 25px;
+}
+
+button {
+  border-radius: 10px;
+  border-width: 0px;
+  background-color: #ACFFAD;
+  height: 50px;
+  width: 150px;
+}

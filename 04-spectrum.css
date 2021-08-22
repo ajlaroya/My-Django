@@ -1,0 +1,39 @@
+body {
+  background-color: #ead7d1;
+}
+
+h1, h2 {
+  font-family: 'Roboto', sans-serif;
+  color: #253237;
+  text-align: center;
+}
+
+table {
+  margin:auto;
+}
+
+td {
+  border: 3px solid #ead7d1;
+  height: 300px;
+  width: 150px;
+}
+
+#cell-1 {
+  background-color: #003049;
+}
+
+#cell-2 {
+  background-color: #d62828;
+}
+
+#cell-3 {
+  background-color: #f77f00;
+}
+
+#cell-4 {
+  background-color: #fcbf49;
+}
+
+#cell-5 {
+  background-color: #eae2b7;
+}
