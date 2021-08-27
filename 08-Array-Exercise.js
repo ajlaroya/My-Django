@@ -25,10 +25,8 @@ function addNew(name){
 // Finds index to remove using indexOf then removes index with splice()
 // which changes the contents of an array
 function remove(name){
-  const index = roster.indexOf(name);
-  if (index > -1) {
-    roster.splice(index, 1);
-  }
+  var index = roster.indexOf(name);
+  roster.splice(index, 1);
 }
 
 // DISPLAY ROSTER
@@ -43,7 +41,7 @@ var option = prompt("Start roster application (y/n)?");
 
 // Now create a while loop that keeps asking for an action (add,remove, display or quit)
 // Use if and else if statements to execute the correct function for each command.
-while (option == "y") {
+while (option === "y") {
   var select = prompt("Select an action: add, remove, display, quit");
 
   if (select == "add") {
