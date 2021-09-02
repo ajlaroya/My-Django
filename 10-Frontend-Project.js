@@ -1,7 +1,7 @@
 // adds numbers to buttons as a visual reference/aid
-for (slot in $("button")) {
-  $("button").eq(slot).text(slot);
-}
+// for (slot in $("button")) {
+//   $("button").eq(slot).text(slot);
+// }
 
 // prompt for P1 and P2 name
 var p1 = prompt("Player 1: Please enter your name. You will be red.");
