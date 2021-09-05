@@ -26,7 +26,7 @@ def generate():
     import random
     digits = list(range(10))
     random.shuffle(digits)
-    print(digits[:3])
+    print(f'I have generated a 3 digit number. Please enter your guess: ')
     return digits[:3]
 
 # Another hint:
@@ -36,16 +36,20 @@ def guess():
     for num in range(len(guess)):
         seq.append(int(guess[num])) # converts string input to an array
 
-    print(seq)
+    print(f'Your guess is: {seq}')
     return seq
 
 def check(x,digits):
     status = 0
+    marker = ['o','o','o']
 
     for i in range(3):
         if x[i] == digits[:3][i]:
             status += 1
-    print(status)
+            marker[i] = 'x'
+
+    print(marker)
+    print(f'The number you got right is: {status}')
     return status
 
 def codebreaker(status):
@@ -63,7 +67,7 @@ gameOn = True
 guessed = False
 
 while gameOn == True:
-    print("Welcome to CODEBREAKER!")
+    print("Welcome to Codebreaker! Try and guess my 3 digit number")
     digits = generate()
 
     while guessed == False:
@@ -75,6 +79,7 @@ while gameOn == True:
             gameOn = False
             guessed = True
 
+# Bug: marker visual aid alternative solution bruh
 
 # Think about how you will compare the input to the random number, what format
 # should they be in? Maybe some sort of sequence? Watch the Lecture video for more hints!
