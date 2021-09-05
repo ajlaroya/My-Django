@@ -74,6 +74,7 @@ while gameOn == True:
         x = guess()
         status = check(x,digits)
         codebreaker(status)
+        print()
 
         if status == 3:
             gameOn = False
