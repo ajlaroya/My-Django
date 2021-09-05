@@ -75,7 +75,7 @@ def end_other(a, b):
 
 end_other('AbC', 'HiaBc')
 end_other('Hiabc', 'abc')
-end_other('abc', 'abXabd')
+end_other('abc', 'abXabc')
 
 #####################
 ## -- PROBLEM 4 -- ##
@@ -127,6 +127,7 @@ def no_teen_sum(a, b, c):
 
 def fix_teen(n):
   teens = [i for i in range(13,20) if i not in [15,16]]
+  # or if n [13,14,17,18,19]: return 0
   if n in teens:
       n = 0
       return n
