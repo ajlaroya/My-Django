@@ -42,33 +42,18 @@ class Deck:
     the players. It will use SUITE and RANKS to create the deck. It should also
     have a method for splitting/cutting the deck in half and Shuffling the deck.
     """
-    deck = []
 
-    def __init__(self,suite,ranks):
-        self.suite = suite
-        self.ranks = ranks
-
-        deck = []
-
-        for s in self.suite:
-            for r in self.ranks:
-                Deck.deck.append(r + ' of ' + s)
-
-        print(f"{len(Deck.deck)} card deck created")
+    def __init__(self):
+        self.deck = [(s,r) for s in SUITE for r in RANKS] # list of all cards
+        print(f"{len(self.deck)} card deck created")
 
     def split(self):
-        p1_deck = Deck.deck[:26]
-        p2_deck = Deck.deck[26:]
-        return (p1_deck,p2_deck)
+        print("Deck has been split")
+        return (self.deck[:26],self.deck[26:]) # first half / second half
 
     def shuffle(self):
-        return shuffle(Deck.deck)
-
-myDeck = Deck(SUITE,RANKS)
-myDeck.shuffle()
-myDeck.deck
-p1Deck = myDeck.split()[0]
-p2Deck = myDeck.split()[1]
+        print("Deck has been shuffled")
+        return shuffle(self.deck)
 
 class Hand:
     '''
@@ -77,19 +62,16 @@ class Hand:
     '''
 
     def __init__(self,hand):
-        print("Hand has been dealt")
         self.hand = hand
 
+    def __str__(self):
+        return f'Contains {len(self.cards)} cards'
+
     def add(self,dealt):
-        self.hand.insert(0,dealt) #'bottom' of deck
+        self.hand.extend(dealt)
 
-    def remove(self,removed):
-        self.hand.remove(removed)
-
-myHand = Hand(p1Deck)
-myHand.hand
-myHand.add('2 of Diamonds')
-myHand.remove('2 of Diamonds')
+    def remove(self):
+        return self.hand.pop()
 
 class Player:
     """
@@ -101,15 +83,23 @@ class Player:
         self.cards = cards
         print(f"{self.name} has been created")
 
-    def __str__(self):
-        return self.cards
-
     def play(self):
-        return self.cards.pop()
+        drawn = self.cards.remove()
+        print(f'{self.name} has placed: {drawn}')
+        print()
+        return drawn
 
-player1 = Player('Arthur',myHand.hand)
-player1.play()
-player1.cards
+    def remove_war(self):
+        war = [] # grabs war cards
+        if len(self.cards.hand) < 3:
+            return self.cards.hand
+        else:
+            for x in range(3):
+                war.append(self.cards.hand.pop())
+            return war
+
+    def exist(self):
+        return len(self.cards.hand) != 0
 
 ######################
 #### GAME PLAY #######
@@ -118,72 +108,94 @@ print("Welcome to War, let's begin...")
 
 # Use the 3 classes along with some logic to play a game of war!
 
-# The deck is divided evenly, with each player receiving 26 cards, dealt one at a time,
-# face down. Anyone may deal first. Each player places his stack of cards face down,
-# in front of him.
-
 # Game setup
-deck = Deck(SUITE,RANKS)
-deck.shuffle()
+d = Deck()
+d.shuffle()
+h1,h2 = d.split()
 
-p1Hand = Hand(deck.split()[0]) # first half of deck
-p2Hand = Hand(deck.split()[1]) # second half of deck
+p1 = Player('Arthur',Hand(h1))
+p2 = Player('Michael',Hand(h2))
 
-deck.suite
-
-p1 = Player('Arthur',p1Hand.hand)
-p2 = Player('Michael',p2Hand.hand)
-
-p1.cards
-p2.cards
-#p1Hand.add('2 of Diamonds')
-#p1Hand.remove('2 of Diamonds')
-
-# The Play:
-#
-# Each player turns up a card at the same time and the player with the higher card
-# takes both cards and puts them, face down, on the bottom of his stack.
-
-flip1 = p1.play()
-flip2 = p2.play()
-
-# if condition and may need to add 'value' class attribute or
-# split card, grab 0, check 1-10, j > q > k > a conditions
-# problem: values j, q, k, a are not integers nor assigned values
-flip1
-flip2
-
-
-
-if int(flip1[0]) > int(flip2[0]):
-    p1Hand.add(flip1)
-    p1Hand.add(flip2)
-else:
-    p2Hand.add(flip1)
-    p2Hand.add(flip2)
-
-len(p1.cards)
-len(p2.cards)
-
-p1.cards
+p1.cards.hand
 p2.cards
 
-# If the cards are the same rank, it is War. Each player turns up three cards face
-# down and one card face up. The player with the higher cards takes both piles
-# (six cards). If the turned-up cards are again the same rank, each player places
-# another card face down and turns another card face up. The player with the
-# higher card takes all 10 cards, and so on.
+rounds = 0
+war_count = 0
+
+while p1.exist() and p2.exist():
+    rounds += 1
+    print('New round!')
+    print('Standings: ')
+    print(p1.name + " has the count: " + str(len(p1.cards.hand)))
+    print(p2.name + " has the count: " + str(len(p2.cards.hand)))
+    print('Play a card!')
+    print('\n')
+
+    table = [] # 'pot'
+
+    p1_card = p1.play()
+    p2_card = p2.play()
+
+    table.append(p1_card)
+    table.append(p2_card)
+
+    if p1_card[1] == p2_card[1]: # WAR
+        war_count += 1
+
+        print("WAR!")
+
+        table.extend(p1.remove_war())
+        table.extend(p2.remove_war())
+
+        # .index was the solution!
+        if RANKS.index(p1_card[1]) < RANKS.index(p2_card[1]):
+            p1.cards.add(table)
+        else:
+            p2.cards.add(table)
+
+    else:
+        if RANKS.index(p1_card[1]) < RANKS.index(p2_card[1]):
+            p1.cards.add(table)
+        else:
+            p2.cards.add(table)
+
+print("Game over! number of rounds: " + str(rounds))
+print("War happened: " + str(war_count) + " times")
+
+# MY OLD REDUNDANT CODE:
+# ======================================================
+# # The Play:
+# flip1 = p1.play()
+# flip2 = p2.play()
 #
-if flip1[0] == flip2[0]:
-    print("WAR!")
-    p1_flip1 = p1.play()
-    p1_flip2 = p1.play()
-    p1_flip3 = p1.play()
-
-    p2_flip1 = p2.play()
-    p2_flip2 = p2.play()
-    p2_flip3 = p2.play()
-
-
-# There are some more variations on this but we will keep it simple for now.
-# Ignore "double" wars
+# # if condition and may need to add 'value' class attribute or
+# # split card, grab 0, check 1-10, j > q > k > a conditions
+# # problem: values j, q, k, a are not integers nor assigned values
+# flip1
+# flip2
+#
+# if int(flip1[0]) > int(flip2[0]):
+#     p1Hand.add(flip1)
+#     p1Hand.add(flip2)
+# else:
+#     p2Hand.add(flip1)
+#     p2Hand.add(flip2)
+#
+# p1.cards
+# p2.cards
+#
+# # If the cards are the same rank, it is War. Each player turns up three cards face
+# # down and one card face up. The player with the higher cards takes both piles
+# # (six cards). If the turned-up cards are again the same rank, each player places
+# # another card face down and turns another card face up. The player with the
+# # higher card takes all 10 cards, and so on.
+# #
+# if flip1[0] == flip2[0]:
+#     print("WAR!")
+#     p1_flip1 = p1.play()
+#     p1_flip2 = p1.play()
+#     p1_flip3 = p1.play()
+#
+#     p2_flip1 = p2.play()
+#     p2_flip2 = p2.play()
+#     p2_flip3 = p2.play()
