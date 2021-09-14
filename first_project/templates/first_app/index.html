@@ -3,7 +3,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>scene</title>
+    <title>First Project - Index</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static "css/style.css" %}">
   </head>
@@ -11,6 +11,29 @@
     <div class="container-xxl">
       <h1 class="h1">Hello world, this is art!</h1>
       <img src="{% static "images/scene.jpg" %}" class="img-fluid" alt="ruh roh, no show">
+      <h2> Here are you're access records: </h2>
+
+      <div class="djangtwo">
+        {% if access_records %}
+          <table class="table table-striped">
+            <thead>
+              <th>Site Name</th>
+              <th>Date Accessed</th>
+            </thead>
+
+            {% for acc in access_records %}
+            <tr>
+              <td>{{ acc.name }}</td>
+              <td>{{ acc.date }}</td>
+            </tr>
+            {% endfor %}
+
+          </table>
+          {% else %}
+            <p>No access records founds!</p>
+          {% endif %}
+
+      </div>
     </div>
   </body>
 </html>
