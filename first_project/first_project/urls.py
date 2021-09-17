@@ -19,7 +19,7 @@ from first_app import views
 from basicforms import views
 
 urlpatterns = [
-    re_path(r'^$',include('first_app.urls')),
+    re_path(r'',include('first_app.urls')),
     re_path(r'^formpage/',include('basicforms.urls')),
     path('admin/', admin.site.urls),
 ]
