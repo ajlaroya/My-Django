@@ -1,0 +1,25 @@
+{% extends "basic_app/base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+<div class="container py-4">
+  <div class="p-5 mb-4 bg-light rounded-3">
+      <div class="container-fluid py-5">
+        {% if registered %}
+          <h1 class="display-5 fw-bold">Thank you for registering!</h1>
+        {% else %}
+          <h1 class="display-5 fw-bold">Register here!</h1>
+          <h3>Please fill out the form:</h3>
+          <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <button type="submit" class="btn btn-primary">Register</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+</div>
+
+{% endblock %}
