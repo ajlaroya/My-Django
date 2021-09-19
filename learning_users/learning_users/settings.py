@@ -17,6 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = BASE_DIR / 'templates'
 STATIC_DIR = BASE_DIR / 'static'
 MEDIA_DIR = BASE_DIR / 'media'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'basic_app',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
