@@ -1,9 +1,17 @@
 {% extends 'basic_app/basic_app_base.html' %}
 {% block body_block %}
-<h1>Welcome to <em>detailed</em> list of all the schools</h1>
-  <ol>
-    {% for school in schools %}
-    <h2><li>{{school.name}}</li></h2>
-    {% endfor %}
-  </ol>
+  <h1 class="display-5 fw-bold">This is a <em>detailed</em> list of {{school_detail.name}}</h1>
+  <h3>School details:</h3>
+  <p class="fs-5">Name: {{school_detail.name}}</p>
+  <p class="fs-5">Principal: {{school_detail.principal}}</p>
+  <p class="fs-5">Location: {{school_detail.location}}</p>
+  <h3>Students:</h3>
+
+  {% for student in school_detail.students.all %}
+    <p class="fs-5">{{student.name}} who is {{student.age}} years old.</p>
+  {% endfor %}
+
+  <p><a class="btn btn-warning" href="{% url 'basic_app:update' pk=school_detail.pk %}">Update</a></p>
+
+
 {% endblock %}
