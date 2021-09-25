@@ -35,5 +35,9 @@ class Comment(models.Model):
         self.approved_comment = True
         self.save()
 
+    # once poster is done with comment, redirects to list of all posts
+    def get_absolute_url(self):
+        return reverse('post_list')
+
     def __str__(self):
         return self.text
