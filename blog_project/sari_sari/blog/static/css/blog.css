@@ -1,14 +1,37 @@
-.brandfont {
-  font-family: 'Alegreya', serif;
+/* my classes */
+.brand {
+  font-family: 'bluu_nextbold', serif;
+  font-size: 1.5em;
+}
+
+.posttitle {
+  font-family: 'bluu_nextbold', serif;
+  font-size: 3em;
+  text-align: center;
+}
+
+.postfont {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.25em;
 }
 
 .navbar-custom {
   background-color: white;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .centerstage {
   margin-left: auto;
   margin-right: auto;
+}
+
+.postdate {
+  text-align: center;
+}
+
+.btn-comment {
+  position: absolute;
+  right: 0px;
 }
 
 /*hue loader by shivam t. */

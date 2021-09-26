@@ -16,18 +16,19 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bluunext-bold/stylesheet.css' %}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Alegreya:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Andada+Pro&family=Quicksand:wght@300&family=Raleway&display=swap" rel="stylesheet">
   </head>
   <body>
 
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-md navbar-light navbar-custom">
+    <nav class="navbar navbar-expand-md navbar-light navbar-custom">
       <div class="container-fluid">
-        <a class="navbar-brand brandfont" href="{% url 'post_list' %}">✨sari-sari</a>
+        <a class="navbar-brand brand" href="{% url 'post_list' %}">✨sari-sari</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -75,7 +76,7 @@
           </ul>
 
           <form class="d-flex justify-content-end align-items-center">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control form-control-sm me-2" type="search" placeholder="Search" aria-label="Search">
             <a class="link-secondary" href="#" aria-label="Search">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
             </a>
