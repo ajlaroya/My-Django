@@ -3,6 +3,11 @@
   font-family: 'Alegreya Sans', sans-serif;
 }
 
+.centerstage {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /*hue loaders by shivam t. */
 .loader {
   filter:hue-rotate(0deg);

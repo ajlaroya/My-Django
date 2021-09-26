@@ -26,14 +26,14 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand brandfont" href="{% url post_list %}">sari-sari</a>
+        <a class="navbar-brand brandfont" href="{% url 'post_list' %}">sari-sari</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url post_list %}">Home</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'post_list' %}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About</a>
@@ -59,12 +59,12 @@
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% if user.is_authenticated %}
                 <li><a class="dropdown-item" href="#">Welcome: {{user.username}}</a></li>
-                <li><a class="dropdown-item" href="{% url'post_new' %}">New post</a></li>
-                <li><a class="dropdown-item" href="{% url'post_draft_list' %}">Drafts</a></li>
+                <li><a class="dropdown-item" href="{% url 'post_new' %}">New post</a></li>
+                <li><a class="dropdown-item" href="{% url 'post_draft_list' %}">Drafts</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{% url'logout' %}">Log Out</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
                   {% else %}
-                  <li><a class="dropdown-item" href="{% url'login' %}">Login</a><span class="glyphicon glyphicon-user"></span></li>
+                  <li><a class="dropdown-item" href="{% url 'login' %}">Login</a><span class="glyphicon glyphicon-user"></span></li>
                 {% endif %}
               </ul>
             </li>
