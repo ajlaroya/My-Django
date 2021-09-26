@@ -23,7 +23,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Andada+Pro&family=Quicksand:wght@300&family=Raleway&display=swap" rel="stylesheet">
   </head>
-  <body>
+  <body class="loader">
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md navbar-light navbar-custom">
@@ -119,14 +119,8 @@
 
     <!-- Content block -->
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="blog_posts">
-            {% block content %}
-            {% endblock %}
-          </div>
-        </div>
-      </div>
+      {% block content %}
+      {% endblock %}
     </div>
 
   </body>

@@ -1,4 +1,8 @@
 /* my classes */
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
 .brand {
   font-family: 'bluu_nextbold', serif;
   font-size: 1.5em;
@@ -20,11 +24,6 @@
   font-family: 'Quicksand', sans-serif;
 }
 
-.centerstage {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .postdate {
   text-align: center;
 }
@@ -34,15 +33,21 @@
   right: 0px;
 }
 
-/*hue loader by shivam t. */
+/*hue loader*/
+/*credit and source: http://codepen.io/thapliyalshivam/pen/dvgXVO*/
 .loader {
+  position:fixed;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
   filter:hue-rotate(0deg);
-  color:linear-gradient(45deg,#0f8,#08f);
+  background:linear-gradient(45deg,#0f8,#08f);
   animation:hue 10000ms infinite linear;
+
 }
 
 @keyframes hue{
   0%{filter: hue-rotate(0deg);}
   100%{filter:hue-rotate(360deg);}
-
 }
