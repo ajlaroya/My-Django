@@ -3,6 +3,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sari-sari</title>
 
     <!-- Bootstrap -->
@@ -24,13 +25,13 @@
   <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navfont">
+    <nav class="navbar fixed-top navbar-expand-md navbar-light navbar-custom">
       <div class="container-fluid">
         <a class="navbar-brand brandfont" href="{% url 'post_list' %}">✨sari-sari</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse justify-content-md-center" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'post_list' %}">Home</a>
@@ -73,16 +74,18 @@
             </li>
           </ul>
 
-          <form class="d-flex">
+          <form class="d-flex justify-content-end align-items-center">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-light" type="submit">Search</button>
+            <a class="link-secondary" href="#" aria-label="Search">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+            </a>
           </form>
         </div>
       </div>
     </nav>
 
     <!-- Content block -->
-    <div class="content container">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-md-8">
           <div class="blog_posts">
