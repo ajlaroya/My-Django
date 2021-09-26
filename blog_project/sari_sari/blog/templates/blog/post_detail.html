@@ -1,6 +1,6 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-    <h1 class="brand loader">{{ post.title }}</h1>
+    <h1 class="posttitle">{{ post.title }}</h1>
     {% if post.published_date %}
       <div class="date postdate">
         {{ post.published_date }}

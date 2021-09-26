@@ -1,6 +1,6 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-  <h1 class="posttitle loader">Create a new post!</h1>
+  <h1 class="posttitle">Create a new post!</h1>
   <form class="post-form" method="post">
     {% csrf_token %}
     {{form.as_p}}
