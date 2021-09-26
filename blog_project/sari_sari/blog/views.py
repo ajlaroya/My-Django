@@ -1,8 +1,9 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.utils import timezone
 from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin # class based 'decorator'
-from django.urls import reverse_Lazy
+from django.urls import reverse_lazy
 from blog.models import Post, Comment
 from blog.forms import PostForm, CommentForm
 
