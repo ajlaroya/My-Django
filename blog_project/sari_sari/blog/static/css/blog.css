@@ -36,13 +36,8 @@
 
 /*hue loader by shivam t. */
 .loader {
-  position:fixed;
-  left:0;
-  right:0;
-  top:0;
-  bottom:0;
   filter:hue-rotate(0deg);
-  background:linear-gradient(45deg,#0f8,#08f);
+  color:linear-gradient(45deg,#0f8,#08f);
   animation:hue 10000ms infinite linear;
 }
 
