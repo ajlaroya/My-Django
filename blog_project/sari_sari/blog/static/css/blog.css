@@ -33,6 +33,10 @@ body {
   right: 0px;
 }
 
+.cards {
+  background-color: white;
+}
+
 /*hue loader*/
 /*credit and source: http://codepen.io/thapliyalshivam/pen/dvgXVO*/
 .loader {
@@ -44,7 +48,7 @@ body {
   filter:hue-rotate(0deg);
   background:linear-gradient(45deg,#0f8,#08f);
   animation:hue 10000ms infinite linear;
-
+  z-index: -1;
 }
 
 @keyframes hue{
