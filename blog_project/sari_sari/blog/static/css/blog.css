@@ -1,6 +1,9 @@
 .brandfont {
-  /* font-family: 'Alegreya', serif; */
-  font-family: 'Alegreya Sans', sans-serif;
+  font-family: 'Alegreya', serif;
+}
+
+.navfont {
+  font-family: 'Open Sans', sans-serif;
 }
 
 .centerstage {
