@@ -1,9 +1,11 @@
 {% extends 'blog/base.html' %}
+
 {% block content %}
+<!-- Lead -->
 <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
   <div class="col-md-6 px-0">
     <h1 class="bluu display-5 fst-italic">Welcome to sari-sari</h1>
-    <p class="my-3"><em>>As you walk through the rural streets of the Philippines, you will often come across a Sari Sari Store. In Tagalog, Sari Sari means “variety” or “everything”. This is not your typical website. This is my creative experiment. A learning journey for me; my digital 'sari-sari' world!</em></p>
+    <p class="my-3"><em>As you walk through the rural streets of the Philippines, you will often come across a Sari Sari Store. In Tagalog, Sari Sari means “variety” or “everything”. This is not your typical website. This is my creative experiment. A learning journey for me; my digital 'sari-sari' world!</em></p>
     <p class="mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
   </div>
 </div>
@@ -18,7 +20,7 @@
         <div class="mb-1 text-muted">{{ post.published_date|date:"D M Y" }}</div>
         <p class="card-text mb-auto">{{ post.text|truncatechars:150|striptags }}</p>
         <strong class="d-inline-block mb-2 text-primary">Comments: {{ post.approve_comments.count }}</strong>
-        <a href="{% url 'post_detail' pk=post.pk %}" class="stretched-link">Continue reading</a>
+        <a href="{% url 'post_detail' pk=post.pk %}" class="stretched-link text-black fw-bold">Continue reading</a>
       </div>
       <div class="col-auto d-none d-lg-block">
         <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Placeholder</text></svg>

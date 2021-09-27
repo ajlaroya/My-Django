@@ -32,11 +32,6 @@ body {
   text-align: center;
 }
 
-.btn-comment {
-  position: absolute;
-  right: 0px;
-}
-
 .cards {
   background-color: white;
 }
