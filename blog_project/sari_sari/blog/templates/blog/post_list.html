@@ -1,20 +1,20 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-<div class="p-2 p-md-1 mb-4 text-white rounded bg-dark lead">
-  <img class="img-fluid" src="https://thesupplychainlab.files.wordpress.com/2020/08/shutterstock_1501127345.jpg?w=1620&h=1160&crop=1" alt="...">
-  <div class="col-md-6 px-0 textontop">
-    <h1 class="bluu display-4 fst-italic" style="font-size:2.5vw;">Welcome to sari-sari</h1>
-    <p class="lead my-3" style="font-size:1.5vw;">As you walk through the rural streets of the Philippines, you will often come across a Sari Sari Store. What is a Sari Sari Store, you ask? In Tagalog, Sari Sari means “variety” or “everything”. This is not your typical website. It can be a blog. It can be my portfolio. This is a creative experiment; a digital parallel of a 'sari-sari'</p>
-    <p class="lead mb-0" style="font-size:1.5vw;"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+<div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+  <div class="col-md-6 px-0">
+    <h1 class="bluu display-5 fst-italic">Welcome to sari-sari</h1>
+    <p class="my-3"><em>>As you walk through the rural streets of the Philippines, you will often come across a Sari Sari Store. In Tagalog, Sari Sari means “variety” or “everything”. This is not your typical website. This is my creative experiment. A learning journey for me; my digital 'sari-sari' world!</em></p>
+    <p class="mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
   </div>
 </div>
 
+<!-- Post list -->
 <div class="row mb-2">
   {% for post in post_list %}
   <div class="col-md-6">
     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative cards">
       <div class="col p-4 d-flex flex-column position-static">
-        <h3 class="mb-0 brand">{{ post.title }}</h3>
+        <h3 class="mb-0 brand">{{ post.title|truncatechars:20 }}</h3>
         <div class="mb-1 text-muted">{{ post.published_date|date:"D M Y" }}</div>
         <p class="card-text mb-auto">{{ post.text|truncatechars:150|striptags }}</p>
         <strong class="d-inline-block mb-2 text-primary">Comments: {{ post.approve_comments.count }}</strong>

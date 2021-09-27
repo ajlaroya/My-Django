@@ -1,9 +1,22 @@
 {% extends 'blog/base.html' %}
+
+{% load crispy_forms_tags %}
+
 {% block content %}
   <h1 class="posttitle">Create a new post!</h1>
-  <form class="post-form" method="post">
+
+  <form method="post">
     {% csrf_token %}
-    {{form.as_p}}
+    <div class="mb-3">
+      {{ form.author|as_crispy_field }}
+    </div>
+    <div class="mb-3">
+      {{ form.title|as_crispy_field }}
+    </div>
+    <div class="mb-3">
+      {{ form.text|as_crispy_field }}
+      <div id="emailHelp" class="form-text">Let's get creative! Highlight text to edit.</div>
+    </div>
     <button class="save btn btn-primary" type="submit" name="button">Save</button>
   </form>
 

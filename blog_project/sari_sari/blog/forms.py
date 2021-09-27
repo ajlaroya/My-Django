@@ -9,7 +9,7 @@ class PostForm(forms.ModelForm):
         # connects form fields to CSS class stylings
         widgets = {
             'title':forms.TextInput(attrs={'class':'textinputclass'}),
-            'text':forms.Textarea(attrs={'class':'editable medium-editor-textarea postcontent'})
+            'text':forms.Textarea(attrs={'class':'editable medium-editor-textarea','style':'height: 100px'})
         }
 
 class CommentForm(forms.ModelForm):

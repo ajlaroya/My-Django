@@ -1,19 +1,25 @@
 {% extends 'blog/base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
-<div class="container">
-  <h2>Please login:</h2>
-  <h3>(must be SuperUser, please check with site admin)</h3>
+<h1 class="posttitle">Login</h1>
 
-  {% if form.errors %}
-    <p>Your username and password didn't match! Please try again</p>
-  {% endif %}
+<form method="post">
+  {% csrf_token %}
+  <div class="mb-3">
+    {{ form.username|as_crispy_field }}
+    <div id="emailHelp" class="form-text">Must be superuser, check with site admin</div>
+  </div>
+  <div class="mb-3">
+    {{ form.password|as_crispy_field }}
+  </div>
+  <button class="save btn btn-primary" type="submit" name="button">Login</button>
+  <input type="hidden" name="next" value="{{ next }}">
+</form>
 
-  <form action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-      {{ form.as_p }}
-      <button class="btn btn-primary" type="submit">Login</button>
-      <input type="hidden" name="next" value="{{next}}">
-  </form>
-</div>
+{% if form.errors %}
+  <p>Your username and password didn't match! Please try again</p>
+{% endif %}
+
 {% endblock %}

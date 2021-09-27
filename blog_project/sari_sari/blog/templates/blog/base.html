@@ -31,6 +31,9 @@
   </head>
   <body class="mt-2">
 
+    <!-- Hue bar -->
+    <div class="loader"></div>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md navbar-light navbar-custom">
       <div class="container-fluid">
@@ -123,10 +126,8 @@
       </div>
     </nav>
 
-    <div class="loader"></div>
-
     <!-- Content block -->
-    <div class="container-fluid">
+    <div class="container">
       {% block content %}
       {% endblock %}
     </div>
