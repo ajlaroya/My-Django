@@ -5,11 +5,6 @@ body {
 
 .brand {
   font-family: 'bluu_nextbold', serif;
-  font-size: 1.5em;
-}
-
-.bluu {
-  font-family: 'bluu_nextbold', serif;
 }
 
 .posttitle {
@@ -18,22 +13,14 @@ body {
   text-align: center;
 }
 
-.postfont {
+.postcontent {
   font-family: 'Jost', sans-serif;
   font-size: 1.25em;
-}
-
-.navbar-custom {
-  background-color: white;
-  font-family: 'Jost', sans-serif;
+  text-align: center;
 }
 
 .postdate {
   text-align: center;
-}
-
-.cards {
-  background-color: white;
 }
 
 /*hue loader*/
