@@ -3,12 +3,19 @@ from django.utils import timezone
 from django.urls import reverse # after action redirection
 
 # Create your models here.
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
 class Post(models.Model):
     author = models.ForeignKey('auth.User',on_delete=models.CASCADE) # authorised user
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True,null=True)
+    tag = models.ManyToManyField(Tag, help_text='Select a tag for your post')
 
     # linked to a publish button
     def publish(self):

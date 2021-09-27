@@ -16,10 +16,15 @@
   <div class="col-md-6">
     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative cards">
       <div class="col p-4 d-flex flex-column position-static">
+
+        <strong class="d-inline-flex mb-1 text-success">{% for tag in post.tag.all %}. <div class="pe-1">
+          {{ tag }}
+        </div>{% endfor %}</strong>
+
         <h3 class="mb-0 brand">{{ post.title|truncatechars:20 }}</h3>
         <div class="mb-1 text-muted">{{ post.published_date|date:"D M Y" }}</div>
-        <p class="card-text mb-auto">{{ post.text|truncatechars:150|striptags }}</p>
-        <strong class="d-inline-block mb-2 text-primary">Comments: {{ post.approve_comments.count }}</strong>
+        <p class="card-text mb-auto">{{ post.text|truncatechars:125|striptags }}</p>
+        <strong class="d-inline-block mb-1 text-primary fs-6">Comments: {{ post.approve_comments.count }}</strong>
         <a href="{% url 'post_detail' pk=post.pk %}" class="stretched-link text-black fw-bold">Continue reading</a>
       </div>
       <div class="col-auto d-none d-lg-block">
