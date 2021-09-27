@@ -19,7 +19,7 @@ class Post(models.Model):
         return self.comments.filter(approved_comment=True)
 
     def get_absolute_url(self): # django method to create URL for instance of post
-        return reverse('post_detail',kwargs={'pk':self.pk}) # goes poes_detail view with primary key
+        return reverse('post_detail',kwargs={'pk':self.pk}) # goes to post_detail view with primary key
 
     def __str__(self):
         return self.title

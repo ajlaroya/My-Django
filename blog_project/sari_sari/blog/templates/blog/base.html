@@ -90,7 +90,7 @@
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% if user.is_authenticated %}
                 <li><a class="dropdown-item" href="{% url 'post_new' %}">New post</a></li>
-                <li><a class="dropdown-item" href="{% url 'post_draft_list' %}">Drafts</a></li>
+                <li><a class="dropdown-item" href='{% url "post_draft" %}'>Drafts</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-closed" viewBox="0 0 16 16">

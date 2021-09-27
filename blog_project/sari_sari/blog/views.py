@@ -39,9 +39,10 @@ class PostDeleteView(LoginRequiredMixin,DeleteView):
     model = Post
     success_url = reverse_lazy('post_list') # redirect until after deletion
 
-class DraftListView(LoginRequiredMixin, ListView):
+class DraftListView(LoginRequiredMixin,ListView):
     login_url = '/login/'
-    redirect_field_name = 'blog/post_draft_list.html'
+    redirect_field_name = "blog/post_list.html"
+    template_name = 'blog/post_draft.html' # fixed my draft view problem!
     model = Post
 
     def get_queryset(self):
