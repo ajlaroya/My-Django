@@ -26,7 +26,7 @@ body {
 /*hue loader*/
 /*credit and source: http://codepen.io/thapliyalshivam/pen/dvgXVO*/
 .loader {
-  height:10px;
+  height:5px;
   position:fixed;
   left:0;
   right:0;
