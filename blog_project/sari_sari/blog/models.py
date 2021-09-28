@@ -15,7 +15,8 @@ class Post(models.Model):
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True,null=True)
-    tag = models.ManyToManyField(Tag, help_text='Select a tag for your post')
+    tag = models.ManyToManyField(Tag, help_text='Hold CTRL to pick multiple tags!')
+    image = models.ImageField(upload_to='images',blank=True)
 
     # linked to a publish button
     def publish(self):

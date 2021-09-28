@@ -1,6 +1,7 @@
 /* my classes */
 body {
   font-family: 'Jost', sans-serif;
+  background: #F5F5F5;
 }
 
 .brand {
@@ -21,6 +22,14 @@ body {
 
 .subtitle {
   text-align: center;
+}
+
+.card:hover img {
+  filter: brightness(100%) !important;
+}
+
+.imagelist {
+  filter: brightness(70%);
 }
 
 /*hue loader*/

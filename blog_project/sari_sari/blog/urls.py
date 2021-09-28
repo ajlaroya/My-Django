@@ -1,5 +1,7 @@
 from django.urls import re_path
 from blog import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     re_path(r'^$',views.PostListView.as_view(),name='post_list'),
@@ -13,4 +15,4 @@ urlpatterns = [
     re_path(r'^comment/(?P<pk>\d+)/approve/$',views.comment_approve,name='comment_approve'),
     re_path(r'^comment/(?P<pk>\d+)/remove/$',views.comment_remove,name='comment_remove'),
     re_path(r'^post/(?P<pk>\d+)/publish/$',views.post_publish,name='post_publish'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

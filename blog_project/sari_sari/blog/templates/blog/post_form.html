@@ -5,7 +5,7 @@
 {% block content %}
   <h1 class="posttitle">Draft a new post!</h1>
 
-  <form method="post">
+  <form class="mb-3" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="mb-3">
       {{ form.author|as_crispy_field }}
@@ -17,8 +17,11 @@
       {{ form.tag|as_crispy_field }}
     </div>
     <div class="mb-3">
+      {{ form.image|as_crispy_field }}
+    </div>
+    <div class="mb-3">
       {{ form.text|as_crispy_field }}
-      <div id="emailHelp" class="form-text">Let's get creative! Highlight text to edit.</div>
+      <div class="form-text">Let's get creative! Highlight text to edit.</div>
     </div>
     <button class="save btn btn-primary" type="submit" name="button">Save</button>
   </form>

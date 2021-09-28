@@ -11,6 +11,8 @@
     {% endif %}
     <div class="postcontent">
       <p>{{ post.text|safe|linebreaksbr}}</p>
+      <p>{{ post.image.url }}</p>
+      <img src="{{ post.image.url }}" alt="user image">
     </div>
     {% if post.published_date %}
     {% else %}
@@ -33,8 +35,8 @@
 
     <!-- Comments -->
     <div class="container">
+      <h2><strong>Comments</strong></h2>
       {% for comment in post.comments.all %}
-      <br>
         {% if user.is_authenticated or comment.approved_comment %}
           {{ comment.created_date }}
           {% if not comment.approved_comment %}

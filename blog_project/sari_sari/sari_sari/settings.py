@@ -15,6 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = BASE_DIR / 'blog/templates/blog'
+MEDIA_DIR = BASE_DIR / 'media'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -122,6 +123,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
+# Media files uploaded by user
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'
+
+# Log redirection
 LOGIN_REDIRECT_URL = '/' # redirection to home page
 LOGOUT_REDIRECT_URL = '/'
 
