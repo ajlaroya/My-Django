@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<!-- Lead -->
+<!-- Headline -->
 <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
   <div class="col-md-6 px-0">
     <h1 class="brand display-5 fst-italic">Welcome to sari-sari</h1>
@@ -10,23 +10,23 @@
   </div>
 </div>
 
-<!-- Post list -->
+<!-- Post card display -->
 <div class="row mb-2">
   {% for post in post_list %}
   <div class="col-md-6">
     <div class="card row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative cards">
       <div class="col p-4 d-flex flex-column position-static">
-
+        <!-- Card description -->
         <strong class="d-inline-flex mb-1 text-success">{% for tag in post.tag.all %}. <div class="pe-1">
           {{ tag }}
         </div>{% endfor %}</strong>
-
         <h3 class="mb-0 brand">{{ post.title|truncatechars:20 }}</h3>
         <div class="mb-1 text-muted">{{ post.published_date|date:"D M Y" }}</div>
         <p class="card-text mb-auto">{{ post.text|truncatechars:125|striptags }}</p>
         <strong class="d-inline-block mb-1 text-primary fs-6">Comments: {{ post.approve_comments.count }}</strong>
         <a href="{% url 'post_detail' pk=post.pk %}" class="stretched-link text-black fw-bold">Continue reading</a>
       </div>
+      <!-- Card image -->
       <div class="fill col-auto d-none d-lg-block">
         {% if post.image %}
         <img class="imagelist" src="{{ post.image.url }}" width="200" height="250">

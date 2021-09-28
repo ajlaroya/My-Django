@@ -1,6 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+
 <h1 class="posttitle">Your Drafts</h1>
 <div class="row mb-2">
   {% for post in post_list %}
@@ -20,4 +21,5 @@
   </div>
   {% endfor %}
 </div>
+
 {% endblock %}
