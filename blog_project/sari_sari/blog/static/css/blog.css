@@ -25,11 +25,11 @@ body {
 }
 
 .card:hover img {
-  filter: brightness(100%) !important;
+  filter: brightness(110%) !important;
 }
 
 .imagelist {
-  filter: brightness(70%);
+  filter: brightness(100%);
 }
 
 /*hue loader*/
