@@ -20,16 +20,16 @@
         <strong class="d-inline-flex mb-1 text-success">{% for tag in post.tag.all %}. <div class="pe-1">
           {{ tag }}
         </div>{% endfor %}</strong>
-        <h3 class="mb-0 brand">{{ post.title|truncatechars:20 }}</h3>
+        <h3 class="mb-0 brand">{{ post.title|truncatechars:25 }}</h3>
         <div class="mb-1 text-muted">{{ post.published_date|date:"D M Y" }}</div>
-        <p class="card-text mb-auto">{{ post.text|truncatechars:125|striptags }}</p>
+        <p class="card-text mb-auto">{{ post.text|truncatechars:110|striptags }}</p>
         <strong class="d-inline-block mb-1 text-primary fs-6">Comments: {{ post.approve_comments.count }}</strong>
         <a href="{% url 'post_detail' pk=post.pk %}" class="stretched-link text-black fw-bold">Continue reading</a>
       </div>
       <!-- Card image -->
       <div class="fill col-auto d-none d-lg-block">
         {% if post.image %}
-        <img class="imagelist" src="{{ post.image.url }}" width="200" height="250">
+        <img class="imagelist" src="{{ post.image.url }}" width="200" height="250" alt="card-image">
         {% else %}
         <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Placeholder</text></svg>
         {% endif %}

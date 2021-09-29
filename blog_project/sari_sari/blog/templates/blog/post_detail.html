@@ -6,6 +6,7 @@
 <div class="container">
   <!-- Title -->
   <h1 class="posttitle">{{ post.title }}</h1>
+  <hr>
   <!-- Tags -->
   <div class="subtitle">
     {% for tag in post.tag.all %}
@@ -23,7 +24,7 @@
     <p>{{ post.text|safe|linebreaksbr}}</p>
     <!-- Image -->
     {% if post.image %}
-    <img class="img-fluid" src="{{ post.image.url }}" alt="user image">
+    <img class="img-fluid img-thumbnail" src="{{ post.image.url }}" alt="user image">
     {% endif %}
   </div>
   <!-- Post buttons -->
