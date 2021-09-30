@@ -8,7 +8,7 @@
       <div class="wrapper">
         <h1 class="display-4 fw-normal brand typewriter">sari-sari is <span class="typed-text"></span><span class="cursor">&nbsp;</span></h1>
       </div>
-      <a class="btn btn-outline-secondary btn-sm" href="{% url 'about' %}">a work-in-progress</a>
+      <a class="btn btn-outline btn-sm" href="{% url 'about' %}">[ a work-in-progress 🛠 ]</a>
     </div>
   </div>
 
@@ -26,15 +26,14 @@
             <img class="imagelist card-img-top" src="{{ post.image.url }}" width="200" height="250" alt="card-image">
           </div>
           <div class="card-body">
-            <h3 class="card-title brand">{{ post.title|truncatechars:20 }}</h3>
+            <p class="h5 card-title brand">{{ post.title }}</p>
             <p class="card-text text-muted">{{ post.published_date|date:"D M Y" }}</p>
             <p class="card-text">{{ post.text|truncatechars:150|striptags }}</p>
-            <span>{{ post.tag.all.0.name }}</span>
             {% for tag in post.tag.all %}
             <span class="badge bg-primary">{{ tag }}</span>
             {% endfor %}
             <p class="card-text">
-              <a href="{% url 'post_detail' pk=post.pk %}" class="stretched-link"></a>
+              <a href="{% url 'post_detail' pk=post.pk %}" class="stretched-link" aria-label="read"></a>
               <small class="text-muted">Comments: {{ post.approve_comments.count }}</small>
             </p>
           </div>
@@ -46,14 +45,14 @@
       <div class="col-sm-6 col-lg-4 mb-4">
         <div class="card text-center">
           <div class="card-body">
-            <h3 class="card-title brand text-truncate">{{ post.title }}</h3>
+            <p class="h5 card-title brand text-truncate">{{ post.title }}</p>
             <p class="card-text"><small class="text-muted">{{ post.published_date|date:"D M Y" }}</small></p>
             <p class="card-text"><em>{{ post.text|truncatechars:150|striptags }}</em></p>
             {% for tag in post.tag.all %}
             <span class="badge bg-primary">{{ tag }}</span>
             {% endfor %}
             <p class="card-text">
-              <a href="{% url 'post_detail' pk=post.pk %}" class="stretched-link"></a>
+              <a href="{% url 'post_detail' pk=post.pk %}" class="stretched-link" aria-label="read"></a>
               <small class="text-muted">Comments: {{ post.approve_comments.count }}</small>
             </p>
           </div>
@@ -71,7 +70,7 @@
         <div class="card">
           <div class="fill col-auto d-none d-lg-block">
             <img class="imagelist card-img" src="{{ post.image.url }}" width="100%" height="260" alt="card-image">
-            <a href="{% url 'post_detail' pk=post.pk %}" class="stretched-link"></a>
+            <a href="{% url 'post_detail' pk=post.pk %}" class="stretched-link" aria-label="read"></a>
           </div>
         </div>
       </div>

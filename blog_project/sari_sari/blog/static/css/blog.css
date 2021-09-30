@@ -1,17 +1,24 @@
 /* my classes */
+@font-face {
+  font-family: 'bluu_nextbold';
+  src: url('bluunext-bold/bluunext-bold-webfont.woff2') format('woff2'),
+       url('bluunext-bold/bluunext-bold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* prevents FOIT (flash of invisible text) */
+}
+
 body {
-    -ms-overflow-style: none; /* for Internet Explorer, Edge */
-    scrollbar-width: none; /* for Firefox */
-    overflow-y: scroll;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+
+  font-family: 'Jost', sans-serif;
+  background: #F5F5F5;
 }
 
 body::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Opera */
-}
-
-body {
-  font-family: 'Jost', sans-serif;
-  background: #F5F5F5;
+  display: none; /* for Chrome, Safari, and Opera */
 }
 
 .brand {
@@ -40,7 +47,6 @@ body {
   opacity:80%;
   transition:opacity 1s
 }
-
 
 .fill img {
   object-fit: cover;
