@@ -30,17 +30,15 @@ body {
   text-align: center;
 }
 
-.subtitle {
-  text-align: center;
-}
-
 .card:hover img {
   opacity:100%;
   transition:opacity 1s
 }
 
-.imagelist {
-  opacity: 80%;
+/* hover off transition */
+.card:not(:hover) img {
+  opacity:80%;
+  transition:opacity 1s
 }
 
 

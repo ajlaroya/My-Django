@@ -8,14 +8,14 @@
   <h1 class="posttitle">{{ post.title }}</h1>
   <hr>
   <!-- Tags -->
-  <div class="subtitle">
+  <div class="text-center">
     {% for tag in post.tag.all %}
-    <em class="p-1">{{ tag }}</em>
+    <em>{{ tag }}</em>
     {% endfor %}
   </div>
   <!-- Publish date -->
   {% if post.published_date %}
-  <div class="subtitle">
+  <div class="text-center">
     {{ post.published_date }}
   </div>
   {% endif %}
