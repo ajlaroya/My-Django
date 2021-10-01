@@ -21,6 +21,9 @@ body::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
 }
 
+footer {
+  background-color: #F0F0F0
+}
 .brand {
   font-family: 'bluu_nextbold', serif;
 }
