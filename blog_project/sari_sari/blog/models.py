@@ -12,7 +12,7 @@ class Tag(models.Model):
 class Post(models.Model):
     author = models.ForeignKey('auth.User',on_delete=models.CASCADE) # authorised user
     title = models.CharField(max_length=200)
-    text = models.TextField()
+    text = models.TextField(blank=True)
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True,null=True)
     tag = models.ManyToManyField(Tag, help_text='Hold ctrl to pick multiple tags!')

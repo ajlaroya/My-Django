@@ -8,7 +8,7 @@
       <div class="wrapper">
         <h1 class="display-4 fw-normal brand typewriter">sari-sari is <span class="typed-text"></span><span class="cursor">&nbsp;</span></h1>
       </div>
-      <a class="btn btn-outline btn-sm" href="{% url 'about' %}">[ a work-in-progress 🛠 ]</a>
+      <a class="btn btn-outline btn-sm" href="{% url 'about' %}">[ a work-in-progress ]</a>
     </div>
   </div>
 
@@ -28,7 +28,7 @@
           <div class="card-body">
             <p class="h5 card-title brand">{{ post.title }}</p>
             <p class="card-text text-muted">{{ post.published_date|date:"jS M Y" }}</p>
-            <p class="card-text">{{ post.text|truncatechars:150|striptags }}</p>
+            <p class="card-text">{{ post.text|truncatechars:200|striptags }}</p>
             {% for tag in post.tag.all %}
             <span class="badge bg-primary">{{ tag }}</span>
             {% endfor %}
