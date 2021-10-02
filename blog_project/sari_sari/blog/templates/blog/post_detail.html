@@ -1,33 +1,60 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<div class="container pt-3">
+  <div class="row">
+    <!-- Detailed post -->
+    <div class="col border-end">
+      <!-- Title -->
+      <h1 class="brand text-center border-bottom p-3">{{ post.title }}</h1>
+
+      <!-- Post -->
+      <div class="">
+        <!-- Image -->
+        {% if post.image %}
+        <img class="img-fluid img-thumbnail" src="{{ post.image.url }}" alt="user image">
+        {% endif %}
+
+        <div class="d-flex justify-content-between p-2">
+          <!-- Tags -->
+          <div class="">
+            {% for tag in post.tag.all %}
+            <span class="badge bg-primary">{{ tag }}</span>
+            {% endfor %}
+          </div>
+          <!-- Publish date -->
+          {% if post.published_date %}
+          <div class="text-muted">
+            {{ post.published_date }}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Text -->
+        <p>{{ post.text|safe|linebreaksbr}}</p>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-md-4 pt-3">
+      <ol class="list-group list-group-flush sticky-top p-3">
+        <span class="brand text-center">more posts:</span>
+        {% for post in detailed %}
+        {% url 'post_detail' pk=post.pk as detail_url %}
+        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start {% if request.path == detail_url %}active{% endif %}">
+          <div class="ms-2 me-auto text-truncate">
+            {{ post.title }}<a class="stretched-link" aria-label="read" href="{% url 'post_detail' pk=post.pk %}"></a>
+          </div>
+          <span class="badge bg-secondary rounded-pill">{{ post.approve_comments.count }}</span>
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+</div>
 
 <!-- Detailed post -->
-<div class="container">
-  <!-- Title -->
-  <h1 class="posttitle">{{ post.title }}</h1>
-  <hr>
-  <!-- Tags -->
-  <div class="text-center">
-    {% for tag in post.tag.all %}
-    <em>{{ tag }}</em>
-    {% endfor %}
-  </div>
-  <!-- Publish date -->
-  {% if post.published_date %}
-  <div class="text-center">
-    {{ post.published_date }}
-  </div>
-  {% endif %}
-  <!-- Post -->
-  <div class="postcontent">
-    <!-- Image -->
-    {% if post.image %}
-    <img class="img-fluid img-thumbnail" src="{{ post.image.url }}" alt="user image">
-    {% endif %}
-    <!-- Text -->
-    <p>{{ post.text|safe|linebreaksbr}}</p>
-  </div>
+<div class="container border-bottom">
   <!-- Post buttons -->
   <div class="d-flex justify-content-center p-3">
     {% if post.published_date %}
@@ -68,10 +95,8 @@
   </div>
 </div>
 
-<hr>
-
 <!-- Comments -->
-<div class="container">
+<div class="container pt-3">
   <h2><strong>Comments</strong></h2>
   {% for comment in post.comments.all %}
     {% if user.is_authenticated or comment.approved_comment %}

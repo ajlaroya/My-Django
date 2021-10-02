@@ -24,6 +24,11 @@ body::-webkit-scrollbar {
 footer {
   background-color: #F0F0F0
 }
+
+.list-group-item {
+  background-color: #F5F5F5;
+}
+
 .brand {
   font-family: 'bluu_nextbold', serif;
 }

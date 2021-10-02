@@ -23,6 +23,13 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
 
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['detailed'] = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+        return context
+
 class CreatePostView(LoginRequiredMixin,CreateView):
     login_url = '/login/'
     redirect_field_name = 'blog/post_detail.html'
