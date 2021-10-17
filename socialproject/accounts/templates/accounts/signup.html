@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 
+{% load bulma_tags %}
+
 {% block content %}
-<div class="container">
-  <h1>Sign up</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {% form %}
-    <input type="submit" value="Sign Up">
-  </form>
-</div>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Signup</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form|bulma }}
+      <div class="field">
+        <input class="button is-dark" type="submit" value="Sign Up">
+      </div>
+    </form>
+  </div>
+</section>
 {% endblock %}
