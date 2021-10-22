@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="has-background-black">
 	<head>
     <title>🐝 project œuvre</title>
 		<meta charset="UTF-8">
@@ -10,13 +10,13 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 	</head>
 
-	<body>
+	<body class="has-background-black">
 
 		<!-- Navbar -->
-		<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+		<nav class="navbar is-black p-5" role="navigation" aria-label="main navigation">
 		  <div class="navbar-brand">
 		    <a class="navbar-item" href="{% url 'home' %}">
-		 			<span class="has-text-weight-bold">🐝 project œuvre </span>
+		 			<span class="has-text-weight-bold is-size-5">🐝 project œuvre </span>
 		    </a>
 
 		    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -28,18 +28,18 @@
 
 		  <div id="navbarBasicExample" class="navbar-menu">
 		    <div class="navbar-start">
-		      <a class="navbar-item" href="{% url 'home' %}">Home</a>
+		      <a class="navbar-item" href="{% url 'home' %}">home</a>
 
-		      <a class="navbar-item" href="#">Groups</a>
+		      <a class="navbar-item" href="#">groups</a>
 		    </div>
 
 		    <div class="navbar-end">
 		      <div class="navbar-item">
 		        <div class="buttons">
 							{% if user.is_authenticated %}
-			          <a class="button is-small is-info" href="#">Post</a>
-								<a class="button is-small" href="#">Create Group</a>
-								<a class="button is-small" href="{% url 'accounts:logout' %}">Log out</a>
+			          <a class="button is-black" href="#">post</a>
+								<a class="button is-black" href="#">create group</a>
+								<a class="button is-black" href="{% url 'accounts:logout' %}">log out</a>
 							{% else %}
 			          <a class="button is-small is-light" href="{% url 'accounts:signup' %}"><strong>Sign up</strong></a>
 			          <a class="button is-small is-light" href="{% url 'accounts:login' %}">Log in</a>
