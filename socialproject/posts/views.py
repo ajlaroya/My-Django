@@ -32,17 +32,17 @@ class UserPosts(generic.ListView):
 
 class PostDetail(SelectRelatedMixin,generic.DetailView):
     model = models.Post
-    select_related = ('user',group)
+    select_related = ('user','group')
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        returnn queryset.filter(user__username__iexact=self.kwargs.get('username'))
+        return queryset.filter(user__username__iexact=self.kwargs.get('username'))
 
 class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
-    fields = ('message,'group')
+    fields = ('message','group')
     model = models.Post
 
-    def form_valid(self.form):
+    def form_valid(self,form):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.save()
