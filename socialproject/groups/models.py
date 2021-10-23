@@ -22,7 +22,7 @@ class Group(models.Model):
         self.description_html = misaka.html(self.description)
         super().save(*args,**kwargs)
 
-    get absolute_url(self):
+    def get_absolute_url(self):
         return reverse('groups:single',kwargs={'slug':self.slug})
 
     class Meta:
