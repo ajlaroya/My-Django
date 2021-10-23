@@ -3,7 +3,7 @@
 {% load bulma_tags %}
 
 {% block group_content %}
-<h4>Create a new group</h4>
+<h1>Create a new group</h1>
   <form action="{% url 'groups:create' %}" method="post" id='groupForm'>
     {% csrf_token %}
     {{ form|bulma }}

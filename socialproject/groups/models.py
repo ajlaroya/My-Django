@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django import template
+from django.urls import reverse
 import misaka
 
 # Create your models here.

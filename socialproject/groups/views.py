@@ -5,6 +5,8 @@ from django.views import generic
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from groups.models import Group,GroupMember
+from . import models
+
 # Create your views here.
 
 class CreateGroup(LoginRequiredMixin,generic.CreateView):
@@ -26,8 +28,10 @@ class JoinGroup(LoginRequiredMixin,generic.RedirectView):
 
         try:
             GroupMember.objects.create(user=self.request.user,group=group)
-        except IntegrityError:
+
+        except:
             messages.warning(self.request,'Warning already a member!')
+
         else:
             messages.success(self.request,'You are now a member!')
 
@@ -43,8 +47,10 @@ class LeaveGroup(LoginRequiredMixin,generic.RedirectView):
                 user=self.request.user,
                 group__slug=self.kwargs.get('slug')
             ).get()
+
         except models.GroupMember.DoesNotExist:
             messages.warning(self.request,'You are not in this group')
+
         else:
             membership.delete()
             messages.success(self.request,'You have left the group!')

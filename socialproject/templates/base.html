@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" class="has-background-black">
+<html lang="en">
 	<head>
     <title>🐝 project œuvre</title>
 		<meta charset="UTF-8">
@@ -8,12 +8,15 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<link rel="stylesheet" href="{% static 'socialproject/css/master.css' %}">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
 	</head>
 
-	<body class="has-background-black">
+	<body>
 
 		<!-- Navbar -->
-		<nav class="navbar is-black p-5" role="navigation" aria-label="main navigation">
+		<nav class="navbar p-5" role="navigation" aria-label="main navigation">
 		  <div class="navbar-brand">
 		    <a class="navbar-item" href="{% url 'home' %}">
 		 			<span class="has-text-weight-bold is-size-5">🐝 project œuvre </span>
@@ -37,9 +40,9 @@
 		      <div class="navbar-item">
 		        <div class="buttons">
 							{% if user.is_authenticated %}
-			          <a class="button is-black" href="{% url 'posts:create' %}">post</a>
-								<a class="button is-black" href="{% url 'groups:create' %}">create group</a>
-								<a class="button is-black" href="{% url 'accounts:logout' %}">log out</a>
+			          <a class="button" href="{% url 'posts:create' %}">post</a>
+								<a class="button" href="{% url 'groups:create' %}">create group</a>
+								<a class="button" href="{% url 'accounts:logout' %}">log out</a>
 							{% else %}
 			          <a class="button is-small is-light" href="{% url 'accounts:signup' %}"><strong>Sign up</strong></a>
 			          <a class="button is-small is-light" href="{% url 'accounts:login' %}">Log in</a>
