@@ -1,3 +1,42 @@
-body {
-  background: white;
+html,body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Heebo', sans-serif;
+  background: #141517;
+}
+
+.navbar {
+  background-color: #18191C;
+}
+
+.input {
+  background-color: #18191C;
+  color: white;
+}
+
+.textarea {
+  background-color: #18191C;
+  color: white;
+}
+
+#id_group {
+  background: #18191C;
+  color: white;
+}
+
+.button {
+  background-color: #18191C;
+  color: white;
+}
+
+.label {
+  color: white;
+}
+
+.box {
+  background-color: #18191C;
+}
+
+svg {
+  vertical-align: middle;
 }

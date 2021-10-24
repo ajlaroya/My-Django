@@ -3,10 +3,12 @@
 {% load bulma_tags %}
 
 {% block post_content %}
-<h4>Create a new post</h4>
-<form id="postForm" action="{% url 'posts:create' %}" method="post">
-  {% csrf_token %}
-  {{ form|bulma }}
-  <input type="submit" value="Post" class='button'>
-</form>
+<section class="section">
+  <h2 class="title has-text-white">Create a new post</h2>
+  <form action="{% url 'posts:create' %}" method="post">
+    {% csrf_token %}
+    {{ form|bulma }}
+    <input type="submit" value="Post" class='button'>
+  </form>
+</section>
 {% endblock %}
