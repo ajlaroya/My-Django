@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" class="has-text-white">
 	<head>
-    <title>project œuvre</title>
+		{% block title %}<title>Plume 🦜</title>{% endblock %}
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -23,7 +23,7 @@
 		 			<span class="has-text-weight-bold is-size-4">🦜</span>
 		    </a>
 
-		    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+		    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
 		      <span aria-hidden="true"></span>
 		      <span aria-hidden="true"></span>
 		      <span aria-hidden="true"></span>
@@ -86,5 +86,17 @@
 		    {% endblock %}
 		</main>
 
+		<!-- Footer -->
+		<!-- <footer class="footer">
+		  <div class="content has-text-centered">
+		    <p>
+		      <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+		      <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+		      is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+		    </p>
+		  </div>
+		</footer> -->
+
 	</body>
+	<script src="{% static 'socialproject/js/navbar.js' %}" charset="utf-8"></script>
 </html>

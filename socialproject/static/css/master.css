@@ -5,8 +5,9 @@ html,body {
   font-family: 'Lora', serif;
 }
 
-p {
-  font-family: 'Noto Sans', sans-serif;
+#navbarBasicExample {
+  background-color: #18191C;
+  color: white;
 }
 
 .navbar {
