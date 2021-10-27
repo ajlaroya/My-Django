@@ -1,12 +1,18 @@
 html,body {
   height: 100%;
   width: 100%;
-  font-family: 'Heebo', sans-serif;
   background: #141517;
+  font-family: 'Lora', serif;
+}
+
+p {
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .navbar {
   background-color: #18191C;
+  border-bottom: 2px solid;
+  border-image: linear-gradient(90deg, rgba(232,18,36,1) 0%, rgba(255,185,0,1) 50%) 1;
 }
 
 .input {

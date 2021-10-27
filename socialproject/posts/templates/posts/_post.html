@@ -1,20 +1,40 @@
-<div class="post media">
-  <h3>{{post.message_html|safe}}</h3>
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+    </p>
+  </figure>
   <div class="media-content">
-    <h5 class="">
-      <span class="username">
-        <a href="{% url 'posts:for_user' username=post.user.username%}">@{{post.user.username}}</a>
-      </span>
-      <time class="time">
-        <a href="{% url 'posts:single' username=post.user.username pk=post.pk %}">{{post.created_at}}</a>
-      </time>
-    </h5>
-    <div class="media-right">
-      {% if user.is_authenticated and post.user == user %}
-      <a href="{% url 'posts:delete' pk=post.pk %}" title='delete' class="button">
-        Delete
-      </a>
-      {% endif %}
+    <div class="content">
+      <p>
+        <strong><a class="has-text-warning" href="{% url 'posts:for_user' username=post.user.username%}">@{{post.user.username}}</a></strong>
+        <small>
+          <time class="time">
+          <a class="has-text-warning" href="{% url 'posts:single' username=post.user.username pk=post.pk %}">{{post.created_at}}</a>
+          </time>
+        </small>
+        <br>
+        {{post.message_html|safe}}
+      </p>
     </div>
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <a class="level-item has-text-warning">
+          <span class="material-icons">reply</span>
+        </a>
+        <a class="level-item has-text-warning">
+          <span class="material-icons">share</span>
+        </a>
+        <a class="level-item has-text-warning">
+          <span class="material-icons">favorite_border</span>
+        </a>
+      </div>
+    </nav>
   </div>
-</div>
+  <div class="media-right">
+    {% if user.is_authenticated and post.user == user %}
+    <a href="{% url 'posts:delete' pk=post.pk %}" title='delete' class="delete"></a>
+    {% endif %}
+  </div>
+</article>
+<br>

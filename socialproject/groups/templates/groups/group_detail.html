@@ -1,29 +1,29 @@
 {% extends "groups/group_base.html" %}
+
 {% block pregroup %}
+<section class="section">
+  <h1 class="title has-text-white">{{group.name}}</h1>
+  <h2 class="subtitle">Member count: {{ group.members.count }}</h2>
 
-<h1>{{group.name}}</h1>
-<h2>Member count: {{ group.members.count }}</h2>
-
-<div class="content">
-
-  {% if user in group.members.all %}
-    <a href="{% url 'groups:leave' slug=group.slug %}" class="button">Leave</a>
-  {% else %}
-    <a href="{% url 'groups:join' slug=group.slug %}" class="button">Join</a>
-  {% endif %}
-
-</div>
-
+  <div class="content">
+    {% if user in group.members.all %}
+      <a href="{% url 'groups:leave' slug=group.slug %}" class="button">Leave</a>
+    {% else %}
+      <a href="{% url 'groups:join' slug=group.slug %}" class="button">Join</a>
+    {% endif %}
+  </div>
+</section>
 {% endblock %}
 
 {% block group_content %}
-
 <div class="col">
   {% if group.posts.count == 0 %}
     <h2>No posts in this group yet!</h2>
   {% else %}
     {% for post in group.posts.all %}
-      {% include "posts/_post.html" %} <!-- injects html -->
+    <div class="container is-max-desktop">
+        {% include "posts/_post.html" %} <!-- injects html -->
+    </div>
     {% endfor %}
   {% endif %}
 </div>
