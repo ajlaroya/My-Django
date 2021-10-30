@@ -1,8 +1,13 @@
 html,body {
+  min-height: 100%;
   height: 100%;
   width: 100%;
   background: #141517;
-  font-family: 'Lora', serif;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+main {
+  min-height: 100%;
 }
 
 #navbarBasicExample {
@@ -46,4 +51,36 @@ html,body {
 
 svg {
   vertical-align: middle;
+}
+
+/* Footer CSS */
+footer {
+    position: relative;
+}
+
+.footer {
+  background-color: #18191C;
+  border-top: 2px solid;
+  border-image: linear-gradient(90deg, rgba(232,18,36,1) 0%, rgba(255,185,0,1) 50%) 1;
+}
+
+.footer-img {
+  margin: 20px auto 18px;
+  height: 150px;
+  width: 100%;
+  max-width: 300px;
+  overflow: hidden;
+  img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.copyright {
+  span {
+    font-family: $font;
+    color: #808591;
+    font-size: 0.9rem;
+  }
 }
