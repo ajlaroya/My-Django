@@ -26,10 +26,22 @@
         <a class="level-item has-text-warning">
           <span class="material-icons">share</span>
         </a>
-        <a class="level-item has-text-warning">
-          <span class="material-icons">favorite_border</span>
-        </a>
-      </div>
+        <form class="level-item" method="POST" action="{% url 'posts:like' pk=post.pk %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
+                {% if user in post.likes.all %}
+                <a class="level-item has-text-warning">
+                  <span class="material-icons">favorite</span>
+                </a>
+                {% else %}
+                <a class="level-item has-text-warning">
+                  <span class="material-icons">favorite_border</span>
+                </a>
+                {% endif %}
+            </button>
+          <span class="level-item">{{ post.likes.all.count }}</span>
+        </form>
     </nav>
   </div>
   <div class="media-right">

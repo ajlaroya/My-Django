@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.contrib import messages
 from braces.views import SelectRelatedMixin
 from django.contrib.auth.models import User
@@ -61,3 +61,20 @@ class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
     def delete(self,*args,**kwargs):
         messages.success(self.request,'Post Deleted')
         return super().delete(*args,**kwargs)
+
+class AddLike(LoginRequiredMixin, generic.View):
+    def post(self, request, pk, *args, **kwargs):
+        post = models.Post.objects.get(pk=pk)
+        is_like = False
+        for like in post.likes.all():
+            if like == request.user:
+                is_like = True
+                break
+        if not is_like:
+            post.likes.add(request.user)
+
+        if is_like:
+            post.likes.remove(request.user)
+
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next)
