@@ -6,6 +6,10 @@ html,body {
   font-family: 'Josefin Sans', sans-serif;
 }
 
+p, .subtitle {
+  font-weight: 300;
+}
+
 main {
   min-height: 100%;
 }
@@ -54,11 +58,9 @@ svg {
 }
 
 /* Footer CSS */
-footer {
-    position: relative;
-}
 
 .footer {
+  position: relative;
   background-color: #18191C;
   border-top: 2px solid;
   border-image: linear-gradient(90deg, rgba(232,18,36,1) 0%, rgba(255,185,0,1) 50%) 1;
@@ -70,17 +72,4 @@ footer {
   width: 100%;
   max-width: 300px;
   overflow: hidden;
-  img {
-    display: block;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-}
-
-.copyright {
-  span {
-    font-family: $font;
-    color: #808591;
-    font-size: 0.9rem;
-  }
 }
