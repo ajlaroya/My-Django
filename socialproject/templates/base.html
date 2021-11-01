@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Poppins:wght@200;300;400&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="{% static 'css/master.css' %}">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -53,9 +53,9 @@
 						</a>
 
 						{% if user.is_authenticated %}
-						<span class="navbar-item has-text-white-ter">👋 @{{ user.username }}</span>
-						<figure class="navbar-item image is-64x64">
-							<a href="{% url 'avatar_change' %}">{% avatar user class="is-rounded" id="user_avatar" %}</a>
+						<a class="navbar-item has-text-white-ter" href="{% url 'posts:for_user' username=user.username%}">👋 @{{ user.username }}</a>
+						<figure class="navbar-item image">
+							<a href="{% url 'avatar_change' %}">{% avatar user class="is-rounded is-128x128" id="user_avatar" %}</a>
 						</figure>
 						{% endif %}
 

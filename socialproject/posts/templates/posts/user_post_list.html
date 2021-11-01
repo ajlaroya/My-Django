@@ -1,15 +1,16 @@
 {% extends "posts/post_base.html" %}
 
-{% block prepost %}
-<div class="column">
-  <h1>@{{post_user.username}}</h1>
-</div>
-{% endblock %}
+  {% block prepost %}
+    <h1 class="title has-text-white-ter">@{{post_user.username}} overview</h1>
+  {% endblock %}
 
-{% block post_content %}
-<div class="column">
-  {% for post in post_list %}
-  {% include "posts/_post.html" %}
-  {% endfor %}
-</div>
-{% endblock %}
+  {% block post_content %}
+    <span class="is-size-4 has-text-white">Post history:</span>
+    <div class="pt-3">
+      {% for post in post_list %}
+      {% include "posts/_post.html" %}
+      {% endfor %}
+    </div>
+    <span class="is-size-4 has-text-white">Liked posts: </span>
+    <span class="is-size-4 has-text-white">Groups: </span>
+  {% endblock %}

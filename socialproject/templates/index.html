@@ -10,18 +10,18 @@
     <div class="container">
       <div class="columns is-vcentered reverse-columns">
         <div data-aos="fade-right" class="column
-        is-10-mobile is-offset-1-mobile
-        is-10-tablet is-offset-1-tablet
-        is-5-desktop is-offset-1-desktop
-        is-5-widescreen is-offset-1-widescreen
-        is-5-fullhd is-offset-1-fullhd">
+          is-10-mobile is-offset-1-mobile
+          is-10-tablet is-offset-1-tablet
+          is-5-desktop is-offset-1-desktop
+          is-5-widescreen is-offset-1-widescreen
+          is-5-fullhd is-offset-1-fullhd">
         <h1 class="title titled is-2 has-text-white-bis">
           Welcome to Plume 🦚 <!--<span id="typewriter"></span>-->
         </h1>
         <p class="subtitle">A 'no frills' social media platform for everyone!</p>
-        <button class="button">Log in</button>
-        <button class="button">Get started</button>
-      </div>
+        <a class="button" href="{% url 'login' %}">Log in</a>
+        <a class="button" href="{% url 'accounts:signup' %}">Get started</a>
+        </div>
       <div data-aos="fade-down" class="column
       is-10-mobile is-offset-1-mobile
       is-10-tablet is-offset-1-tablet
@@ -31,7 +31,7 @@
       <figure class="image is-square">
         <img src="{% static 'images/pof-pof/no comments yet.png' %}">
       </figure>
-    </div>
+      </div>
 
   </div>
 </div>
@@ -64,7 +64,7 @@
       <h2 class="subtitled subtitle">
         Communicate your ideas. Share what's new. Form your opinions. Spark a heated debate. Get updated on breaking news. Learn something new!
       </h2>
-      <button class="button">Create a new post</button>
+      <a class="button" href="{% url 'posts:create' %}">Create a new post</a>
     </div>
 
   </div>
@@ -88,7 +88,7 @@
         <h2 class="subtitle subtitled">
           There's nothing like finding a gang of like-minded people who share your interests whether it would be about your favourite cereal, dogs with hats, or even vampires!
         </h2>
-        <button class="button">Create a group</button>
+        <a class="button" href="{% url 'groups:create' %}">Create a group</a>
       </div>
       <div data-aos="fade-down" class="column
       is-10-mobile is-offset-1-mobile
