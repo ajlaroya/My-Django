@@ -51,8 +51,20 @@ main {
   color: white;
 }
 
-.box {
+.box, .card {
   background-color: #18191C;
+}
+
+.card {
+  width: 100%
+}
+
+.card-footer {
+  border-top: 0px
+}
+
+.card-footer-item:not(:last-child) {
+  border-right: 0px
 }
 
 svg {

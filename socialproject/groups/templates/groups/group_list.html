@@ -7,34 +7,81 @@
   <h2 class="title has-text-white">Groups</h2>
 
   {% if user.is_authenticated %}
-  <h3 class="subtitle has-text-white">Welcome
+  <!-- <h3 class="subtitle has-text-white">Welcome
     <a class="has-text-warning" href="{% url 'posts:for_user' username=user.username %}">@{{user.username}}</a>
-  </h3>
+  </h3> -->
   <a href="{% url 'groups:create' %}" class="button">create new group</a>
   {% endif %}
 </section>
 {% endblock %}
 
 {% block group_content %}
-<div class="tile is-ancestor">
-  {% for group in object_list %}
-  <div class="tile is-parent">
-    <article class="tile is-child box box-radius">
-      <p class="title"><a class="title is-4 has-text-white" href="{% url 'groups:single' slug=group.slug %}">{{ group.name }}</a></p>
-      <p class="subtitle">{{ group.description_html|safe }}</p>
-      <br>
-      <a class="has-text-warning" href="#">{{ group.members.count }}
-        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
-        </svg>
-      </a>
-      <a class="has-text-warning" href="#">{{ group.posts.count }}
-        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9M10,16V19.08L13.08,16H20V4H4V16H10M6,7H18V9H6V7M6,11H15V13H6V11Z" />
-        </svg>
-      </a>
-    </article>
+<div class="tile is-ancestor mb-3">
+  <div class="tile is-vertical">
+
+      {% for group in object_list %}
+    <div class="tile">
+      <div class="card m-3 p-3">
+        <header class="card-header level">
+          <p class="card-header-title level-left">
+            <a class="title is-4 has-text-white" href="{% url 'groups:single' slug=group.slug %}">{{ group.name }}</a>
+          </p>
+          <div class="level-right">
+            <a class="has-text-warning p-2" href="#">{{ group.members.count }}
+              <span class="material-icons">groups</span>
+            </a>
+            <a class="has-text-warning p-2" href="#">{{ group.posts.count }}
+              <span class="material-icons">chat</span>
+            </a>
+          </div>
+        </header>
+        <div class="card-content pt-0">
+          <div class="content has-text-grey-light">
+            {{ group.description }}
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a href="#" class="card-footer-item has-text-warning p-0">Join</a>
+          <a href="#" class="card-footer-item has-text-warning p-0">Leave</a>
+        </footer>
+      </div>
+    </div>
+
+    {% endfor %}
   </div>
-  {% endfor %}
+  <div class="tile is-4 is-vertical">
+    <!-- This tile will take up the whole vertical space -->
+    <div class="card m-3 p-3">
+      <header class="card-header">
+        <p class="card-header-title">
+          <a class="title is-4 has-text-white" href="#">Your Groups 🦜</a>
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <ul>
+            <li class="has-text-grey-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+      <div class="card m-3">
+        <header class="card-header">
+          <p class="card-header-title">
+            <a class="title is-4 has-text-white" href="#">All Groups 🦚</a>
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <ul>
+              <li class="has-text-grey-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+
 </div>
 {% endblock %}
