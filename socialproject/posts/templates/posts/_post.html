@@ -20,10 +20,10 @@
     </div>
     <nav class="level is-mobile">
       <div class="level-left">
-        <a class="level-item has-text-warning">
+        <a class="level-item has-text-warning has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" data-tooltip="Reply">
           <span class="material-icons">reply</span>
         </a>
-        <a class="level-item has-text-warning">
+        <a class="level-item has-text-warning has-text-warning has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" data-tooltip="Share">
           <span class="material-icons">share</span>
         </a>
         <form class="level-item" method="POST" action="{% url 'posts:like' pk=post.pk %}">

@@ -10,6 +10,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦜</text></svg>">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.2.0/dist/bulma-tooltip.min.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Poppins:wght@200;300;400&display=swap" rel="stylesheet">
@@ -39,34 +40,31 @@
 					<div class="buttons">
 
 						{% if user.is_authenticated %}
-						<a class="navbar-item has-text-white" href="{% url 'posts:create' %}">
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:create' %}" data-tooltip="New post">
 							<span class="material-icons">create</span>
 						</a>
-						<a class="navbar-item has-text-white" href="{% url 'groups:all' %}">
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'groups:all' %}" data-tooltip="Groups">
 							<span class="material-icons">groups</span>
 						</a>
-						<a class="navbar-item has-text-white" href="{% url 'groups:create' %}">
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'groups:create' %}" data-tooltip="New group">
 							<span class="material-icons">group_add</span>
 						</a>
-						<a class="navbar-item has-text-white" href="{% url 'accounts:logout' %}">
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'accounts:logout' %}" data-tooltip="Log out">
 							<span class="material-icons">logout</span>
 						</a>
-
-						{% if user.is_authenticated %}
 						<a class="navbar-item has-text-white-ter" href="{% url 'posts:for_user' username=user.username%}">👋 @{{ user.username }}</a>
 						<figure class="navbar-item image">
 							<a href="{% url 'avatar_change' %}">{% avatar user class="is-rounded is-128x128" id="user_avatar" %}</a>
 						</figure>
-						{% endif %}
 
 						{% else %}
-						<a class="navbar-item has-text-white" href="{% url 'groups:all' %}">
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'groups:all' %}" data-tooltip="Groups">
 							<span class="material-icons">groups</span>
 						</a>
-						<a class="navbar-item has-text-white" href="{% url 'accounts:signup' %}">
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'accounts:signup' %}" data-tooltip="Sign up!">
 							<span class="material-icons">person_add</span>
 						</a>
-						<a class="navbar-item has-text-white" href="{% url 'accounts:login' %}">
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'accounts:login' %}" data-tooltip="Log in">
 							<span class="material-icons">login</span>
 						</a>
 						{% endif %}
@@ -92,18 +90,10 @@
 					<div class="footer-group">
 						<h4>Plume 🦚</h4>
 						<ul>
-							<li>
-								<a>Sign Up</a>
-							</li>
-							<li>
-								<a>Login</a>
-							</li>
-							<li>
-								<a>Post</a>
-							</li>
-							<li>
-								<a>Groups</a>
-							</li>
+							<li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+							<li><a href="{% url 'accounts:login' %}">Login</a></li>
+							<li><a href="{% url 'posts:all' %}">Posts</a></li>
+							<li><a href="{% url 'groups:all' %}">Groups</a></li>
 						</ul>
 					</div>
 				</div>
@@ -111,12 +101,8 @@
 					<div class="footer-group">
 						<h4>Discover 🐧</h4>
 						<ul>
-							<li>
-								<a>New plume</a>
-							</li>
-							<li>
-								<a>New group</a>
-							</li>
+							<li><a href="{% url 'posts:create' %}">New plume</a></li>
+							<li><a href="{% url 'groups:create' %}">New group</a></li>
 						</ul>
 					</div>
 				</div>
@@ -124,15 +110,9 @@
 					<div class="footer-group">
 						<h4>Arthur L. 👨‍💻</h4>
 						<ul>
-							<li>
-								<a>Github</a>
-							</li>
-							<li>
-								<a>LinkedIn</a>
-							</li>
-							<li>
-								<a>sari-sari ✨</a>
-							</li>
+							<li><a href="https://github.com/ajlaroya">Github</a></li>
+							<li><a href="https://www.linkedin.com/in/arthurlaroya/">LinkedIn</a></li>
+							<li><a href="https://mysarisari.herokuapp.com/">sari-sari (my blog) ✨</a></li>
 						</ul>
 					</div>
 				</div>
@@ -140,18 +120,10 @@
 					<div class="footer-group">
 						<h4>Support 🚁</h4>
 						<ul>
-							<li>
-								<a>FAQ</a>
-							</li>
-							<li>
-								<a>About</a>
-							</li>
-							<li>
-								<a>Contact</a>
-							</li>
-							<li>
-								<a>Privacy policy</a>
-							</li>
+							<li><a>FAQ</a></li>
+							<li><a>About</a></li>
+							<li><a>Contact</a></li>
+							<li><a>Privacy policy</a></li>
 						</ul>
 					</div>
 				</div>
