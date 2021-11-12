@@ -1,9 +1,11 @@
 {% extends "posts/post_base.html" %}
 {% load humanize %}
+{% load bulma_tags %}
 
 {% block pre_post_content %}
 <div class="col-md-4">
 	{% if request.user.is_authenticated %}
+	<p class="title has-text-light">Welcome @{{ user }}</p>
 	<div class="card card-with-shadow">
 		<div class="content">
 			<h5 class="title">Your Groups</h5>
@@ -31,6 +33,17 @@
 		</div>
 	</div>
 </div>
+
+<div class="col-md-5 col-sm-12">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|bulma }}
+        <div class="d-grid gap-2">
+            <button class="button my-3">Submit!</button>
+        </div>
+    </form>
+</div>
+
 {% endblock %}
 {% block post_content %}
 <div class="col-md-8">

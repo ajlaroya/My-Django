@@ -1,0 +1,24 @@
+{% extends "posts/post_base.html" %}
+{% load bulma_tags %}
+
+{% block post_content %}
+  {% include "posts/_post.html" %}
+  <div class="container">
+      <div class="row justify-content-center mt-3">
+          <div class="col-md-5 col-sm-12">
+              <h5>Add a Comment!</h5>
+          </div>
+      </div>
+      <div class="row justify-content-center mt-3 mb-5">
+          <div class="col-md-5 col-sm-12">
+              <form method="POST">
+                  {% csrf_token %}
+                  {{ form | bulma }}
+                  <div class="d-grid gap-2">
+                      <button class="btn btn-success mt-3">Submit!</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+{% endblock %}

@@ -9,5 +9,8 @@ urlpatterns = [
     path('by/<str:username>',views.UserPosts.as_view(),name='for_user'),
     path('by/<str:username>/<int:pk>/',views.PostDetail.as_view(),name='single'),
     path('delete/<int:pk>/',views.DeletePost.as_view(),name='delete'),
-    path('<int:pk>/like', views.AddLike.as_view(), name='like'),
+    path('edit/<int:pk>/', views.EditPost.as_view(), name='edit'),
+    path('like/<int:pk>/', views.AddLike.as_view(), name='like'),
+    path('<int:post_pk>/comment/reply/<int:pk>/', views.CommentReplyView.as_view(), name='comment-reply'),
+    path('<int:post_pk>/comment/delete/<int:pk>/', views.CommentDeleteView.as_view(), name='comment-delete'),
 ]

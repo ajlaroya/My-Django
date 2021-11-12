@@ -11,12 +11,33 @@ from django.contrib.auth.models import User
 from braces.views import SelectRelatedMixin
 
 from . import models
-from . import forms
+from .forms import PostForm, CommentForm
 
 # Create your views here.
-class PostList(SelectRelatedMixin,generic.ListView):
-    model = models.Post
-    select_related = ('user','group')
+class PostList(SelectRelatedMixin,generic.View):
+    def get(self, request, *args, **kwargs):
+        posts = models.Post.objects.all().order_by('-created_at')
+        form = PostForm()
+        context = {
+            'post_list': posts,
+            'form': form,
+        }
+
+        return render(request, 'posts/post_list.html', context)
+
+    def post(self, request, *args, **kwargs):
+        posts = models.Post.objects.all()
+        form = PostForm(request.POST)
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.user = request.user
+            new_post.save()
+        context = {
+            'post_list': posts,
+            'form': form,
+        }
+
+        return render(request, 'posts/post_list.html', context)
 
 class UserPosts(generic.ListView):
     model = models.Post
@@ -45,6 +66,32 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
         queryset = super().get_queryset()
         return queryset.filter(user__username__iexact=self.kwargs.get('username'))
 
+    def get(self, request, pk, *args, **kwargs):
+        post = models.Post.objects.get(pk=pk)
+        form = CommentForm()
+        context = {
+            'post': post,
+            'form': form,
+        }
+        return render(request, 'posts/post_detail.html', context)
+
+    def post(self, request, pk, *args, **kwargs):
+        post = models.Post.objects.get(pk=pk)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.user = request.user
+            new_comment.post = post
+            new_comment.save()
+
+        comments = models.Comment.objects.filter(post=post).order_by('-timestamp')
+        context = {
+            'post': post,
+            'form': form,
+            'comments': comments,
+        }
+        return render(request, 'posts/post_detail.html', context)
+
 class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
     fields = ('message','group')
     model = models.Post
@@ -68,6 +115,16 @@ class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
         messages.success(self.request,'Post Deleted')
         return super().delete(*args,**kwargs)
 
+class EditPost(SelectRelatedMixin,generic.UpdateView):
+    model = models.Post
+    select_related = ('user',)
+    fields = ['message']
+    template_name = 'posts/post_edit.html'
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse_lazy('posts:single', kwargs={'pk': pk, 'username':self.request.user})
+
 class AddLike(LoginRequiredMixin, generic.View):
     def post(self, request, pk, *args, **kwargs):
         post = models.Post.objects.get(pk=pk)
@@ -84,3 +141,27 @@ class AddLike(LoginRequiredMixin, generic.View):
 
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)
+
+# By LegionScript
+class CommentReplyView(LoginRequiredMixin, generic.View):
+    def post(self, request, post_pk, pk, *args, **kwargs):
+        post = Post.objects.get(pk=post_pk)
+        parent_comment = Comment.objects.get(pk=pk)
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.author = request.user
+            new_comment.post = post
+            new_comment.parent = parent_comment
+            new_comment.save()
+
+        return redirect('posts:single', pk=post_pk)
+
+class CommentDeleteView(LoginRequiredMixin,generic.DeleteView):
+    model = models.Comment
+    template_name = 'posts/comment_delete.html'
+
+    def get_success_url(self):
+        pk = self.kwargs['post_pk']
+        return reverse_lazy('posts:single', kwargs={'pk': pk, 'username':self.request.user})

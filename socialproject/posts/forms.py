@@ -1,7 +1,24 @@
 from django import forms
+from .models import Post, Comment
 
-class PostForm(forms.Form):
+class PostForm(forms.ModelForm):
     message = forms.CharField(
-        max_length=254,
-        widget=forms.TextInput(attrs={'class': "input-lg"}),
-    )
+        label='',
+        widget=forms.Textarea(
+            attrs={'rows': '3',
+                   'placeholder': 'Say Something...'}
+        ))
+    class Meta:
+        model = Post
+        fields = ['message']
+
+class CommentForm(forms.ModelForm):
+    comment = forms.CharField(
+        label='',
+        widget=forms.Textarea(
+            attrs={'rows': '3',
+                   'placeholder': 'Say Something...'}
+        ))
+    class Meta:
+        model = Comment
+        fields = ['comment']

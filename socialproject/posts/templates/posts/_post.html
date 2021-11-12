@@ -1,4 +1,7 @@
 {% load avatar_tags %}
+{% load static %}
+<script src="{% static 'socialproject/js/reply.js' %}" charset="utf-8"></script>
+
 <article class="media">
   <figure class="media-left">
     <p class="image is-64x64">
@@ -8,14 +11,14 @@
   <div class="media-content">
     <div class="content">
       <p>
-        <strong><a class="has-text-warning" href="{% url 'posts:for_user' username=post.user.username%}">@{{post.user.username}}</a></strong>
+        <strong><a class="has-text-warning" href="{% url 'posts:for_user' username=post.user.username%}">@{{post.user}}</a></strong>
         <small>
           <time class="time">
           <a class="has-text-warning" href="{% url 'posts:single' username=post.user.username pk=post.pk %}">{{post.created_at}}</a>
           </time>
         </small>
         <br>
-        {{post.message_html|safe}}
+        {{post.message}}
       </p>
     </div>
     <nav class="level is-mobile">
