@@ -69,15 +69,18 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
     def get(self, request, pk, *args, **kwargs):
         post = models.Post.objects.get(pk=pk)
         form = CommentForm()
+        comments = models.Comment.objects.filter(post=post).order_by('-timestamp')
         context = {
             'post': post,
             'form': form,
+            'comments': comments,
         }
         return render(request, 'posts/post_detail.html', context)
 
     def post(self, request, pk, *args, **kwargs):
         post = models.Post.objects.get(pk=pk)
         form = CommentForm(request.POST)
+
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.user = request.user
@@ -85,6 +88,7 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
             new_comment.save()
 
         comments = models.Comment.objects.filter(post=post).order_by('-timestamp')
+
         context = {
             'post': post,
             'form': form,

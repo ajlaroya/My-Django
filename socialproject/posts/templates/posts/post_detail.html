@@ -14,8 +14,7 @@
     <a href="{% url 'posts:delete' post.pk %}">Delete</a>
     {% endif %}
     {% for comment in comments %}
-    <div class="row justify-content-center mt-3 mb-5 border-bottom">
-      <div class="col-md-5 col-sm-12">
+    <div class="row mt-3 mb-5">
         <p>
           <strong>{{ comment.user }}</strong> {{ comment.created_at }}
           {% if request.user == comment.user %}
@@ -23,12 +22,10 @@
           {% endif %}
         </p>
         <p>{{ comment.comment }}</p>
-      </div>
     </div>
     {% endfor %}
 </div>
-<div class="row justify-content-center mt-3 mb-5">
-  <div class="col-md-5 col-sm-12">
+<div class="row mt-3 mb-5">
     <form method="POST">
       {% csrf_token %}
       {{ form | bulma }}
@@ -36,7 +33,5 @@
         <button class="btn btn-success mt-3">Comment!</button>
       </div>
     </form>
-  </div>
-</div>
 </div>
 {% endblock %}
