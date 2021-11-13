@@ -115,7 +115,7 @@ class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
         messages.success(self.request,'Post Deleted')
         return super().delete(*args,**kwargs)
 
-class EditPost(SelectRelatedMixin,generic.UpdateView):
+class EditPost(LoginRequiredMixin,SelectRelatedMixin,generic.UpdateView):
     model = models.Post
     select_related = ('user',)
     fields = ['message']

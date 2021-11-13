@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load bulma_tags %}
+
+{% block content %}
+<div class="container">
+
+  {% if profile.user %}
+    <h3 class="py-4 title has-text-light">{{ profile.user }}
+    </h3>
+
+      <span>
+          {% if profile.user == user %}
+          <a href="{% url 'accounts:profile-edit' profile.pk %}">Edit Profile</a>
+          {% endif %}
+      </span>
+  {% endif %}
+    <div class="row justify-content-center mt-5">
+        <div class="card col-md-8 col-sm-12 shadow-sm px-5 pt-3">
+            <figure class="image is-64x64">
+                  <img src="{{ profile.picture.url }}" class="is-rounded"/>
+            </figure>
+                {% if profile.user %}
+                <h3 class="py-4">{{ profile.user }}
+                {% endif %}
+            <div>
+                {% if profile.location %}
+                <p>location: {{ profile.location }}</p>
+                {% endif %}
+                {% if profile.bio %}
+                <p>bio: {{ profile.bio }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% for post in posts %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8 col-sm-12 border-bottom position-relative">
+            <p><strong>{{ post.user }}</strong> {{ post.created_at }}</p>
+            <p>{{ post.message }}</p>
+            <a class="stretched-link" href="{% url 'posts:single' username=post.user.username pk=post.pk %}"></a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

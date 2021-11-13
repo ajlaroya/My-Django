@@ -40,6 +40,9 @@
 					<div class="buttons">
 
 						{% if user.is_authenticated %}
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:all' %}" data-tooltip="Feed">
+							<span class="material-icons">dynamic_feed</span>
+						</a>
 						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:create' %}" data-tooltip="New post">
 							<span class="material-icons">create</span>
 						</a>
@@ -52,12 +55,15 @@
 						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'accounts:logout' %}" data-tooltip="Log out">
 							<span class="material-icons">logout</span>
 						</a>
-						<a class="navbar-item has-text-white-ter" href="{% url 'posts:for_user' username=user.username%}">👋 @{{ user.username }}</a>
+						<a class="navbar-item has-text-white-ter" href="{% url 'accounts:profile' user.pk %}">👋 @{{ user.username }}</a>
 						<figure class="navbar-item image">
 							<a href="{% url 'avatar_change' %}">{% avatar user class="is-rounded is-128x128" id="user_avatar" %}</a>
 						</figure>
 
 						{% else %}
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:all' %}" data-tooltip="Feed">
+							<span class="material-icons">dynamic_feed</span>
+						</a>
 						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'groups:all' %}" data-tooltip="Groups">
 							<span class="material-icons">groups</span>
 						</a>
