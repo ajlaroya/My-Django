@@ -5,12 +5,10 @@
 {% block title %}<title>Plume - New Group</title>{% endblock %}
 
 {% block group_content %}
-<section class="section">
   <h2 class="title has-text-white">Create a new group</h2>
     <form action="{% url 'groups:create' %}" method="post" id='groupForm'>
       {% csrf_token %}
       {{ form|bulma }}
       <input type="submit" class="button" value="Create Group">
     </form>
-</section>
 {% endblock %}

@@ -2,13 +2,13 @@
 
 {% load bulma_tags %}
 
+{% block title %}<title>Plume - {{ profile.user }}</title>{% endblock %}
+
 {% block content %}
-<div class="container">
+<div class="section">
 
   {% if profile.user %}
-    <h3 class="py-4 title has-text-light">{{ profile.user }}
-    </h3>
-
+    <h1 class="title has-text-light">{{ profile.user }} profile</h1>
       <span>
           {% if profile.user == user %}
           <a href="{% url 'accounts:profile-edit' profile.pk %}">Edit Profile</a>
@@ -17,11 +17,11 @@
   {% endif %}
     <div class="row justify-content-center mt-5">
         <div class="card col-md-8 col-sm-12 shadow-sm px-5 pt-3">
-            <figure class="image is-64x64">
+            <figure class="image is-128x128">
                   <img src="{{ profile.picture.url }}" class="is-rounded"/>
             </figure>
                 {% if profile.user %}
-                <h3 class="py-4">{{ profile.user }}
+                <h2 class="py-4">{{ profile.user }}
                 {% endif %}
             <div>
                 {% if profile.location %}

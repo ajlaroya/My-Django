@@ -1,46 +1,42 @@
 {% extends "posts/post_base.html" %}
+
 {% load bulma_tags %}
 
-{% block post_content %}
-  <div class="container">
-      <div class="row mt-5">
-          <div class="col-md-3 col-sm-6">
-              <a href="{% url 'posts:all' %}" class="btn btn-light">Back to Feed</a>
-          </div>
-      </div>
-      <div class="row justify-content-center mt-5">
-          <div class="col-md-5 col-sm-12">
+{% block title %}<title>Plume - Detail</title>{% endblock %}
 
-              {% include "posts/_post.html" %}
-              {% if request.user == post.user %}
-              <a href="{% url 'posts:edit' post.pk %}">Edit</a>
-              <a href="{% url 'posts:delete' post.pk %}">Delete</a>
-              {% endif %}
-              {% for comment in comments %}
-              <div class="row justify-content-center mt-3 mb-5 border-bottom">
-                <div class="col-md-5 col-sm-12">
-                  <p>
-                    <strong>{{ comment.user }}</strong> {{ comment.created_at }}
-                    {% if request.user == comment.user %}
-                    <a href="{% url 'posts:comment-delete' post.pk comment.pk %}">Delete comment</a>
-                    {% endif %}
-                  </p>
-                  <p>{{ comment.comment }}</p>
-                </div>
-              </div>
-              {% endfor %}
-          </div>
+{% block post_content %}
+<h1 class="title has-text-light">Post detail</h1>
+<a href="{% url 'posts:all' %}" class="has-text-warning">Return to Feed</a>
+<div class="row mt-5">
+    {% include "posts/_post.html" %}
+    {% if request.user == post.user %}
+    <a href="{% url 'posts:edit' post.pk %}">Edit</a>
+    <a href="{% url 'posts:delete' post.pk %}">Delete</a>
+    {% endif %}
+    {% for comment in comments %}
+    <div class="row justify-content-center mt-3 mb-5 border-bottom">
+      <div class="col-md-5 col-sm-12">
+        <p>
+          <strong>{{ comment.user }}</strong> {{ comment.created_at }}
+          {% if request.user == comment.user %}
+          <a href="{% url 'posts:comment-delete' post.pk comment.pk %}">Delete comment</a>
+          {% endif %}
+        </p>
+        <p>{{ comment.comment }}</p>
       </div>
-      <div class="row justify-content-center mt-3 mb-5">
-          <div class="col-md-5 col-sm-12">
-              <form method="POST">
-                  {% csrf_token %}
-                  {{ form | bulma }}
-                  <div class="d-grid gap-2">
-                      <button class="btn btn-success mt-3">Comment!</button>
-                  </div>
-              </form>
-          </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="row justify-content-center mt-3 mb-5">
+  <div class="col-md-5 col-sm-12">
+    <form method="POST">
+      {% csrf_token %}
+      {{ form | bulma }}
+      <div class="d-grid gap-2">
+        <button class="btn btn-success mt-3">Comment!</button>
       </div>
+    </form>
   </div>
+</div>
+</div>
 {% endblock %}

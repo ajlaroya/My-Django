@@ -1,12 +1,15 @@
 {% extends "posts/post_base.html" %}
-{% load humanize %}
+
 {% load bulma_tags %}
+
+{% block title %}<title>Plume - Feed</title>{% endblock %}
 
 {% block pre_post_content %}
 <div class="col-md-4">
+	<h1 class="title has-text-light">Post feed</h1>
 	{% if request.user.is_authenticated %}
-	<p class="title has-text-light">Welcome @{{ user }}</p>
-	<div class="card card-with-shadow">
+	<p class="subtitle has-text-light">Welcome @{{ user }}</p>
+	<!-- <div class="card card-with-shadow">
 		<div class="content">
 			<h5 class="title">Your Groups</h5>
 			<ul class="list-unstyled">
@@ -16,12 +19,11 @@
 					<a href="{% url 'groups:single' slug=member_group.group.slug %}">{{ member_group.group.name }}</a>
 				</li>
 				{% endfor %}
-
 			</ul>
 		</div>
-	</div>
+	</div> -->
 	{% endif %}
-	<div class="card card-with-shadow">
+	<!-- <div class="card card-with-shadow">
 		<div class="content">
 			<h5 class="title">All groups</h5>
 			<ul class="list-unstyled">
@@ -31,10 +33,10 @@
 				{% endfor %}
 			</ul>
 		</div>
-	</div>
+	</div> -->
 </div>
 
-<div class="col-md-5 col-sm-12">
+<div class="column">
     <form method="POST">
         {% csrf_token %}
         {{ form|bulma }}
