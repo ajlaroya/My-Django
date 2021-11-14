@@ -4,6 +4,7 @@ from django.conf import settings
 from groups.models import Group
 from django.utils import timezone
 from django.contrib.auth.models import User
+from accounts.models import UserProfile
 
 # Create your models here.
 class Post(models.Model):

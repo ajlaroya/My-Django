@@ -1,6 +1,5 @@
 {% load static %}
 {% load avatar_tags %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,11 +37,11 @@
 
 			<div class="field has-addons">
 				<div class="control">
-					<input class="input is-small" type="text" placeholder="Find user" name='query' value="{{ request.GET.query }}">
+					<input class="input is-small" type="text" name='query' value="{{ request.GET.query }}">
 				</div>
 				<div class="control">
 					<button class="button is-warning is-small" type="submit">
-						<span class="material-icons">search</span>
+						<span class="material-icons">person_search</span>
 					</button>
 				</div>
 			</div>
@@ -71,7 +70,7 @@
 						</a>
 						<a class="navbar-item has-text-white-ter" href="{% url 'accounts:profile' request.user.pk %}">👋 @{{ request.user }}</a>
 						<figure class="navbar-item image">
-							<a href="{% url 'avatar_change' %}">{% avatar request.user class="is-rounded is-128x128" id="user_avatar" %}</a>
+							<a href="{% url 'avatar_change' %}"><img src="{{ profile.picture.url }}" class="is-rounded"/><p></p></a>
 						</figure>
 
 						{% else %}

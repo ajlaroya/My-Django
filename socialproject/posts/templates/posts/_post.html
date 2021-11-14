@@ -6,6 +6,7 @@
   <figure class="media-left">
     <p class="image is-64x64">
       <a href="{% url 'accounts:profile' post.user.pk %}">{% avatar post.user.username class="is-rounded" id="user_avatar" %}</a>
+      <!-- <a href="{% url 'accounts:profile' post.user.pk %}"><img src="{{ profile.picture.url }}" alt="">{{ post.user }}</a> -->
     </p>
   </figure>
   <div class="media-content">

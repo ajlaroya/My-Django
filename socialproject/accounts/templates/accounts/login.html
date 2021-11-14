@@ -4,11 +4,12 @@
 
 {% block content %}
 <section class="section">
-  <div class="container">
-    <h1 class="title">Login</h1>
+  <div class="column is-one-quarter">
+    <h1 class="title has-text-light">Login</h1>
     <form method="POST">
       {% csrf_token %}
       {{ form|bulma }}
+      <br>
       <div class="field">
         <input class="button is-dark" type="submit" value="Log in">
       </div>

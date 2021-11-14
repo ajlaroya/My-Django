@@ -15,6 +15,9 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='uploads/profile_pictures/', default='uploads/profile_pictures/default.png', blank=True)
     followers = models.ManyToManyField(User, blank=True, related_name='followers')
 
+    def __str__(self):
+        return f"{self.user} profile"
+
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
@@ -23,3 +26,7 @@ class UserProfile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
+
+    @property
+    def get_image_url(self):
+        return self.image.url

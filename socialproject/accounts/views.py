@@ -18,6 +18,7 @@ class ProfileView(View):
     def get(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=pk)
         user = profile.user
+        picture = profile.picture
         posts = Post.objects.filter(user=user).order_by('-created_at')
         followers = profile.followers.all()
         is_following = False
@@ -38,6 +39,7 @@ class ProfileView(View):
             'is_following': is_following,
             'follower_count': follower_count,
             'followers': followers,
+            'picture':picture
         }
 
         return render(request, 'accounts/profile.html', context)
