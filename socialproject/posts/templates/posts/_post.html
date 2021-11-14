@@ -5,13 +5,13 @@
 <article class="media">
   <figure class="media-left">
     <p class="image is-64x64">
-      <a href="">{% avatar post.user.username class="is-rounded" id="user_avatar" %}</a>
+      <a href="{% url 'accounts:profile' post.user.pk %}">{% avatar post.user.username class="is-rounded" id="user_avatar" %}</a>
     </p>
   </figure>
   <div class="media-content">
     <div class="content">
       <p>
-        <strong><a class="has-text-warning" href="{% url 'posts:for_user' username=post.user.username%}">@{{post.user}}</a></strong>
+        <strong><a class="has-text-warning" href="{% url 'accounts:profile' post.user.pk %}">@{{post.user}}</a></strong>
         <small>
           <time class="time">
           <a class="has-text-warning" href="{% url 'posts:single' username=post.user.username pk=post.pk %}">{{post.created_at}}</a>

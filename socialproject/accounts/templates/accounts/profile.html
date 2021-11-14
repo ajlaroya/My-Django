@@ -8,39 +8,64 @@
 <div class="section">
 
   {% if profile.user %}
-    <h1 class="title has-text-light">{{ profile.user }} profile</h1>
-      <span>
-          {% if profile.user == user %}
-          <a href="{% url 'accounts:profile-edit' profile.pk %}">Edit Profile</a>
-          {% endif %}
-      </span>
+  <h1 class="title has-text-light">{{ profile.user }} profile</h1>
+
+  <!-- Followers -->
+  <div class="mb-3">
+    <p>Followers: {{ follower_count }}</p>
+    {% if user == request.user %}
+    {% else %}
+    {% if request.user.is_authenticated %}
+    {% if is_following %}
+    <p><em>You are following {{ user }}</em></p>
+    <form method="POST" action="{% url 'accounts:remove-follower' profile.pk %}">
+      {% csrf_token %}
+      <button class="button" type=submit>Unfollow</button>
+    </form>
+    {% else %}
+    <form method="POST" action="{% url 'accounts:add-follower' profile.pk %}">
+      {% csrf_token %}
+      <button class="button" type=submit>Follow</button>
+    </form>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+  </div>
+
+  <span>
+    {% if request.user.is_authenticated %}
+    {% if profile.user == user %}
+    <a href="{% url 'accounts:profile-edit' profile.pk %}">Edit profile</a>
+    {% endif %}
+    {% endif %}
+  </span>
   {% endif %}
-    <div class="row justify-content-center mt-5">
-        <div class="card col-md-8 col-sm-12 shadow-sm px-5 pt-3">
-            <figure class="image is-128x128">
-                  <img src="{{ profile.picture.url }}" class="is-rounded"/>
-            </figure>
-                {% if profile.user %}
-                <h2 class="py-4">{{ profile.user }}
-                {% endif %}
-            <div>
-                {% if profile.location %}
-                <p>location: {{ profile.location }}</p>
-                {% endif %}
-                {% if profile.bio %}
-                <p>bio: {{ profile.bio }}</p>
-                {% endif %}
-            </div>
+  <div class="row justify-content-center mt-5">
+    <div class="card col-md-8 col-sm-12 shadow-sm px-5 pt-3">
+      <figure class="image is-128x128">
+        <img src="{{ profile.picture.url }}" class="is-rounded"/>
+      </figure>
+      {% if profile.user %}
+      <h2 class="py-4">{{ profile.user }}
+        {% endif %}
+        <div>
+          {% if profile.location %}
+          <p>location: {{ profile.location }}</p>
+          {% endif %}
+          {% if profile.bio %}
+          <p>bio: {{ profile.bio }}</p>
+          {% endif %}
         </div>
+      </div>
     </div>
+
+    <span class="is-size-4">Post history</span>
     {% for post in posts %}
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-8 col-sm-12 border-bottom position-relative">
-            <p><strong>{{ post.user }}</strong> {{ post.created_at }}</p>
-            <p>{{ post.message }}</p>
-            <a class="stretched-link" href="{% url 'posts:single' username=post.user.username pk=post.pk %}"></a>
-        </div>
+    <div class="row mt-5">
+      <p><strong><a href="{% url 'accounts:profile' post.user.pk %}">@{{ post.user }}</a></strong> {{ post.created_at }}</p>
+      <p>{{ post.message }}</p>
+      <a class="stretched-link" href="{% url 'posts:single' username=post.user.username pk=post.pk %}"></a>
     </div>
     {% endfor %}
-</div>
-{% endblock %}
+  </div>
+  {% endblock %}
