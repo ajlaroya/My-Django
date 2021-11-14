@@ -28,13 +28,13 @@ main {
 }
 
 .input {
-  background-color: #18191C;
-  color: white;
+  background-color: white;
+  color: #18191C;
 }
 
 .textarea {
-  background-color: #18191C;
-  color: white;
+  background-color: white;
+  color: #18191C;
 }
 
 #id_group {

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load bulma_tags %}
+
+{% block title %}<title>Plume - Search results for "{{ query }}"</title>{% endblock %}
+
+{% block content %}
+<div class="section">
+  <h1 class="title has-text-light">Search results for "{{ query }}"</h1>
+  {% for profile in profile_list %}
+  <div class="row mt-3">
+    <div class="col-md-5 col-sm-12 border-bottom position-relative">
+      <div class="position-relative">
+        <p><a style="text-decoration: none;" class="text-primary" href="{% url 'accounts:profile' profile.pk %}">{{ profile.user }}</a></p>
+        {% if profile.location %}
+        <p>{{ profile.location }}</p>
+        {% endif %}
+        <p>Followers: {{ profile.followers.all.count }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

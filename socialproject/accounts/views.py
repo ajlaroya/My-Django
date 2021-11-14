@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
+from django.db.models import Q
 from posts.models import Post
 from .models import User,UserProfile
 from . import forms
@@ -63,3 +64,15 @@ class RemoveFollower(LoginRequiredMixin, View):
         my_user = User.objects.get(pk=pk)
         profile.followers.remove(my_user)
         return redirect('accounts:profile', pk=profile.pk)
+
+class UserSearch(View):
+    def get(self, request, *args, **kwargs):
+        query = self.request.GET.get('query')
+        profile_list = UserProfile.objects.filter(
+            Q(user__username__icontains=query)
+        )
+        context = {
+            'profile_list': profile_list,
+            'query': query,
+        }
+        return render(request, 'accounts/search.html', context)
