@@ -9,15 +9,15 @@
 <a href="{% url 'posts:all' %}" class="has-text-warning">Return to Feed</a>
 <div class="row mt-5">
   {% include "posts/_post.html" %}
-  {% if request.user == post.user %}
+  {% if request.user == post.author %}
   <a href="{% url 'posts:edit' post.pk %}">Edit</a>
   <a href="{% url 'posts:delete' post.pk %}">Delete</a>
   {% endif %}
   {% for comment in comments %}
   <div class="row mt-3 mb-5">
     <p>
-      <strong>{{ comment.user }}</strong> {{ comment.created_at }}
-      {% if request.user == comment.user %}
+      <strong>{{ comment.author }}</strong> {{ comment.created_at }}
+      {% if request.user == comment.author %}
       <a href="{% url 'posts:comment-delete' post.pk comment.pk %}">Delete comment</a>
       {% endif %}
     </p>

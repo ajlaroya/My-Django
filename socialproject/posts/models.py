@@ -8,7 +8,7 @@ from accounts.models import UserProfile
 
 # Create your models here.
 class Post(models.Model):
-    user = models.ForeignKey(User,related_name='posts',on_delete=models.CASCADE, null=True)
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
     message = models.TextField()
     group = models.ForeignKey(Group,related_name='posts',null=True,blank=True,on_delete=models.CASCADE)
@@ -33,12 +33,12 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-created_at']
-        unique_together = ['user','message']
+        unique_together = ['author','message']
 
 class Comment(models.Model):
     comment = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, blank=True, related_name='comment_likes')
     parent = models.ForeignKey('Comment', on_delete=models.CASCADE, blank=True, null=True, related_name='+')

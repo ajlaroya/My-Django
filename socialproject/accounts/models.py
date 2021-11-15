@@ -1,12 +1,8 @@
 from django.db import models
-from django.contrib import auth
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
-# Create your models here.
-class User(auth.models.User,auth.models.PermissionsMixin):
-    def __str__(self):
-        return "@{}".format(self.username)
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, primary_key=True, verbose_name='user', related_name='profile', on_delete=models.CASCADE)
@@ -18,15 +14,10 @@ class UserProfile(models.Model):
     def __str__(self):
         return f"{self.user} profile"
 
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            UserProfile.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
+# Creates user profile on signup
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    try:
         instance.profile.save()
-
-    @property
-    def get_image_url(self):
-        return self.image.url
+    except ObjectDoesNotExist:
+        UserProfile.objects.create(user=instance)

@@ -14,10 +14,15 @@ from . import models
 from .forms import PostForm, CommentForm
 
 # Create your views here.
-class PostList(SelectRelatedMixin,generic.View):
+class PostList(LoginRequiredMixin,generic.View):
     def get(self, request, *args, **kwargs):
+        logged_in_user = request.user
+        # posts = models.Post.objects.filter(
+        #     author__profile__followers__in=[logged_in_user.id]
+        #     ).order_by('-created_at')
         posts = models.Post.objects.all().order_by('-created_at')
         form = PostForm()
+
         context = {
             'post_list': posts,
             'form': form,
@@ -26,12 +31,14 @@ class PostList(SelectRelatedMixin,generic.View):
         return render(request, 'posts/post_list.html', context)
 
     def post(self, request, *args, **kwargs):
-        posts = models.Post.objects.all()
+        posts = models.Post.objects.all().order_by('-created_at')
         form = PostForm(request.POST)
+
         if form.is_valid():
             new_post = form.save(commit=False)
-            new_post.user = request.user
+            new_post.author = request.user
             new_post.save()
+
         context = {
             'post_list': posts,
             'form': form,
@@ -83,7 +90,7 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
 
         if form.is_valid():
             new_comment = form.save(commit=False)
-            new_comment.user = request.user
+            new_comment.author = request.user
             new_comment.post = post
             new_comment.save()
 
@@ -108,12 +115,12 @@ class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
 
 class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
     model = models.Post
-    select_related = ('user','group')
+    select_related = ('author','group')
     success_url = reverse_lazy('posts:all')
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(user_id = self.request.user.id)
+        return queryset.filter(author_id = self.request.user.id)
 
     def delete(self,*args,**kwargs):
         messages.success(self.request,'Post Deleted')

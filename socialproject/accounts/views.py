@@ -2,35 +2,30 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.db.models import Q
 from posts.models import Post
-from .models import User,UserProfile
-from . import forms
-
-# Create your views here.
-class SignUp(CreateView):
-    form_class = forms.UserCreateForm
-    success_url = reverse_lazy('login')
-    template_name = 'accounts/signup.html'
+from .models import UserProfile
 
 class ProfileView(View):
     def get(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=pk)
         user = profile.user
-        picture = profile.picture
-        posts = Post.objects.filter(user=user).order_by('-created_at')
+        posts = Post.objects.filter(author=user).order_by('-created_at')
         followers = profile.followers.all()
-        is_following = False
+        follower_count = len(followers)
+
+        if follower_count == 0:
+            is_following = False
 
         for follower in followers:
-            if follower == user:
+            if follower == request.user:
                 is_following = True
                 break
             else:
                 is_following = False
 
-        follower_count = len(followers)
 
         context = {
             'user': user,
@@ -38,8 +33,6 @@ class ProfileView(View):
             'posts': posts,
             'is_following': is_following,
             'follower_count': follower_count,
-            'followers': followers,
-            'picture':picture
         }
 
         return render(request, 'accounts/profile.html', context)
@@ -56,15 +49,15 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 class AddFollower(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=pk)
-        my_user = User.objects.get(pk=pk)
-        profile.followers.add(my_user)
+        profile.followers.add(request.user)
+
         return redirect('accounts:profile', pk=profile.pk)
 
 class RemoveFollower(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=pk)
-        my_user = User.objects.get(pk=pk)
-        profile.followers.remove(my_user)
+        profile.followers.remove(request.user)
+
         return redirect('accounts:profile', pk=profile.pk)
 
 class UserSearch(View):

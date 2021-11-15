@@ -9,7 +9,7 @@
 
 <form method="post">
   {% csrf_token %}
-  <a href="{% url 'posts:single' username=user.username pk=object.pk %}">
+  <a href="{% url 'posts:single' username=post.author pk=post.pk%}">
   <input type="submit" class="button" value="Confirm Delete"></a>
 </form>
 

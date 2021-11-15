@@ -65,12 +65,12 @@
 						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'groups:create' %}" data-tooltip="New group">
 							<span class="material-icons">group_add</span>
 						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'accounts:logout' %}" data-tooltip="Log out">
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'account_logout' %}" data-tooltip="Log out">
 							<span class="material-icons">logout</span>
 						</a>
 						<a class="navbar-item has-text-white-ter" href="{% url 'accounts:profile' request.user.pk %}">👋 @{{ request.user }}</a>
 						<figure class="navbar-item image">
-							<a href="{% url 'avatar_change' %}"><img src="{{ profile.picture.url }}" class="is-rounded"/><p></p></a>
+							<a href="{% url 'avatar_change' %}"><img src="{{ request.user.profile.picture.url }}" class="is-rounded"/><p></p></a>
 						</figure>
 
 						{% else %}
@@ -80,10 +80,10 @@
 						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'groups:all' %}" data-tooltip="Groups">
 							<span class="material-icons">groups</span>
 						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'accounts:signup' %}" data-tooltip="Sign up!">
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'account_signup' %}" data-tooltip="Sign up!">
 							<span class="material-icons">person_add</span>
 						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'accounts:login' %}" data-tooltip="Log in">
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'account_login' %}" data-tooltip="Log in">
 							<span class="material-icons">login</span>
 						</a>
 						{% endif %}
@@ -109,8 +109,8 @@
 					<div class="footer-group">
 						<h4>Plume 🦚</h4>
 						<ul>
-							<li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
-							<li><a href="{% url 'accounts:login' %}">Login</a></li>
+							<li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+							<li><a href="{% url 'account_login' %}">Login</a></li>
 							<li><a href="{% url 'posts:all' %}">Posts</a></li>
 							<li><a href="{% url 'groups:all' %}">Groups</a></li>
 						</ul>

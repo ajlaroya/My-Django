@@ -5,21 +5,20 @@
 <article class="media">
   <figure class="media-left">
     <p class="image is-64x64">
-      <a href="{% url 'accounts:profile' post.user.pk %}">{% avatar post.user.username class="is-rounded" id="user_avatar" %}</a>
-      <!-- <a href="{% url 'accounts:profile' post.user.pk %}"><img src="{{ profile.picture.url }}" alt="">{{ post.user }}</a> -->
+      <a href="{% url 'accounts:profile' post.author.profile.pk %}"><img src="{{ post.author.profile.picture.url }}" alt="{{ post.author.profile.pk }}"></a>
     </p>
   </figure>
   <div class="media-content">
     <div class="content">
       <p>
-        <strong><a class="has-text-warning" href="{% url 'accounts:profile' post.user.pk %}">@{{post.user}}</a></strong>
+        <strong><a class="has-text-warning" href="{% url 'accounts:profile' post.author.profile.pk %}">@{{post.author}}</a></strong>
         <small>
           <time class="time">
-          <a class="has-text-warning" href="{% url 'posts:single' username=post.user.username pk=post.pk %}">{{post.created_at}}</a>
+          <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">{{post.created_at}}</a>
           </time>
         </small>
         <br>
-        {{post.message}}
+        {{ post.message }}
       </p>
     </div>
     <nav class="level is-mobile">
@@ -49,7 +48,7 @@
     </nav>
   </div>
   <div class="media-right">
-    {% if user.is_authenticated and post.user == user %}
+    {% if user.is_authenticated and post.author == request.user %}
     <a href="{% url 'posts:delete' pk=post.pk %}" title='delete' class="delete"></a>
     {% endif %}
   </div>
