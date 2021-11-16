@@ -1,5 +1,4 @@
 {% load static %}
-{% load avatar_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,7 +69,7 @@
 						</a>
 						<a class="navbar-item has-text-white-ter" href="{% url 'accounts:profile' request.user.pk %}">👋 @{{ request.user }}</a>
 						<figure class="navbar-item image">
-							<a href="{% url 'avatar_change' %}"><img src="{{ request.user.profile.picture.url }}" class="is-rounded"/><p></p></a>
+							<a href="{% url 'accounts:profile' request.user.pk %}"><img src="{{ request.user.profile.picture.url }}" class="is-rounded"/><p></p></a>
 						</figure>
 
 						{% else %}

@@ -9,7 +9,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('posts', '0010_auto_20211115_2041'),
-        ('avatar', '0004_alter_avatar_id'),
         ('admin', '0003_logentry_add_action_flag_choices'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('account', '0003_auto_20211115_2123'),

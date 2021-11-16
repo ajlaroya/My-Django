@@ -109,7 +109,7 @@ class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
 
     def form_valid(self,form):
         self.object = form.save(commit=False)
-        self.object.user = self.request.user
+        self.object.author = self.request.user
         self.object.save()
         return super().form_valid(form)
 
@@ -128,7 +128,7 @@ class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
 
 class EditPost(LoginRequiredMixin,SelectRelatedMixin,generic.UpdateView):
     model = models.Post
-    select_related = ('user',)
+    select_related = ('author',)
     fields = ['message']
     template_name = 'posts/post_edit.html'
 

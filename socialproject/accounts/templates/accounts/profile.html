@@ -34,7 +34,7 @@
 
   <span>
     {% if request.user.is_authenticated %}
-    {% if profile.user == user %}
+    {% if profile.user == request.user %}
     <a href="{% url 'accounts:profile-edit' profile.pk %}">Edit profile</a>
     {% endif %}
     {% endif %}
@@ -46,7 +46,7 @@
         <img src="{{ profile.picture.url }}" class="is-rounded"/>
       </figure>
       {% if profile.user %}
-      <h2 class="py-4">{{ profile.user }}
+      <h2 class="py-4">@{{ profile.user }}
         {% endif %}
         <div>
           {% if profile.location %}

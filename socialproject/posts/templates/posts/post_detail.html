@@ -5,33 +5,46 @@
 {% block title %}<title>Plume - Detail</title>{% endblock %}
 
 {% block post_content %}
-<h1 class="title has-text-light">Post detail</h1>
-<a href="{% url 'posts:all' %}" class="has-text-warning">Return to Feed</a>
-<div class="row mt-5">
-  {% include "posts/_post.html" %}
+<h1 class="title has-text-light">Post detail
   {% if request.user == post.author %}
-  <a href="{% url 'posts:edit' post.pk %}">Edit</a>
-  <a href="{% url 'posts:delete' post.pk %}">Delete</a>
+  <a href="{% url 'posts:edit' post.pk %}"><span class="material-icons">edit</span></a>
+  <a href="{% url 'posts:delete' post.pk %}"><span class="material-icons">delete</span></a>
   {% endif %}
-  {% for comment in comments %}
-  <div class="row mt-3 mb-5">
-    <p>
-      <strong>{{ comment.author }}</strong> {{ comment.created_at }}
-      {% if request.user == comment.author %}
-      <a href="{% url 'posts:comment-delete' post.pk comment.pk %}">Delete comment</a>
-      {% endif %}
-    </p>
-    <p>{{ comment.comment }}</p>
+</h1>
+
+<a href="{% url 'posts:all' %}" class="has-text-warning">Return to Feed</a>
+<div class="row mt-3 column is-three-quarters">
+  {% include "posts/_post.html" %}
+  <div class="pl-5">
+    {% for comment in comments %}
+    <article class="media">
+      <figure class="media-left">
+        <a href="{% url 'accounts:profile' comment.author.profile.pk %}">
+          <img class="image" height="40" width="40" src="{{ comment.author.profile.picture.url }}" />
+        </a>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <span class="post-text">
+            <a class="text-primary post-link" href="{% url 'accounts:profile' comment.author.profile.pk %}">@{{ comment.author }}</a> {{ comment.created_on }}
+          </span>
+          <p>{{ comment.comment }}</p>
+        </div>
+      </div>
+      <div class="media-right">
+        {% if request.user == comment.author %}
+        <a href="{% url 'posts:comment-delete' post.pk comment.pk %}">Delete comment</a>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+
+    <form class="mt-5" method="POST">
+      {% csrf_token %}
+      {{ form | bulma }}
+      <button class="button is-small mt-3">Comment</button>
+    </form>
+
   </div>
-  {% endfor %}
-</div>
-<div class="row mt-3 mb-5">
-  <form method="POST">
-    {% csrf_token %}
-    {{ form | bulma }}
-    <div class="d-grid gap-2">
-      <button class="btn btn-success mt-3">Comment!</button>
-    </div>
-  </form>
 </div>
 {% endblock %}
