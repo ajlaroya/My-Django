@@ -12,7 +12,7 @@
 
   <!-- Followers -->
   <div class="mb-3">
-    <p>Followers: {{ follower_count }} {{is_following}}</p>
+    <p><a href="{% url 'accounts:followers-list' profile.pk%}" class="has-text-warning">Followers: {{ follower_count }}</a></p>
     {% if user == request.user %}
     {% else %}
     {% if request.user.is_authenticated %}
@@ -35,18 +35,18 @@
   <span>
     {% if request.user.is_authenticated %}
     {% if profile.user == request.user %}
-    <a href="{% url 'accounts:profile-edit' profile.pk %}">Edit profile</a>
+    <a href="{% url 'accounts:profile-edit' profile.pk %}" class="has-text-warning">Edit profile</a>
     {% endif %}
     {% endif %}
   </span>
   {% endif %}
   <div class="row justify-content-center mt-5">
-    <div class="card col-md-8 col-sm-12 shadow-sm px-5 pt-3">
+    <div class="card p-5 column is-one-fifth">
       <figure class="image is-128x128">
         <img src="{{ profile.picture.url }}" class="is-rounded"/>
       </figure>
       {% if profile.user %}
-      <h2 class="py-4">@{{ profile.user }}
+      <h2 class="is-size-5 py-4 has-text-warning">@{{ profile.user }}</h2>
         {% endif %}
         <div>
           {% if profile.location %}
@@ -62,7 +62,7 @@
     <span class="is-size-4">Post history</span>
     {% for post in posts %}
     <div class="row mt-5">
-      <p><strong><a href="{% url 'accounts:profile' post.author.profile.pk %}">@{{ post.author }}</a></strong> {{ post.created_at }}</p>
+      <p><strong><a href="{% url 'accounts:profile' post.author.profile.pk %}" class="has-text-warning">@{{ post.author }}</a></strong> {{ post.created_at }}</p>
       <p>{{ post.message }}</p>
       <a class="stretched-link" href="{% url 'posts:single' username=post.author pk=post.pk %}"></a>
     </div>

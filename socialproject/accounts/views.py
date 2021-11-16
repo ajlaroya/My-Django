@@ -71,3 +71,13 @@ class UserSearch(View):
             'query': query,
         }
         return render(request, 'accounts/search.html', context)
+
+class ListFollowers(View):
+    def get(self, request, pk, *args, **kwargs):
+        profile = UserProfile.objects.get(pk=pk)
+        followers = profile.followers.all()
+        context = {
+            'profile': profile,
+            'followers': followers,
+        }
+        return render(request, 'accounts/followers_list.html', context)

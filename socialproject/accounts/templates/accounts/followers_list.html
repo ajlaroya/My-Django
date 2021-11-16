@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section">
+
+  <div class="row">
+    {% if profile.name %}
+    <h3 class="title has-text-light">{{ profile.name }} followers</h3>
+    {% else %}
+    <h3 class="title has-text-light">@{{ profile.user.username }} followers</h3>
+    {% endif %}
+  </div>
+  <div class="row mt-5">
+    <a href="{% url 'accounts:profile' profile.pk %}" class="has-text-warning">Back to Profile</a>
+  </div>
+  {% for follower in followers %}
+  <div class="row my-3">
+    <a href="{% url 'accounts:profile' follower.profile.pk %}"><img class="rounded-circle post-img" height="60" width="60" src="{{ follower.profile.picture.url }}" /></a>
+    <a href="{% url 'accounts:profile' follower.profile.pk %}" class="has-text-warning"><h5 class="mt-3">@{{ follower.username }}</h5></a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}
