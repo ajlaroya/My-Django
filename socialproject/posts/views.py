@@ -153,7 +153,6 @@ class AddLike(LoginRequiredMixin, generic.View):
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)
 
-# By LegionScript
 class CommentReplyView(LoginRequiredMixin, generic.View):
     def post(self, request, post_pk, pk, *args, **kwargs):
         post = Post.objects.get(pk=post_pk)
@@ -176,3 +175,19 @@ class CommentDeleteView(LoginRequiredMixin,generic.DeleteView):
     def get_success_url(self):
         pk = self.kwargs['post_pk']
         return reverse_lazy('posts:single', kwargs={'pk': pk, 'username':self.request.user})
+
+class AddCommentLike(LoginRequiredMixin, generic.View):
+    def post(self, request, post_pk, pk, *args, **kwargs):
+        comment = models.Comment.objects.get(pk=pk)
+        is_like = False
+        for like in comment.likes.all():
+            if like == request.user:
+                is_like = True
+                break
+        if not is_like:
+            comment.likes.add(request.user)
+
+        if is_like:
+            comment.likes.remove(request.user)
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next)

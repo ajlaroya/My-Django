@@ -15,6 +15,7 @@ urlpatterns = [
     path('like/<int:pk>/', views.AddLike.as_view(), name='like'),
     path('<int:post_pk>/comment/reply/<int:pk>/', views.CommentReplyView.as_view(), name='comment-reply'),
     path('<int:post_pk>/comment/delete/<int:pk>/', views.CommentDeleteView.as_view(), name='comment-delete'),
+    path('<int:post_pk>/comment/like/<int:pk>/', views.AddCommentLike.as_view(), name='comment-like'),
 ]
 
 if settings.DEBUG:
