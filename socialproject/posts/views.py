@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy
@@ -155,8 +155,8 @@ class AddLike(LoginRequiredMixin, generic.View):
 
 class CommentReplyView(LoginRequiredMixin, generic.View):
     def post(self, request, post_pk, pk, *args, **kwargs):
-        post = Post.objects.get(pk=post_pk)
-        parent_comment = Comment.objects.get(pk=pk)
+        post = models.Post.objects.get(pk=post_pk)
+        parent_comment = models.Comment.objects.get(pk=pk)
         form = CommentForm(request.POST)
 
         if form.is_valid():
@@ -166,7 +166,7 @@ class CommentReplyView(LoginRequiredMixin, generic.View):
             new_comment.parent = parent_comment
             new_comment.save()
 
-        return redirect('posts:single', pk=post_pk)
+        return redirect('posts:single', username=post.author, pk=post_pk)
 
 class CommentDeleteView(LoginRequiredMixin,generic.DeleteView):
     model = models.Comment

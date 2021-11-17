@@ -23,7 +23,7 @@ class Post(models.Model):
     def is_parent(self):
         if self.parent is None:
             return True
-            return False
+        return False
 
     def __str__(self):
         return self.message
@@ -45,7 +45,7 @@ class Comment(models.Model):
 
     @property
     def children(self):
-        return Comment.objects.filter(parent=self).order_by('-created_on').all()
+        return Comment.objects.filter(parent=self).order_by('-timestamp').all()
 
     @property
     def is_parent(self):
