@@ -8,7 +8,9 @@ class PostForm(forms.ModelForm):
             attrs={'rows': '3',
                    'placeholder': 'Say Something...'}
         ))
-    image = forms.ImageField(required=False)
+    image = forms.ImageField(
+        label='',
+        required=False)
 
     class Meta:
         model = Post
