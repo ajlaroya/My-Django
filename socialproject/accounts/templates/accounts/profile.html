@@ -63,6 +63,9 @@
     {% for post in posts %}
     <div class="row mt-5">
       <p><strong><a href="{% url 'accounts:profile' post.author.profile.pk %}" class="has-text-warning">@{{ post.author }}</a></strong> {{ post.created_at }}</p>
+      {% if post.image %}
+      <img src="{{ post.image.url }}" class="image post-image"/>
+      {% endif %}
       <p>{{ post.message }}</p>
       <a class="stretched-link" href="{% url 'posts:single' username=post.author pk=post.pk %}"></a>
     </div>

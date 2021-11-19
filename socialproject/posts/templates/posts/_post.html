@@ -15,6 +15,11 @@
           </time>
         </small>
         <br>
+
+        {% if post.image %}
+        <img src="{{ post.image.url }}" class="post-image"/>
+        <br>
+        {% endif %}    
         {{ post.message }}
       </p>
     </div>

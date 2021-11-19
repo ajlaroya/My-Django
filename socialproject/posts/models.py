@@ -13,6 +13,7 @@ class Post(models.Model):
     message = models.TextField()
     group = models.ForeignKey(Group,related_name='posts',null=True,blank=True,on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, blank=True, related_name='likes')
+    image = models.ImageField(upload_to='uploads/post_photos/', blank=True, null=True)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True, related_name='+')
 
     @property

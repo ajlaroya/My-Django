@@ -33,7 +33,7 @@ class PostList(LoginRequiredMixin,generic.View):
 
     def post(self, request, *args, **kwargs):
         posts = models.Post.objects.all().order_by('-created_at')
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
 
         if form.is_valid():
             new_post = form.save(commit=False)
@@ -87,7 +87,7 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
 
     def post(self, request, pk, *args, **kwargs):
         post = models.Post.objects.get(pk=pk)
-        form = CommentForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
 
         if form.is_valid():
             new_comment = form.save(commit=False)
@@ -107,7 +107,7 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
         return render(request, 'posts/post_detail.html', context)
 
 class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
-    fields = ('message','group')
+    fields = ('message','group','image')
     model = models.Post
 
     def form_valid(self,form):
