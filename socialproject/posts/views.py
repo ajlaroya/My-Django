@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from braces.views import SelectRelatedMixin
 
 from . import models
+from accounts.models import Notification
 from .forms import PostForm, CommentForm
 
 # Create your views here.
@@ -96,6 +97,8 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
 
         comments = models.Comment.objects.filter(post=post).order_by('-timestamp')
 
+        notification = Notification.objects.create(notification_type=3, from_user=request.user, to_user=profile.user)
+
         context = {
             'post': post,
             'form': form,
@@ -146,6 +149,8 @@ class AddLike(LoginRequiredMixin, generic.View):
                 break
         if not is_like:
             post.likes.add(request.user)
+            notification = Notification.objects.create(notification_type=1, from_user=request.user, to_user=post.author, post=post)
+
 
         if is_like:
             post.likes.remove(request.user)
@@ -158,6 +163,7 @@ class CommentReplyView(LoginRequiredMixin, generic.View):
         post = models.Post.objects.get(pk=post_pk)
         parent_comment = models.Comment.objects.get(pk=pk)
         form = CommentForm(request.POST)
+        notification = Notification.objects.create(notification_type=3, from_user=request.user, to_user=profile.user)
 
         if form.is_valid():
             new_comment = form.save(commit=False)
@@ -186,6 +192,8 @@ class AddCommentLike(LoginRequiredMixin, generic.View):
                 break
         if not is_like:
             comment.likes.add(request.user)
+            notification = Notification.objects.create(notification_type=1, from_user=request.user, to_user=comment.author, comment=comment)
+
 
         if is_like:
             comment.likes.remove(request.user)

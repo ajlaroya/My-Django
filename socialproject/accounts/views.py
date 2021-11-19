@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.db.models import Q
 from posts.models import Post
-from .models import UserProfile
+from .models import UserProfile, Notification
 
 class ProfileView(View):
     def get(self, request, pk, *args, **kwargs):
@@ -50,6 +50,7 @@ class AddFollower(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=pk)
         profile.followers.add(request.user)
+        notification = Notification.objects.create(notification_type=3, from_user=request.user, to_user=profile.user)
 
         return redirect('accounts:profile', pk=profile.pk)
 
@@ -81,3 +82,26 @@ class ListFollowers(View):
             'followers': followers,
         }
         return render(request, 'accounts/followers_list.html', context)
+
+class PostNotification(View):
+    def get(self, request, notification_pk, object_pk, *args, **kwargs):
+        notification = Notification.objects.get(pk=notification_pk)
+        post = Post.objects.get(pk=object_pk)
+        notification.user_has_seen = True
+        notification.save()
+        return redirect('posts:single', pk=object_pk, username=post.author)
+
+class FollowNotification(View):
+    def get(self, request, notification_pk, object_pk, *args, **kwargs):
+        notification = Notification.objects.get(pk=notification_pk)
+        profile = UserProfile.objects.get(pk=object_pk)
+        notification.user_has_seen = True
+        notification.save()
+        return redirect('accounts:profile', pk=object_pk)
+
+class RemoveNotification(View):
+    def delete(self, request, notification_pk, *args, **kwargs):
+        notification = Notification.objects.get(pk=notification_pk)
+        notification.user_has_seen = True
+        notification.save()
+        return HttpResponse('Success', content_type='text/plain')

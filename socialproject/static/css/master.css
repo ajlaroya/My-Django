@@ -71,6 +71,15 @@ svg {
   vertical-align: middle;
 }
 
+.dropdown-content {
+  background-color: #18191C;
+  border: 1px solid #555;
+}
+
+.dropdown-item{
+  border-bottom: 1px solid #555;
+}
+
 /* Footer CSS */
 
 .footer {
