@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.http import HttpResponse
@@ -111,6 +112,16 @@ class FollowNotification(View):
         notification.save()
         return redirect('accounts:profile', pk=object_pk)
 
+class ThreadNotification(View):
+    def get(self, request, notification_pk, object_pk, *args, **kwargs):
+        notification = Notification.objects.get(pk=notification_pk)
+        thread = ThreadModel.objects.get(pk=object_pk)
+
+        notification.user_has_seen = True
+        notification.save()
+
+        return redirect('accounts:thread', pk=object_pk)
+
 class RemoveNotification(View):
     ''' View for removing notifications '''
     def delete(self, request, notification_pk, *args, **kwargs):
@@ -140,17 +151,20 @@ class CreateThread(View):
             receiver = User.objects.get(username=username)
             if ThreadModel.objects.filter(user=request.user, receiver=receiver).exists():
                 thread = ThreadModel.objects.filter(user=request.user, receiver=receiver)[0]
-                return redirect('thread', pk=thread.pk)
+                return redirect('accounts:thread', pk=thread.pk)
+            elif ThreadModel.objects.filter(user=receiver, receiver=request.user).exists():
+                thread = ThreadModel.objects.filter(user=receiver, receiver=request.user)[0]
+                return redirect('accounts:thread', pk=thread.pk)
 
             if form.is_valid():
-                sender_thread = ThreadModel(
+                thread = ThreadModel(
                     user=request.user,
                     receiver=receiver
                 )
-                sender_thread.save()
-                thread_pk = sender_thread.pk
-                return redirect('thread', pk=thread_pk)
+                thread.save()
+                return redirect('accounts:thread', pk=thread.pk)
         except:
+            messages.error(request, 'Sorry! cannot find user 😓')
             return redirect('accounts:create-thread')
 
 class ListThreads(View):

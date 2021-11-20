@@ -2,8 +2,8 @@
 <div class="dropdown is-hoverable" id="notification-container">
   <div class="dropdown-trigger">
     <div aria-haspopup="true" aria-controls="dropdown-menu">
-      <span class="material-icons">notifications_active</span>
-      <span onclick="showNotifications()"> {{ notifications.count }}</span>
+      <i class="material-icons">notifications_active</i>
+      <span onclick="showNotifications()">&nbsp{{ notifications.count }}</span>
     </div>
   </div>
   <div class="dropdown-menu" id="dropdown-menu" role="menu">
@@ -13,31 +13,36 @@
           {% if notification.notification_type == 1 %}
           <div class="dropdown-item">
               <a class="has-text-light" href="{% url 'accounts:post-notification' notification.pk notification.post.pk %}">@{{ notification.from_user }} liked your post</a>
-              <a class="is-size-5" onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}`, `{{ request.path }}`)">&times;</a>
+              <a class="is-size-5" onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}`, `{{ request.path }}`)"><button class="delete is-small"></button</a>
           </div>
           {% elif notification.notification_type == 2 %}
           <div class="dropdown-item">
               <a class="has-text-light" href="{% url 'accounts:post-notification' notification.pk notification.post.pk %}">@{{ notification.from_user }} commented on your post</a>
-              <a class="is-size-5" onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}', '{{ request.path }}')">&times;</a>
+              <a class="is-size-5" onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}', '{{ request.path }}')"><button class="delete is-small"></button</a>
           </div>
           {% endif %}
       {% elif notification.comment %}
           {% if notification.notification_type == 1 %}
           <div class="dropdown-item">
               <a class="has-text-light" href="{% url 'accounts:post-notification' notification.pk notification.comment.post.pk %}">@{{ notification.from_user }} liked your comment</a>
-              <a class="is-size-5" onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}`, `{{ request.path }}`)">&times;</a>
+              <a class="is-size-5" onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}`, `{{ request.path }}`)"><button class="delete is-small"></button</a>
           </div>
           {% endif %}
           {% if notification.notification_type == 2 %}
           <div class="dropdown-item">
               <a class="has-text-light" href="{% url 'accounts:post-notification' notification.pk notification.comment.post.pk %}">@{{ notification.from_user }} replied to your comment</a>
-              <a class="is-size-5" onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}`, `{{ request.path }}`)">&times;</a>
+              <a class="is-size-5" onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}`, `{{ request.path }}`)"><button class="delete is-small"></button</a>
           </div>
           {% endif %}
-      {% else %}
+        {% elif notification.thread %}
+  				<div class="dropdown-item">
+  					<a href="{% url 'accounts:thread-notification' notification.pk notification.thread.pk %}">@{{ notification.from_user }} sent you a message</a>
+  					<span class="dropdown-item-close" onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}`, `{{ request.path }}`)"><button class="delete is-small"></button</span>
+  				</div>
+  			{% else %}
       <div class="dropdown-item">
           <a class="has-text-light" href="{% url 'accounts:follow-notification' notification.pk notification.from_user.profile.pk %}">@{{ notification.from_user }} has started following you</a>
-          <a class="is-size-5" onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}`, `{{ request.path }}`)">&times;</a>
+          <a class="is-size-5" onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}`, `{{ request.path }}`)"><button class="delete is-small"></button</a>
       </div>
       {% endif %}
       {% endfor %}

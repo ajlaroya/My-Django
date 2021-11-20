@@ -9,7 +9,7 @@ class PostForm(forms.ModelForm):
                    'placeholder': 'Say Something...'}
         ))
     image = forms.ImageField(
-        label='',
+        label='Send an Image',
         required=False)
 
     class Meta:

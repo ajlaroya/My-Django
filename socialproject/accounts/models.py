@@ -28,7 +28,8 @@ def create_user_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
 
 class Notification(models.Model):
-    ''' Model for notifications, 1 = Like, 2 = Comment, 3 = Follow '''
+    ''' Model for notifications, notification types:
+    1 = Like, 2 = Comment, 3 = Follow, 4 = DMs '''
     notification_type = models.IntegerField(null=True, blank=True)
     to_user = models.ForeignKey(User, related_name='notification_to',
         on_delete=models.CASCADE, null=True)
@@ -37,6 +38,8 @@ class Notification(models.Model):
     post = models.ForeignKey('posts.Post', on_delete=models.CASCADE,
         related_name='+', blank=True, null=True)
     comment = models.ForeignKey('posts.Comment', on_delete=models.CASCADE,
+        related_name='+', blank=True, null=True)
+    thread = models.ForeignKey('ThreadModel', on_delete=models.CASCADE,
         related_name='+', blank=True, null=True)
     date = models.DateTimeField(default=timezone.now)
     user_has_seen = models.BooleanField(default=False)
@@ -58,3 +61,6 @@ class MessageModel(models.Model):
     image = models.ImageField(upload_to='', blank=True, null=True)
     date = models.DateTimeField(default=timezone.now)
     is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.body

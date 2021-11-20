@@ -91,6 +91,12 @@ svg {
   margin-bottom: 10px;
 }
 
+.message-image {
+  border-radius: 10px;
+	max-width: 35%;
+	height: auto;
+}
+
 .inbox-icon {
   color: #333;
   transition: 0.5s;
@@ -113,4 +119,10 @@ svg {
   width: 100%;
   max-width: 300px;
   overflow: hidden;
+}
+
+i {
+  position: relative;
+  top: 5px;
+  left: 5px;
 }
