@@ -47,8 +47,12 @@
 		</form>
 
 		{% if request.user.is_authenticated %}
-		<div class="navbar-item d-flex has-text-white">
+		<div class="navbar-item has-text-white">
 			{% show_notifications %}
+		</div>
+
+		<div class="navbar-item inbox-icon-container">
+		  <a href="{% url 'accounts:inbox' %}" class="has-text-white inbox-icon"><span class="material-icons">mail</span></a>
 		</div>
 		{% endif %}
 

@@ -91,6 +91,15 @@ svg {
   margin-bottom: 10px;
 }
 
+.inbox-icon {
+  color: #333;
+  transition: 0.5s;
+}
+
+.inbox-icon:hover {
+  transition: 0.5s;
+}
+
 .footer {
   position: relative;
   background-color: #18191C;

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Plume - Your Conversations</title>{% endblock %}
+
+{% block content %}
+<div class="section">
+    <h3 class="title has-text-light">Your Conversations</h3>
+    <div class="p-5">
+      <form method="GET" action="{% url 'accounts:create-thread' %}">
+        <button class="button" type="submit">Start a Conversation</button>
+      </form>
+    </div>
+  {% for thread in threads.all %}
+  <div class="row mb-3">
+    <div class="card col-md-12 p-5 shadow-sm">
+      <h5>{{ thread.receiver }}</h5>
+      <a class="stretched-link" href="{% url 'accounts:thread' thread.pk %}"></a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}
