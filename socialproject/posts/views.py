@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 
 from django.urls import reverse_lazy
 from django.views import generic
@@ -10,45 +11,57 @@ from django.contrib.auth.models import User
 
 from braces.views import SelectRelatedMixin
 
-from . import models
 from accounts.models import Notification
-from .forms import PostForm, CommentForm
+from .models import Post, Comment, Image
+from .forms import PostForm, CommentForm, ShareForm
 
 # Create your views here.
 class PostList(LoginRequiredMixin,generic.View):
     def get(self, request, *args, **kwargs):
-        logged_in_user = request.user
-        # posts = models.Post.objects.filter(
+        # logged_in_user = request.user
+        # posts = Post.objects.filter(
         #     author__profile__followers__in=[logged_in_user.id]
         #     ).order_by('-created_at')
-        posts = models.Post.objects.all().order_by('-created_at')
+        posts = Post.objects.all().order_by('-created_at')
         form = PostForm()
+        share_form = ShareForm()
 
         context = {
             'post_list': posts,
             'form': form,
+            'shareform': share_form,
         }
 
         return render(request, 'posts/post_list.html', context)
 
     def post(self, request, *args, **kwargs):
-        posts = models.Post.objects.all().order_by('-created_at')
+        posts = Post.objects.all().order_by('-created_at')
         form = PostForm(request.POST, request.FILES)
+        files = request.FILES.getlist('image')
+        share_form = ShareForm()
 
         if form.is_valid():
             new_post = form.save(commit=False)
             new_post.author = request.user
             new_post.save()
 
+            for f in files:
+                img = Image(image=f)
+                img.save()
+                new_post.image.add(img)
+
+            new_post.save()
+
         context = {
             'post_list': posts,
             'form': form,
+            'shareform': share_form,
         }
 
         return render(request, 'posts/post_list.html', context)
 
 class UserPosts(generic.ListView):
-    model = models.Post
+    model = Post
     template_name = 'posts/user_post_list.html'
 
     def get_queryset(self):
@@ -67,7 +80,7 @@ class UserPosts(generic.ListView):
         return context
 
 class PostDetail(SelectRelatedMixin,generic.DetailView):
-    model = models.Post
+    model = Post
     select_related = ('user','group')
 
     def get_queryset(self):
@@ -75,9 +88,9 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
         return queryset.filter(user__username__iexact=self.kwargs.get('username'))
 
     def get(self, request, pk, *args, **kwargs):
-        post = models.Post.objects.get(pk=pk)
+        post = Post.objects.get(pk=pk)
         form = CommentForm()
-        comments = models.Comment.objects.filter(post=post).order_by('-timestamp')
+        comments = Comment.objects.filter(post=post).order_by('-timestamp')
         context = {
             'post': post,
             'form': form,
@@ -86,7 +99,7 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
         return render(request, 'posts/post_detail.html', context)
 
     def post(self, request, pk, *args, **kwargs):
-        post = models.Post.objects.get(pk=pk)
+        post = Post.objects.get(pk=pk)
         form = PostForm(request.POST, request.FILES)
 
         if form.is_valid():
@@ -95,7 +108,7 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
             new_comment.post = post
             new_comment.save()
 
-        comments = models.Comment.objects.filter(post=post).order_by('-timestamp')
+        comments = Comment.objects.filter(post=post).order_by('-timestamp')
 
         notification = Notification.objects.create(notification_type=3, from_user=request.user, to_user=profile.user)
 
@@ -108,7 +121,7 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
 
 class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
     fields = ('message','group','image')
-    model = models.Post
+    model = Post
 
     def form_valid(self,form):
         self.object = form.save(commit=False)
@@ -117,7 +130,7 @@ class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
         return super().form_valid(form)
 
 class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
-    model = models.Post
+    model = Post
     select_related = ('author','group')
     success_url = reverse_lazy('posts:all')
 
@@ -130,7 +143,7 @@ class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
         return super().delete(*args,**kwargs)
 
 class EditPost(LoginRequiredMixin,SelectRelatedMixin,generic.UpdateView):
-    model = models.Post
+    model = Post
     select_related = ('author',)
     fields = ['message']
     template_name = 'posts/post_edit.html'
@@ -141,7 +154,7 @@ class EditPost(LoginRequiredMixin,SelectRelatedMixin,generic.UpdateView):
 
 class AddLike(LoginRequiredMixin, generic.View):
     def post(self, request, pk, *args, **kwargs):
-        post = models.Post.objects.get(pk=pk)
+        post = Post.objects.get(pk=pk)
         is_like = False
         for like in post.likes.all():
             if like == request.user:
@@ -160,8 +173,8 @@ class AddLike(LoginRequiredMixin, generic.View):
 
 class CommentReplyView(LoginRequiredMixin, generic.View):
     def post(self, request, post_pk, pk, *args, **kwargs):
-        post = models.Post.objects.get(pk=post_pk)
-        parent_comment = models.Comment.objects.get(pk=pk)
+        post = Post.objects.get(pk=post_pk)
+        parent_comment = Comment.objects.get(pk=pk)
         form = CommentForm(request.POST)
         notification = Notification.objects.create(notification_type=3, from_user=request.user, to_user=profile.user)
 
@@ -175,7 +188,7 @@ class CommentReplyView(LoginRequiredMixin, generic.View):
         return redirect('posts:single', username=post.author, pk=post_pk)
 
 class CommentDeleteView(LoginRequiredMixin,generic.DeleteView):
-    model = models.Comment
+    model = Comment
     template_name = 'posts/comment_delete.html'
 
     def get_success_url(self):
@@ -184,7 +197,7 @@ class CommentDeleteView(LoginRequiredMixin,generic.DeleteView):
 
 class AddCommentLike(LoginRequiredMixin, generic.View):
     def post(self, request, post_pk, pk, *args, **kwargs):
-        comment = models.Comment.objects.get(pk=pk)
+        comment = Comment.objects.get(pk=pk)
         is_like = False
         for like in comment.likes.all():
             if like == request.user:
@@ -194,8 +207,33 @@ class AddCommentLike(LoginRequiredMixin, generic.View):
             comment.likes.add(request.user)
             notification = Notification.objects.create(notification_type=1, from_user=request.user, to_user=comment.author, comment=comment)
 
-
         if is_like:
             comment.likes.remove(request.user)
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)
+
+class SharedPostView(generic.View):
+    ''' View to handle post request when sharing a post,
+    creates a new post with all the data and redirects back to post list'''
+    def post(self, request, pk, *args, **kwargs):
+        original_post = Post.objects.get(pk=pk)
+        form = ShareForm(request.POST)
+
+        if form.is_valid():
+            new_post = Post(
+            shared_body = self.request.POST.get('body'),
+            message = original_post.message,
+            author = original_post.author,
+            created_at = original_post.created_at,
+            shared_on = timezone.now(),
+            shared_user = request.user
+        )
+
+        new_post.save()
+
+        for img in original_post.image.all():
+            new_post.image.add(img)
+
+        new_post.save()
+
+        return redirect('posts:all')

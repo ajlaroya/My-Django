@@ -4,13 +4,18 @@ from .models import Post, Comment
 class PostForm(forms.ModelForm):
     message = forms.CharField(
         label='',
-        widget=forms.Textarea(
-            attrs={'rows': '3',
-                   'placeholder': 'Say Something...'}
-        ))
+        widget=forms.Textarea(attrs={
+            'rows': '3',
+            'placeholder': 'Say Something...'
+            })
+        )
+
     image = forms.ImageField(
-        label='Send an Image',
-        required=False)
+        required=False,
+        widget=forms.ClearableFileInput(attrs={
+            'multiple': True
+            })
+        )
 
     class Meta:
         model = Post
@@ -26,3 +31,13 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['comment']
+
+class ShareForm(forms.Form):
+    ''' Handles ability for user to enter text with a shared post '''
+    body = forms.CharField(
+        label='',
+        widget=forms.Textarea(attrs={
+            'rows': '3',
+            'placeholder': 'Say Something...'
+            })
+        )
