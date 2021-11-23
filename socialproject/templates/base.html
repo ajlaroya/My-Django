@@ -23,7 +23,7 @@
 	<nav class="navbar is-transparent p-2" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
 			<a class="navbar-item" href="{% url 'home' %}">
-				<span class="has-text-weight-bold is-size-4 has-text-white-ter">Plume 🦜</span>
+				<span class="has-text-weight-bold is-size-4 has-text-white-ter">Plume <span class="emoji">🦜</span></span>
 			</a>
 
 			<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -62,6 +62,9 @@
 					<div class="buttons">
 
 						{% if request.user.is_authenticated %}
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:explore' %}" data-tooltip="Explore">
+							<span class="material-icons">travel_explore</span>
+						</a>
 						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:all' %}" data-tooltip="Feed">
 							<span class="material-icons">dynamic_feed</span>
 						</a>
@@ -83,6 +86,9 @@
 						</figure>
 
 						{% else %}
+						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:explore' %}" data-tooltip="Explore">
+							<span class="material-icons">travel_explore</span>
+						</a>
 						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:all' %}" data-tooltip="Feed">
 							<span class="material-icons">dynamic_feed</span>
 						</a>

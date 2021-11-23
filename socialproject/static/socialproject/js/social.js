@@ -59,3 +59,21 @@ function shareToggle(parent_id) {
     row.classList.add('is-hidden');
   }
 }
+
+// Dynamically finds tags and links them to explore page!
+function formatTags() {
+  var elements = document.getElementsByClassName('post-body');
+  for (let i = 0; i < elements.length; i++) {
+    let bodyText = elements[i].children[0].innerText;
+    let words = bodyText.split(' ');
+    for (let j = 0; j < words.length; j++) {
+      if (words[j][0] === '#') {
+        let replacedText = bodyText.replace(/\s\#(.*?)(\s|$)/g,
+        ` <a href="/posts/explore?query=${words[j].substring(1)}">${words[j]}</a>`);
+        elements[i].innerHTML = replacedText
+      }
+    }
+  }
+}
+
+formatTags();

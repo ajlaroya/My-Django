@@ -12,17 +12,18 @@ from django.contrib.auth.models import User
 from braces.views import SelectRelatedMixin
 
 from accounts.models import Notification
-from .models import Post, Comment, Image
-from .forms import PostForm, CommentForm, ShareForm
+from .models import Post, Comment, Image, Tag
+from .forms import PostForm, CommentForm, ShareForm, ExploreForm
 
 # Create your views here.
 class PostList(LoginRequiredMixin,generic.View):
     def get(self, request, *args, **kwargs):
-        # logged_in_user = request.user
-        # posts = Post.objects.filter(
-        #     author__profile__followers__in=[logged_in_user.id]
-        #     ).order_by('-created_at')
-        posts = Post.objects.all().order_by('-created_at')
+        logged_in_user = request.user
+        
+        # shows only posts from users that are followed
+        posts = Post.objects.filter(
+            author__profile__followers__in=[logged_in_user.id]
+        )
         form = PostForm()
         share_form = ShareForm()
 
@@ -44,6 +45,8 @@ class PostList(LoginRequiredMixin,generic.View):
             new_post = form.save(commit=False)
             new_post.author = request.user
             new_post.save()
+
+            new_post.create_tags()
 
             for f in files:
                 img = Image(image=f)
@@ -107,6 +110,8 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
             new_comment.author = request.user
             new_comment.post = post
             new_comment.save()
+
+            new_comment.create_tags()
 
         comments = Comment.objects.filter(post=post).order_by('-timestamp')
 
@@ -221,19 +226,66 @@ class SharedPostView(generic.View):
 
         if form.is_valid():
             new_post = Post(
-            shared_body = self.request.POST.get('body'),
-            message = original_post.message,
-            author = original_post.author,
-            created_at = original_post.created_at,
-            shared_on = timezone.now(),
-            shared_user = request.user
-        )
+                shared_body = self.request.POST.get('body'),
+                message = original_post.message,
+                author = original_post.author,
+                created_at = original_post.created_at,
+                shared_on = timezone.now(),
+                shared_user = request.user
+            )
 
-        new_post.save()
+            new_post.save()
 
-        for img in original_post.image.all():
-            new_post.image.add(img)
+            for img in original_post.image.all():
+                new_post.image.add(img)
 
-        new_post.save()
+            new_post.save()
 
         return redirect('posts:all')
+
+class Explore(generic.View):
+    ''' Looks for query and returns tag with that name and filters posts'''
+    def get(self, request, *args, **kwargs):
+        explore_form = ExploreForm()
+        share_form = ShareForm()
+        query = self.request.GET.get('query')
+        tag = Tag.objects.filter(name=query).first()
+
+        if tag:
+            # filter posts by tag
+            posts = Post.objects.filter(tags__in=[tag])
+        else:
+            # show all posts
+            posts = Post.objects.all()
+
+        context = {
+          'tag': tag,
+          'posts': posts,
+          'explore_form': explore_form,
+          'shareform':share_form
+        }
+
+        return render(request, 'posts/explore.html', context)
+
+    def post(self, request, *args, **kwargs):
+        ''' HttpResponseRedirect allows us to pass in a URL string which
+        we can add the query at the end of it.'''
+        explore_form = ExploreForm(request.POST)
+        if explore_form.is_valid():
+            query = explore_form.cleaned_data['query']
+            tag = Tag.objects.filter(name=query).first()
+            posts = None
+            if tag:
+                # filter posts by tag
+                posts = Post.objects.filter(tags__in=[tag])
+            if posts:
+                context = {
+                    'tag': tag,
+                    'posts': posts,
+                }
+            else:
+                context = {
+                    'tag': tag
+                }
+            return HttpResponseRedirect(f'/posts/explore?query={query}')
+        return HttpResponseRedirect('/posts/explore/')

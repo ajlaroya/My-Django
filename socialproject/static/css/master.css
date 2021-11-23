@@ -6,6 +6,11 @@ html,body {
   font-family: 'Josefin Sans', sans-serif;
 }
 
+.post-body, .emoji {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+}
+
 p, .subtitle {
   font-family: 'Poppins', sans-serif;
   font-weight: 200;

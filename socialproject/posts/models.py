@@ -20,6 +20,7 @@ class Post(models.Model):
     shared_on = models.DateTimeField(blank=True, null=True)
     shared_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
         blank=True, related_name='+')
+    tags = models.ManyToManyField('Tag', blank=True)
 
     @property
     def children(self):
@@ -37,6 +38,31 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('posts:single',kwargs={'username':self.author,'pk':self.pk})
 
+    def create_tags(self):
+        ''' Find any (#)tags in post and creates a tag for them '''
+        for word in self.message.split():
+            if word[0] == '#':
+                tag = Tag.objects.filter(name=word[1:]).first()
+                if tag:
+                    self.tags.add(tag.pk)
+                else:
+                    tag = Tag(name=word[1:])
+                    tag.save()
+                    self.tags.add(tag.pk)
+                self.save()
+
+        if self.shared_body:
+            for word in self.shared_body.split():
+                if word[0] == '#':
+                    tag = Tag.objects.filter(name=word[1:]).first()
+                    if tag:
+                        self.tags.add(tag.pk)
+                    else:
+                        tag = Tag(name=word[1:])
+                        tag.save()
+                        self.tags.add(tag.pk)
+                    self.save()
+
     class Meta:
         ordering = ['-created_at','-shared_on']
 
@@ -48,6 +74,7 @@ class Comment(models.Model):
     likes = models.ManyToManyField(User, blank=True, related_name='comment_likes')
     parent = models.ForeignKey('Comment', on_delete=models.CASCADE, blank=True,
         null=True, related_name='+')
+    tags = models.ManyToManyField('Tag', blank=True)
 
     @property
     def children(self):
@@ -59,8 +86,24 @@ class Comment(models.Model):
             return True
         return False
 
+    def create_tags(self):
+        ''' Find any (#)tags in the text and creates a tag for them '''
+        for word in self.comment.split():
+            if word[0] == '#':
+                tag = Tag.objects.get(name=word[1:])
+                if tag:
+                    self.tags.add(tag.pk)
+                else:
+                    tag = Tag(name=word[1:])
+                    tag.save()
+                    self.tags.add(tag.pk)
+                self.save()
+
 class Image(models.Model):
     image = models.ImageField(upload_to='uploads/post_photos', blank=True, null=True)
 
+class Tag(models.Model):
+    name = models.CharField(max_length=255)
+
     def __str__(self):
-        return self.image
+        return self.name

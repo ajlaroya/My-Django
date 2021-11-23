@@ -41,3 +41,13 @@ class ShareForm(forms.Form):
             'placeholder': 'Say Something...'
             })
         )
+
+class ExploreForm(forms.Form):
+    ''' Search form to filter explore page by other tags
+    allowing users to search for posts with specific tags '''
+    query = forms.CharField(
+    label='',
+    widget=forms.TextInput(attrs={
+        'placeholder': 'Explore tags'
+        })
+    )
