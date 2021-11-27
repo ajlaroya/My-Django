@@ -30,19 +30,13 @@
 				<span class="material-icons">travel_explore</span>
 			</a>
 
-
-
+			<!-- Navbar Burger -->
 			<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 			</a>
 		</div>
-
-
-
-		{% if request.user.is_authenticated %}
-		{% endif %}
 
 		<div class="navbar-menu" id="navMenu">
 			<div class="navbar-end">
@@ -91,6 +85,8 @@
 									<a href="{% url 'account_logout' %}" class="dropdown-item has-text-light p-3">
 										Log out 🚪
 									</a>
+
+									<!-- User search bar -->
 									<form class="dropdown-item has-text-light p-3" method="GET" action="{% url 'accounts:profile-search' %}">
 										<div class="field has-addons">
 											<div class="control">
@@ -103,7 +99,6 @@
 											</div>
 										</div>
 									</form>
-
 								</div>
 							</div>
 						</div>
