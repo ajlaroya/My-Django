@@ -2,78 +2,69 @@
 
 {% load bulma_tags %}
 
-{% block title %}<title>Plume - Message</title>{% endblock %}
+{% block title %}<title>Plume - Convo with {{ thread.receiver }}</title>{% endblock %}
 
 {% block content %}
 
 <div class="section">
-	<div class="row">
-		<div class="card col-md-12 p-3 shadow-sm has-text-light title">
-			{% if thread.receiver == request.user %}
-			<div class="level">
-				<figure class="image is-64x64 level-left">
-					<img src="{{ thread.user.profile.picture.url }}" alt="{{ thread.user }}">
-				</figure>
-				<a class="has-text-light level-item level-left" href="{% url 'accounts:profile' thread.user.pk %}"><span>&nbsp&nbsp@{{ thread.user }}</span></a>
-			</div>
-			{% else %}
-			<div class="level">
-				<figure class="image is-64x64 level-left">
-					<img src="{{ thread.receiver.profile.picture.url }}" alt="{{ thread.receiver }}">
-				</figure>
-				<a class="has-text-light level-item level-left" href="{% url 'accounts:profile' thread.receiver.pk %}"><span>&nbsp&nbsp@{{ thread.receiver }}</span></a>
-			</div>
-			{% endif %}
+	<!-- Sender/Receiver card title -->
+	<div class="card p-3 has-text-light title">
+		{% if thread.receiver == request.user %}
+		<div class="level is-inline-flex">
+			<figure class="image is-64x64 level-left">
+				<img src="{{ thread.user.profile.picture.url }}" alt="{{ thread.user }}">
+			</figure>
+			<a class="has-text-light level-item level-left" href="{% url 'accounts:profile' thread.user.pk %}">&nbsp&nbsp@{{ thread.user }} </a>
 		</div>
+		{% else %}
+		<div class="level is-inline-flex">
+			<figure class="image is-64x64 level-left">
+				<img src="{{ thread.receiver.profile.picture.url }}" alt="{{ thread.receiver }}">
+			</figure>
+			<a class="has-text-light level-item level-left" href="{% url 'accounts:profile' thread.receiver.pk %}">&nbsp&nbsp@{{ thread.receiver }}</a>
+		</div>
+		{% endif %}
 	</div>
 
+	<!-- If No Messages -->
 	{% if message_list.all.count == 0 %}
-	<div class="row my-5">
-		<div class="col-md-12">
-			<p class="empty-text">No Messages</p>
-		</div>
+	<div class="my-5">
+			<em>No Messages</em>
 	</div>
 	{% endif %}
 
+	<!-- Threads -->
 	{% for message in message_list %}
-	<div class="row">
+		<!-- Senders message -->
 		{% if message.sender_user == request.user %}
-		<div class="col-md-12 my-1">
+		<div class="my-1">
 			{% if message.image %}
 			<div>
 				<img src="{{ message.image.url }}" class="message-image mb-2" style="float: right" />
 			</div>
 			{% endif %}
-			<div class="sent-message my-3 has-text-right" style="clear: right">
-				<p>{{ message.body }}</p>
+			<div class="my-3 has-text-right" style="clear: right">
+				<p class="tag is-warning is-large">{{ message.body }}</p>
 			</div>
 		</div>
+			<!-- Receivers message -->
 			{% elif message.receiver_user == request.user %}
-			<div class="col-md-12 offset-6">
 				{% if message.image %}
-				<div class="message-receiver-container ms-auto">
 					<img src="{{ message.image.url }}" class="message-image" />
-				</div>
 				{% endif %}
-				<div class="received-message my-3">
-					<p>{{ message.body }}</p>
+				<div class="my-3">
+					<p class="tag is-light is-large">{{ message.body }}</p>
 				</div>
-			</div>
 			{% endif %}
-		</div>
 	{% endfor %}
 
-	<div class="row">
-		<div class="card col-md-12 p-3 shadow-sm">
+	<!-- Message form -->
+		<div class="card mt-3 p-3">
 			<form method="POST" action="{% url 'accounts:create-message' thread.pk %}" enctype="multipart/form-data">
 				{% csrf_token %}
 				{{ form | bulma }}
-
-				<div class="d-grid gap-2 mt-3">
-					<button class="button" type="submit">Send Message</button>
-				</div>
+				<button class="button mt-3" type="submit">Send Message</button>
 			</form>
 		</div>
 	</div>
-</div>
 {% endblock content %}

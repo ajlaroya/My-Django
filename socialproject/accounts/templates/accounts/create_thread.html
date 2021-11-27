@@ -6,26 +6,23 @@
 
 {% block content %}
 <div class="section">
-  <a href="{% url 'accounts:inbox' %}" class="button">Back to Your Inbox</a>
-  <h5 class="title has-text-light mt-5">Start a Conversation!</h5>
-  <div class="row justify-content-center mt-3 mb-5">
-    <div class="column is-half">
-      <form method="POST">
-        {% csrf_token %}
-        <p>Enter the username for the person you would like to talk to.</p>
-        {{ form | bulma }}
-
-          {% if messages %}
-    				{% for message in messages %}
-            <div class="notification is-warning">
-              <button class="delete"></button>
-              {{ message }}
-            </div>
-    				{% endfor %}
-    			{% endif %}
-        <button type="submit" class="button mt-3">Continue</button>
-      </form>
-    </div>
+  <h5 class="title has-text-light">Start a Conversation!</h5>
+  <a href="{% url 'accounts:inbox' %}" class="button">Return to Inbox</a>
+  <div class="column is-half mt-3 mb-5">
+    <form method="POST">
+      {% csrf_token %}
+      <p>Enter the username for the person you would like to talk to.</p>
+      {{ form | bulma }}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="notification is-warning">
+        <button class="delete"></button>
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+      <button type="submit" class="button mt-3">Continue</button>
+    </form>
   </div>
 </div>
 {% endblock content %}

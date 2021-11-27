@@ -59,7 +59,7 @@ main {
   border-image: linear-gradient(90deg, rgba(232,18,36,1) 0%, rgba(255,185,0,1) 50%) 1;
 }
 
-.input {
+/* .input {
   background-color: #18191C;
   color: white;
 }
@@ -67,7 +67,7 @@ main {
 .textarea {
   background-color: #18191C;
   color: white;
-}
+} */
 
 #id_group {
   background: #18191C;
