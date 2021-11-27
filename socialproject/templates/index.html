@@ -14,12 +14,12 @@
           is-5-desktop is-offset-1-desktop
           is-5-widescreen is-offset-1-widescreen
           is-5-fullhd is-offset-1-fullhd">
-        <h1 class="title titled is-2 has-text-white-bis">
+        <h1 class="title titled is-2 has-text-light">
           <span id="typewriter"></span>
         </h1>
         <p class="subtitle">A 'no frills' social media platform for everyone!</p>
         {% if user.is_authenticated %}
-        <a class="button" href="{% url 'account_signup' %}">Get started</a>
+        <a class="button" href="{% url 'posts:create' %}">Start posting</a>
         {% else %}
         <a class="button" href="{% url 'account_login' %}">Log in</a>
         <a class="button" href="{% url 'account_signup' %}">Get started</a>
@@ -62,7 +62,7 @@
       is-5-desktop is-offset-1-desktop
       is-5-widescreen is-offset-1-widescreen
       is-5-fullhd is-offset-1-fullhd">
-      <h1 class="titled title is-1 mb-6 has-text-white-bis">
+      <h1 class="titled title is-1 mb-6 has-text-light">
         <span class="emoji">🪶</span> Join the conversation
       </h1>
       <h2 class="subtitled subtitle">
@@ -86,7 +86,7 @@
         is-5-desktop is-offset-1-desktop
         is-5-widescreen is-offset-1-widescreen
         is-5-fullhd is-offset-1-fullhd">
-        <h1 class="title titled is-1 mb-6 has-text-white-bis">
+        <h1 class="title titled is-1 mb-6 has-text-light">
           Start your own community 🦆
         </h1>
         <h2 class="subtitle subtitled">
@@ -115,7 +115,7 @@
     <div class="container">
       <div class="columns is-centered">
         <div data-aos="zoom-in-up" class="column is-8">
-          <h1 class="title titled is-1 mb-6 has-text-white-bis">
+          <h1 class="title titled is-1 mb-6 has-text-light">
             Get connected today 🐓
           </h1>
           <h2 class="subtitle subtitled pb-3">

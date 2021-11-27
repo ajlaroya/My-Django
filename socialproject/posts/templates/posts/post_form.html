@@ -5,7 +5,7 @@
 {% block title %}<title>Plume - New Post</title>{% endblock %}
 
 {% block post_content %}
-  <h2 class="title has-text-white">Create a new post</h2>
+  <h2 class="title has-text-light">Create a new post</h2>
   <form action="{% url 'posts:create' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|bulma }}

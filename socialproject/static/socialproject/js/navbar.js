@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
     $dropdowns.forEach(function ($el) {
       $el.addEventListener('click', function (event) {
         event.stopPropagation();
-        $el.classList.toggle('is-active');
       });
     });
 

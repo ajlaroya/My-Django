@@ -17,94 +17,115 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<body class="has-text-white">
+<body class="has-text-light">
 
 	<!-- Navbar -->
 	<nav class="navbar is-transparent p-2" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
 			<a class="navbar-item" href="{% url 'home' %}">
-				<span class="has-text-weight-bold is-size-4 has-text-white-ter">Plume <span class="emoji">🦜</span></span>
+				<span class="has-text-weight-bold is-size-4 has-text-light">Plume <span class="emoji">🦜</span></span>
 			</a>
 
-			<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+			<a class="navbar-item has-text-light has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:explore' %}" data-tooltip="Explore">
+				<span class="material-icons">travel_explore</span>
+			</a>
+
+
+
+			<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 			</a>
 		</div>
 
-		<form class="navbar-item d-flex" method="GET" action="{% url 'accounts:profile-search' %}">
-			<div class="field has-addons">
-				<div class="control">
-					<input class="input is-small" type="text" name='query' value="{{ request.GET.query }}">
-				</div>
-				<div class="control">
-					<button class="button is-warning is-small" type="submit">
-						<span class="material-icons">person_search</span>
-					</button>
-				</div>
-			</div>
-		</form>
+
 
 		{% if request.user.is_authenticated %}
-		<div class="navbar-item has-text-white">
-			{% show_notifications %}
-		</div>
-
-		<div class="navbar-item inbox-icon-container">
-		  <a href="{% url 'accounts:inbox' %}" class="has-text-white inbox-icon"><i class="material-icons">mail</i></a>
-		</div>
 		{% endif %}
 
-		<div id="navbarBasicExample" class="navbar-menu">
+		<div class="navbar-menu" id="navMenu">
 			<div class="navbar-end">
 				<div class="navbar-item">
 					<div class="buttons">
 
 						{% if request.user.is_authenticated %}
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:explore' %}" data-tooltip="Explore">
-							<span class="material-icons">travel_explore</span>
-						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:all' %}" data-tooltip="Feed">
-							<span class="material-icons">dynamic_feed</span>
-						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:create' %}" data-tooltip="New post">
-							<span class="material-icons">create</span>
-						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'groups:all' %}" data-tooltip="Groups">
-							<span class="material-icons">groups</span>
-						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'groups:create' %}" data-tooltip="New group">
-							<span class="material-icons">group_add</span>
-						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'account_logout' %}" data-tooltip="Log out">
-							<span class="material-icons">logout</span>
-						</a>
-						<a class="navbar-item has-text-white-ter" href="{% url 'accounts:profile' request.user.pk %}">👋 @{{ request.user }}</a>
-						<figure class="navbar-item image">
-							<a href="{% url 'accounts:profile' request.user.pk %}"><img src="{{ request.user.profile.picture.url }}" class="is-rounded"/><p></p></a>
-						</figure>
+
+						<div class="navbar-item has-text-light">
+							{% show_notifications %}
+						</div>
+
+						<div class="navbar-item inbox-icon-container">
+						  <a href="{% url 'accounts:inbox' %}" class="has-text-light"><i class="material-icons">mail</i></a>
+						</div>
+
+						<!-- Dropdown User Menu -->
+						<div class="dropdown is-right navbar-item">
+							<div class="dropdown-trigger">
+								<figure class="navbar-item image ">
+									<a href="{% url 'accounts:profile' request.user.pk %}"><img src="{{ request.user.profile.picture.url }}" class="is-rounded"/></a>
+									<span>&nbsp</span>
+									<a class="material-icons has-text-light">expand_more</a>
+								</figure>
+							</div>
+							<div class="dropdown-menu" role="menu">
+								<div class="dropdown-content">
+									<div class="dropdown-item">
+											<a class="navbar-item has-text-light" href="{% url 'accounts:profile' request.user.pk %}">🖐️ @{{ request.user }}</a>
+									</div>
+									<a href="{% url 'accounts:profile' request.user.pk %}" class="dropdown-item has-text-light p-3">
+										My Profile 🦜
+									</a>
+									<a href="{% url 'posts:explore' %}" class="dropdown-item has-text-light p-3">
+										Explore 🌐
+									</a>
+									<a href="{% url 'posts:all' %}" class="dropdown-item has-text-light p-3">
+										My Feed ✨
+									</a>
+									<a href="{% url 'groups:all' %}" class="dropdown-item has-text-light p-3">
+										Groups 👥
+									</a>
+									<a href="{% url 'posts:create' %}" class="dropdown-item has-text-light p-3">
+										New post 🪶
+									</a>
+									<a href="{% url 'account_logout' %}" class="dropdown-item has-text-light p-3">
+										Log out 🚪
+									</a>
+									<form class="dropdown-item has-text-light p-3" method="GET" action="{% url 'accounts:profile-search' %}">
+										<div class="field has-addons">
+											<div class="control">
+												<input class="input is-small is-rounded" type="text" name='query' value="{{ request.GET.query }}">
+											</div>
+											<div class="control">
+												<button class="button is-warning is-small is-rounded" type="submit">
+													<span class="material-icons">person_search</span>
+												</button>
+											</div>
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
 
 						{% else %}
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:explore' %}" data-tooltip="Explore">
-							<span class="material-icons">travel_explore</span>
-						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:all' %}" data-tooltip="Feed">
-							<span class="material-icons">dynamic_feed</span>
-						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'groups:all' %}" data-tooltip="Groups">
+						<a class="navbar-item has-text-light has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'groups:all' %}" data-tooltip="Groups">
 							<span class="material-icons">groups</span>
 						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'account_signup' %}" data-tooltip="Sign up!">
+						<a class="navbar-item has-text-light has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'account_signup' %}" data-tooltip="Sign up!">
 							<span class="material-icons">person_add</span>
 						</a>
-						<a class="navbar-item has-text-white has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'account_login' %}" data-tooltip="Log in">
+						<a class="navbar-item has-text-light has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'account_login' %}" data-tooltip="Log in">
 							<span class="material-icons">login</span>
 						</a>
 						{% endif %}
 
 					</div>
 				</div>
+
+
+
+
 			</div>
 		</div>
 	</nav>

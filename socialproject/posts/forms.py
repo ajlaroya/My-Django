@@ -6,7 +6,6 @@ class PostForm(forms.ModelForm):
         label='',
         widget=forms.Textarea(attrs={
             'rows': '3',
-            'placeholder': 'Say Something...'
             })
         )
 
@@ -25,8 +24,7 @@ class CommentForm(forms.ModelForm):
     comment = forms.CharField(
         label='',
         widget=forms.Textarea(
-            attrs={'rows': '3',
-                   'placeholder': 'Comment...'}
+            attrs={'rows': '3',}
         ))
     class Meta:
         model = Comment
@@ -38,7 +36,6 @@ class ShareForm(forms.Form):
         label='',
         widget=forms.Textarea(attrs={
             'rows': '3',
-            'placeholder': 'Say Something...'
             })
         )
 
@@ -48,6 +45,5 @@ class ExploreForm(forms.Form):
     query = forms.CharField(
     label='',
     widget=forms.TextInput(attrs={
-        'placeholder': 'Explore tags'
         })
     )

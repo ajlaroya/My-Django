@@ -17,13 +17,38 @@ p, .subtitle {
   color: #F9F6EE
 }
 
+.field:not(:last-child) {
+    margin-bottom: 0rem;
+}
+
+.navbar-item, .navbar-link {
+    padding: 0rem 0.8rem;
+    padding-bottom: 0.1rem;
+    padding-right: 0.2rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
 main {
   min-height: 100%;
   margin-left: 10%;
   margin-right: 10%;
 }
 
-#navbarBasicExample {
+@media screen and (max-width: 768px) {
+  main {
+    overflow-x: visible;
+    margin-left: 0%;
+    margin-right: 0%;
+  }
+}
+
+#navMenu {
   background-color: #18191C;
   color: white;
 }
@@ -130,4 +155,18 @@ i {
   position: relative;
   top: 5px;
   left: 5px;
+}
+
+.dropdown-content {
+  width: 200px
+}
+
+.navbar-item img {
+    max-height: 3rem;
+}
+
+@media screen and (max-width: 768px) {
+  .media-content {
+    overflow-x: visible;
+  }
 }

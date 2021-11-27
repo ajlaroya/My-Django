@@ -3,9 +3,9 @@
 {% block title %}<title>Plume - Groups</title>{% endblock %}
 
 {% block pregroup %}
-  <h2 class="title has-text-white">Groups</h2>
+  <h2 class="title has-text-light">Groups</h2>
   {% if user.is_authenticated %}
-  <!-- <h3 class="subtitle has-text-white">Welcome
+  <!-- <h3 class="subtitle has-text-light">Welcome
     <a class="has-text-warning" href="{% url 'posts:for_user' username=user.username %}">@{{user.username}}</a>
   </h3> -->
   <a href="{% url 'groups:create' %}" class="button">create new group</a>
@@ -21,7 +21,7 @@
       <div class="card m-3 p-3">
         <header class="card-header level">
           <p class="card-header-title level-left">
-            <a class="title is-4 has-text-white" href="{% url 'groups:single' slug=group.slug %}">{{ group.name }}</a>
+            <a class="title is-4 has-text-light" href="{% url 'groups:single' slug=group.slug %}">{{ group.name }}</a>
           </p>
           <div class="level-right">
             <a class="has-text-warning p-2" href="#">{{ group.members.count }}
@@ -51,7 +51,7 @@
     <div class="card m-3 p-3">
       <header class="card-header">
         <p class="card-header-title">
-          <a class="title is-4 has-text-white" href="#">Your Groups 🦜</a>
+          <a class="title is-4 has-text-light" href="#">Your Groups 🦜</a>
         </p>
       </header>
       <div class="card-content">
@@ -65,7 +65,7 @@
       <div class="card m-3">
         <header class="card-header">
           <p class="card-header-title">
-            <a class="title is-4 has-text-white" href="#">All Groups 🦚</a>
+            <a class="title is-4 has-text-light" href="#">All Groups 🦚</a>
           </p>
         </header>
         <div class="card-content">
