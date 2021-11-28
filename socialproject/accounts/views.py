@@ -10,7 +10,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 from posts.models import Post
 from .models import UserProfile, Notification, ThreadModel, MessageModel
-from .forms import ThreadForm, MessageForm
+from .forms import ThreadForm, MessageForm, ProfileEditForm
 
 class ProfileView(View):
     ''' View for profiles '''
@@ -45,7 +45,7 @@ class ProfileView(View):
 class ProfileEditView(LoginRequiredMixin, UpdateView):
     ''' View for editing profiles '''
     model = UserProfile
-    fields = ['bio', 'location', 'picture']
+    form_class = ProfileEditForm
     template_name = 'accounts/profile_edit.html'
 
     def get_success_url(self):
