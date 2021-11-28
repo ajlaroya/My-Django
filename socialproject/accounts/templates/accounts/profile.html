@@ -2,73 +2,150 @@
 
 {% load bulma_tags %}
 
-{% block title %}<title>Plume - {{ profile.user }}'s profile</title>{% endblock %}
+{% block title %}<title>Plume - @{{ profile.user }}'s profile</title>{% endblock %}
 
 {% block content %}
 <div class="section">
-
-  {% if profile.user %}
-  <h1 class="title has-text-light">{{ profile.user }} profile</h1>
-
-  <!-- Followers -->
-  <div class="mb-3">
-    <p><a href="{% url 'accounts:followers-list' profile.pk%}" class="has-text-warning">Followers: {{ follower_count }}</a></p>
-    {% if user == request.user %}
-    {% else %}
-    {% if request.user.is_authenticated %}
-    {% if is_following %}
-    <p><em>You are following {{ user }}</em></p>
-    <form method="POST" action="{% url 'accounts:remove-follower' profile.pk %}">
-      {% csrf_token %}
-      <button class="button" type=submit>Unfollow</button>
-    </form>
-    {% else %}
-    <form method="POST" action="{% url 'accounts:add-follower' profile.pk %}">
-      {% csrf_token %}
-      <button class="button" type=submit>Follow</button>
-    </form>
-    {% endif %}
-    {% endif %}
-    {% endif %}
-  </div>
-
-  <span>
-    {% if request.user.is_authenticated %}
-    {% if profile.user == request.user %}
-    <a href="{% url 'accounts:profile-edit' profile.pk %}" class="has-text-warning">Edit profile</a>
-    {% endif %}
-    {% endif %}
-  </span>
-  {% endif %}
-  <div class="row justify-content-center mt-5">
-    <div class="card p-5 column is-one-third">
-      <figure class="image is-128x128">
-        <img src="{{ profile.picture.url }}" class="is-rounded"/>
-      </figure>
-      {% if profile.user %}
-      <h2 class="is-size-5 py-4 has-text-warning">@{{ profile.user }}</h2>
-        {% endif %}
-        <div>
+  <!-- Profile card -->
+  <div class="card">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-128x128">
+            <img src="{{ profile.picture.url }}" class="is-rounded"/>
+          </figure>
+        </div>
+        <div class="media-content mt-5">
+          <p class="title is-3 has-text-light">@{{ profile.user }}</p>
           {% if profile.location %}
-          <p>location: {{ profile.location }}</p>
+          <p class="subtitle is-6">📍 <em>{{ profile.location }}</em></p>
           {% endif %}
-          {% if profile.bio %}
-          <p>bio: {{ profile.bio }}</p>
+          <a href="{% url 'accounts:followers-list' profile.pk%}" class="has-text-warning">Followers: {{ follower_count }}</a>
+
+          {% if request.user.is_authenticated %}
+            {% if profile.user == request.user %}
+              <a href="{% url 'accounts:profile-edit' profile.pk %}" class="has-text-warning">&nbsp&nbspEdit profile</a>
+            {% endif %}
           {% endif %}
+
         </div>
       </div>
+
+      <div class="content">
+        {% if profile.bio %}
+        <p>bio: {{ profile.bio }}</p>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+          {% if is_following %}
+          <form method="POST" action="{% url 'accounts:remove-follower' profile.pk %}">
+            {% csrf_token %}
+            <button class="button mb-3" type=submit>Unfollow</button>
+          </form>
+          <em class="has-text-light">You are following {{ user }}</em>
+          {% else %}
+          <form method="POST" action="{% url 'accounts:add-follower' profile.pk %}">
+            {% csrf_token %}
+            <button class="button" type=submit>Follow</button>
+          </form>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Post history -->
+  <h1 class="title has-text-light mt-5">Post history</h1>
+  
+  {% for post in posts %}
+  <!-- Post article -->
+  <article class="media">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <a href="{% url 'accounts:profile' post.author.profile.pk %}"><img src="{{ post.author.profile.picture.url }}" alt="{{ post.author }}"></a>
+      </p>
+    </figure>
+
+    <div class="media-content">
+      <div class="content">
+
+        {% if post.shared_user %}
+        <div class="level">
+          <a class="level-item level-right" href="{% url 'accounts:profile' post.shared_user.profile.pk %}">
+            <img height="30" width="30" src="{{ post.shared_user.profile.picture.url }}" />
+          </a>
+          <p class="post-text">
+            <a class="text-primary post-link" href="{% url 'accounts:profile' post.shared_user.profile.pk %}">&nbsp&nbsp@{{ post.shared_user }}</a>
+            shared this post on {{ post.shared_on }}
+            {% if post.shared_body %}
+              and said: <em>{{ post.shared_body }}</em>
+            {% endif %}
+          </p>
+        </div>
+        {% endif %}
+
+        <div class="post-body">
+          <strong><a class="has-text-warning" href="{% url 'accounts:profile' post.author.profile.pk %}">@{{post.author}}</a></strong>
+          <small>
+            <time class="time">
+            <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">{{post.created_at}}</a>
+            </time>
+          </small>
+          <br>
+          {% if post.image.count > 0 %}
+            {% for img in post.image.all %}
+              <img src="{{ img.image.url }}" class="post-image"/>
+            {% endfor %}
+
+          {% endif %}
+          <div class="post-body">
+            <p>{{ post.message }}</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Post menu -->
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <a class="level-item has-text-warning has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" data-tooltip="Reply">
+            <span class="material-icons">reply</span>
+          </a>
+          <a class="level-item has-text-warning has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" data-tooltip="Share">
+            <span onclick="shareToggle('{{ post.pk }}')" class="material-icons">share</span>
+          </a>
+          <form class="level-item" method="POST" action="{% url 'posts:like' pk=post.pk %}">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ request.path }}">
+              <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
+                  {% if user in post.likes.all %}
+                  <a class="level-item has-text-warning">
+                    <span class="material-icons">favorite</span>
+                  </a>
+                  {% else %}
+                  <a class="level-item has-text-warning">
+                    <span class="material-icons">favorite_border</span>
+                  </a>
+                  {% endif %}
+              </button>
+            <span class="level-item">{{ post.likes.all.count }}</span>
+          </form>
+      </nav>
+
+      <!-- Share form -->
+      <form method="POST" action="{% url 'posts:share-post' post.pk %}" class="is-hidden" id="{{ post.pk }}">
+        {% csrf_token %}
+        {{ shareform }}
+          <button class="button is-small mb-5">Share this post</button>
+      </form>
+
     </div>
 
-    <span class="is-size-4">Post history</span>
-    {% for post in posts %}
-    <div class="row mt-5">
-      <p><strong><a href="{% url 'accounts:profile' post.author.profile.pk %}" class="has-text-warning">@{{ post.author }}</a></strong> {{ post.created_at }}</p>
-      {% if post.image %}
-      <img src="{{ post.image.url }}" class="image post-image"/>
+    <div class="media-right">
+      {% if user.is_authenticated and post.author == request.user %}
+      <a href="{% url 'posts:delete' pk=post.pk %}" title='delete' class="delete"></a>
       {% endif %}
-      <p>{{ post.message }}</p>
-      <a class="stretched-link" href="{% url 'posts:single' username=post.author pk=post.pk %}"></a>
     </div>
-    {% endfor %}
-  </div>
-  {% endblock %}
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}
