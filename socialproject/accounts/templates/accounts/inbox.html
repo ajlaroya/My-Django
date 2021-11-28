@@ -6,17 +6,17 @@
 <div class="section">
     <h3 class="title has-text-light">Your Conversations</h3>
     <form method="GET" action="{% url 'accounts:create-thread' %}">
-      <button class="button mb-5" type="submit">Start a Conversation</button>
+      <button class="button mb-5" type="submit">Talk with someone!</button>
     </form>
   {% for thread in threads.all %}
-  <div class="row mb-3">
-    <div class="card col-md-12 p-5 shadow-sm">
-      <a href="{% url 'accounts:thread' thread.pk %}">
-        <h5>
-          <i class="material-icons">message</i>&nbsp&nbsp @{{ thread.user }} to @{{ thread.receiver }}
-        </h5>
+  <div class="card column is-half-desktop p-5 mb-3 level is-inline-flex">
+      <figure class="image level-left is-64x64">
+				<img src="{{ thread.receiver.profile.picture.url }}" alt="{{ thread.receiver }}">
+			</figure>
+      <span>&nbsp&nbsp</span>
+      <a class="level-item level-left has-text-light" href="{% url 'accounts:thread' thread.pk %}">
+        <i class="material-icons">message</i>&nbsp&nbsp @{{ thread.user }} to @{{ thread.receiver }}
       </a>
-    </div>
   </div>
   {% endfor %}
 </div>

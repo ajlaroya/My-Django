@@ -7,21 +7,23 @@
 {% block content %}
 <div class="section">
   <h5 class="title has-text-light">Start a Conversation!</h5>
-  <a href="{% url 'accounts:inbox' %}" class="button">Return to Inbox</a>
+  <a href="{% url 'accounts:inbox' %}" class="button">Return to convos</a>
   <div class="column is-half mt-3 mb-5">
     <form method="POST">
       {% csrf_token %}
       <p>Enter the username for the person you would like to talk to.</p>
       {{ form | bulma }}
+
       {% if messages %}
-      {% for message in messages %}
-      <div class="notification is-warning">
-        <button class="delete"></button>
-        {{ message }}
-      </div>
-      {% endfor %}
+        {% for message in messages %}
+        <div class="notification is-warning my-3">
+          <button class="delete" onclick="this.parentElement.style.display='none'"></button>
+          {{ message }}
+        </div>
+        {% endfor %}
       {% endif %}
-      <button type="submit" class="button mt-3">Continue</button>
+
+      <button type="submit" class="button mt-5">Chat!</button>
     </form>
   </div>
 </div>
