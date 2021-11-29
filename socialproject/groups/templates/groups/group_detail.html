@@ -1,7 +1,8 @@
 {% extends "groups/group_base.html" %}
 
+{% block title %}<title>Plume - {{group.name}}</title>{% endblock %}
+
 {% block pregroup %}
-<section class="section">
   <h1 class="title has-text-light">{{group.name}}</h1>
   <h2 class="subtitle">Members ({{ group.members.count }}) </h2>
 
@@ -13,7 +14,6 @@
       <a href="{% url 'groups:join' slug=group.slug %}" class="button">Join</a>
     {% endif %}
   </div>
-</section>
 {% endblock %}
 
 {% block group_content %}
