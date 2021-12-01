@@ -1,23 +1,15 @@
 {% extends "posts/post_base.html" %}
 
-{% block title %}<title>Plume - Confirm Delete</title>{% endblock %}
+{% block title %}<title>Plume - Comment Delete</title>{% endblock %}
 
 {% block post_content %}
-<div class="row mt-5">
-  <div class="col-md-3 col-sm-6">
-    <a href="{% url 'posts:all' %}" class="btn btn-light">Back to Feed</a>
+<h1 class="title has-text-light">Are You Sure?</h1>
+<a href="{{request.META.HTTP_REFERER|escape}}" class="button mb-5">Return to Post</a>
+<p>You are about to delete this comment, this cannot be undone.</p>
+<form method="POST">
+  {% csrf_token %}
+  <div class="mt-5">
+    <button type="submit" class="button">Delete</button>
   </div>
-</div>
-<div class="row justify-content-center mt-5">
-  <div class="col-md-5 col-sm-12">
-    <p class="title has-text-light">Are You Sure?</p>
-    <p>You are about to delete this comment, this cannot be undone.</p>
-    <form method="POST">
-      {% csrf_token %}
-      <div class="mt-5">
-        <button type="submit" class="button is-danger">Delete</button>
-      </div>
-    </form>
-  </div>
-</div>
+</form>
 {% endblock %}

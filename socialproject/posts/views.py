@@ -103,7 +103,8 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
 
     def post(self, request, pk, *args, **kwargs):
         post = Post.objects.get(pk=pk)
-        form = PostForm(request.POST, request.FILES)
+        # form = PostForm(request.POST, request.FILES)
+        form = CommentForm(request.POST)
 
         if form.is_valid():
             new_comment = form.save(commit=False)
@@ -181,7 +182,6 @@ class CommentReplyView(LoginRequiredMixin, generic.View):
         post = Post.objects.get(pk=post_pk)
         parent_comment = Comment.objects.get(pk=pk)
         form = CommentForm(request.POST)
-        notification = Notification.objects.create(notification_type=3, from_user=request.user, to_user=profile.user)
 
         if form.is_valid():
             new_comment = form.save(commit=False)
@@ -189,6 +189,8 @@ class CommentReplyView(LoginRequiredMixin, generic.View):
             new_comment.post = post
             new_comment.parent = parent_comment
             new_comment.save()
+
+        notification = Notification.objects.create(notification_type=2, from_user=request.user, to_user=parent_comment.author, comment=new_comment)
 
         return redirect('posts:single', username=post.author, pk=post_pk)
 

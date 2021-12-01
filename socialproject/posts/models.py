@@ -76,6 +76,9 @@ class Comment(models.Model):
         null=True, related_name='+')
     tags = models.ManyToManyField('Tag', blank=True)
 
+    def __str__(self):
+        return self.comment
+
     @property
     def children(self):
         return Comment.objects.filter(parent=self).order_by('-timestamp').all()
