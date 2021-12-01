@@ -9,6 +9,6 @@
     <form action="{% url 'groups:create' %}" method="post" id='groupForm'>
       {% csrf_token %}
       {{ form|bulma }}
-      <input type="submit" class="button" value="Create Group">
+      <input type="submit" class="button mt-5" value="Create Group">
     </form>
 {% endblock %}

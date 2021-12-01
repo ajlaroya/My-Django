@@ -19,7 +19,7 @@ from .forms import PostForm, CommentForm, ShareForm, ExploreForm
 class PostList(LoginRequiredMixin,generic.View):
     def get(self, request, *args, **kwargs):
         logged_in_user = request.user
-        
+
         # shows only posts from users that are followed
         posts = Post.objects.filter(
             author__profile__followers__in=[logged_in_user.id]
@@ -115,7 +115,7 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
 
         comments = Comment.objects.filter(post=post).order_by('-timestamp')
 
-        notification = Notification.objects.create(notification_type=3, from_user=request.user, to_user=profile.user)
+        notification = Notification.objects.create(notification_type=2, from_user=request.user, to_user=post.author, post=post)
 
         context = {
             'post': post,
