@@ -7,22 +7,21 @@
 {% block content %}
 
 <div class="section">
-    <div class="col-md-5 col-sm-12">
-      {% if tag %}
-      <h3 class="title has-text-light">Explore #{{ tag.name }} Posts</h3>
-      <p class="mb-3">Most recent posts tagged with {{ tag.name }}</p>
-      {% else %}
-      <h3 class="title has-text-light">Explore Posts</h3>
-      <p class="mb-3">Explore tags to find new posts</p>
-      {% endif %}
+    {% if tag %}
+      <h3 class="title has-text-light">Explore #{{ tag.name }} posts</h3>
+      <p class="subtitle">Most recent posts tagged with #{{ tag.name }}</p>
+    {% else %}
+      <h3 class="title has-text-light">Explore posts</h3>
+      <p class="subtitle">Explore tags to find new posts</p>
+    {% endif %}
 
-      <form method="POST" class="mb-5">
-        {% csrf_token %}
-        {{ explore_form | bulma }}
-      </form>
-    </div>
+    <form method="POST" class="my-5">
+      {% csrf_token %}
+      {{ explore_form | bulma }}
+    </form>
 
   {% for post in posts %}
+
   <!-- Post article -->
   <article class="media">
     <figure class="media-left">

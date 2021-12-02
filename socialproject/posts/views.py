@@ -190,6 +190,8 @@ class CommentReplyView(LoginRequiredMixin, generic.View):
             new_comment.parent = parent_comment
             new_comment.save()
 
+            new_comment.create_tags()
+
         notification = Notification.objects.create(notification_type=2, from_user=request.user, to_user=parent_comment.author, comment=new_comment)
 
         return redirect('posts:single', username=post.author, pk=post_pk)
@@ -276,10 +278,12 @@ class Explore(generic.View):
         if explore_form.is_valid():
             query = explore_form.cleaned_data['query']
             tag = Tag.objects.filter(name=query).first()
+
             posts = None
             if tag:
                 # filter posts by tag
                 posts = Post.objects.filter(tags__in=[tag])
+
             if posts:
                 context = {
                     'tag': tag,

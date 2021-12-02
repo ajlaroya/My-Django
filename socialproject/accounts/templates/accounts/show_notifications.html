@@ -7,8 +7,9 @@
     </div>
   </div>
   <div class="dropdown-menu" id="dropdown-menu" role="menu">
-    {% for notification in notifications %}
+
     <div class="dropdown-content">
+    {% for notification in notifications %}
       {% if notification.post %}
           {% if notification.notification_type == 1 %}
           <div class="dropdown-item">
@@ -45,8 +46,9 @@
           <a onclick="removeNotification(`{% url 'accounts:notification-delete' notification.pk %}`, `{{ request.path }}`)"><button class="delete is-small"></button></a>
       </div>
       {% endif %}
-    </div>
+
     {% endfor %}
+    </div>
   </div>
 
 </div>

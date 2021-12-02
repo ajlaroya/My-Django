@@ -1,9 +1,12 @@
 {% extends "posts/post_base.html" %}
 
+{% block title %}<title>Plume - Post Delete</title>{% endblock %}
+
 {% block post_content %}
 <h2 class="title has-text-light">Are you sure you want to delete this post?</h2>
-
-<div class="posts">
+<a href="{{request.META.HTTP_REFERER|escape}}"><input type="submit" class="button mb-5" value="No! Take me back"></a>
+<p>You are about to delete this post, this cannot be undone.</p>
+<div class="mt-5">
   {% include "posts/_post.html" with post=object hide_delete=True %}
 </div>
 

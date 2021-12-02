@@ -5,14 +5,15 @@ class PostForm(forms.ModelForm):
     message = forms.CharField(
         label='',
         widget=forms.Textarea(attrs={
-            'rows': '3',
+            'rows': '3', 'placeholder':'Say something!',
+            'class': 'is-warning textarea mb-3'
             })
         )
 
     image = forms.ImageField(
         required=False,
         widget=forms.ClearableFileInput(attrs={
-            'multiple': True
+            'multiple': True,
             })
         )
 
@@ -44,6 +45,6 @@ class ExploreForm(forms.Form):
     allowing users to search for posts with specific tags '''
     query = forms.CharField(
     label='',
-    widget=forms.TextInput(attrs={
-        })
+    widget=forms.TextInput(attrs={'placeholder':'Enter hashtag',
+        'class': 'is-warning is-rounded'})
     )

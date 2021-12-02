@@ -92,7 +92,7 @@ class Comment(models.Model):
     def create_tags(self):
         ''' Find any (#)tags in the text and creates a tag for them '''
         for word in self.comment.split():
-            if word[0] == '#':
+            if (word[0] == '#'):
                 tag = Tag.objects.get(name=word[1:])
                 if tag:
                     self.tags.add(tag.pk)
