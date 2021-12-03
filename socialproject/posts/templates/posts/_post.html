@@ -36,7 +36,7 @@
         <strong><a class="has-text-warning" href="{% url 'accounts:profile' post.author.profile.pk %}">@{{post.author}}</a></strong>
         <small>
           <time class="time">
-          <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">{{post.created_at}}</a>
+          <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">&nbsp{{post.created_at}}</a>
           </time>
         </small>
         <br>
@@ -85,7 +85,8 @@
     <form method="POST" action="{% url 'posts:share-post' post.pk %}" class="is-hidden" id="{{ post.pk }}">
       {% csrf_token %}
       {{ shareform }}
-        <button class="button is-small mb-5">Share this post</button>
+      <br>
+      <button class="button is-small is-warning mb-5">Share this post</button>
     </form>
 
   </div>

@@ -25,7 +25,8 @@ class CommentForm(forms.ModelForm):
     comment = forms.CharField(
         label='',
         widget=forms.Textarea(
-            attrs={'rows': '3',}
+            attrs={'rows': '3','placeholder':'Got something to say?',
+            'class': 'is-warning textarea mb-5'}
         ))
     class Meta:
         model = Comment

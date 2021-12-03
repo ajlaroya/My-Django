@@ -93,11 +93,13 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
     def get(self, request, pk, *args, **kwargs):
         post = Post.objects.get(pk=pk)
         form = CommentForm()
+        share_form = ShareForm()
         comments = Comment.objects.filter(post=post).order_by('-timestamp')
         context = {
             'post': post,
             'form': form,
             'comments': comments,
+            'shareform':share_form,
         }
         return render(request, 'posts/post_detail.html', context)
 
@@ -105,6 +107,7 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
         post = Post.objects.get(pk=pk)
         # form = PostForm(request.POST, request.FILES)
         form = CommentForm(request.POST)
+        share_form = ShareForm()
 
         if form.is_valid():
             new_comment = form.save(commit=False)
@@ -122,6 +125,7 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
             'post': post,
             'form': form,
             'comments': comments,
+            'shareform':share_form,
         }
         return render(request, 'posts/post_detail.html', context)
 
