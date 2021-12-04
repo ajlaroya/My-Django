@@ -63,25 +63,6 @@ class PostList(LoginRequiredMixin,generic.View):
 
         return render(request, 'posts/post_list.html', context)
 
-class UserPosts(generic.ListView):
-    model = Post
-    template_name = 'posts/user_post_list.html'
-
-    def get_queryset(self):
-        try:
-            self.post_user = User.objects.prefetch_related('posts').get(
-                username__iexact=self.kwargs.get('username')
-            )
-        except User.DoesNotExist:
-            raise Http404
-        else:
-            return self.post_user.posts.all()
-
-    def get_context_data(self,**kwargs):
-        context = super().get_context_data(**kwargs)
-        context['post_user'] = self.post_user
-        return context
-
 class PostDetail(SelectRelatedMixin,generic.DetailView):
     model = Post
     select_related = ('user','group')
@@ -130,14 +111,41 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
         return render(request, 'posts/post_detail.html', context)
 
 class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
-    fields = ('message','group','image')
     model = Post
+    fields = ('message','group','image')
 
-    def form_valid(self,form):
-        self.object = form.save(commit=False)
-        self.object.author = self.request.user
-        self.object.save()
-        return super().form_valid(form)
+    def get(self, request, *args, **kwargs):
+        form = PostForm()
+
+        context = {
+            'form': form,
+        }
+
+        return render(request, 'posts/post_form.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = PostForm(request.POST, request.FILES)
+        files = request.FILES.getlist('image')
+
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.author = request.user
+            new_post.save()
+
+            new_post.create_tags()
+
+            for f in files:
+                img = Image(image=f)
+                img.save()
+                new_post.image.add(img)
+
+            new_post.save()
+
+        context = {
+            'form': form,
+        }
+
+        return redirect('posts:all')
 
 class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
     model = Post

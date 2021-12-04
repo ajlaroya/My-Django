@@ -19,7 +19,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf import settings
 from . import views
-import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,7 +27,6 @@ urlpatterns = [
     path('accounts/',include('accounts.urls',namespace='accounts')),
     path('posts/',include('posts.urls',namespace='posts')),
     path('groups/',include('groups.urls',namespace='groups')),
-    path('__debug__/', include(debug_toolbar.urls)),
 ]
 
 if settings.DEBUG:

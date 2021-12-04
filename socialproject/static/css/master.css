@@ -170,3 +170,11 @@ i {
     overflow-x: visible;
   }
 }
+
+.signup .control {
+  margin-bottom: 10px;
+}
+
+.login .control {
+  margin-bottom: 10px;
+}

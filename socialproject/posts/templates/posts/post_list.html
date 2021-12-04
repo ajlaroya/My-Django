@@ -5,26 +5,23 @@
 {% block title %}<title>Plume - My Feed</title>{% endblock %}
 
 {% block pre_post_content %}
-<div class="col-md-4">
-	<h1 class="title has-text-light">My feed</h1>
-	{% if request.user.is_authenticated %}
-	<p class="subtitle has-text-light">Welcome @{{ user }}</p>
-	{% endif %}
-</div>
+<h1 class="title has-text-light">My feed</h1>
+{% if request.user.is_authenticated %}
+<p class="subtitle has-text-light">👋 @{{ user }}</p>
+{% endif %}
 
 <div class="column">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form|bulma }}
-        <div class="d-grid gap-2">
-            <button class="button my-3">Submit!</button>
-        </div>
+        {{ form.message|bulma }}
+				{{ form.image|bulma }}
+        <button class="button my-3">Submit!</button>
     </form>
 </div>
 
 {% endblock %}
 {% block post_content %}
-<div class="col-md-8">
+<div>
 	{% for post in post_list %}
   {% include "posts/_post.html" %}
 	{% endfor %}

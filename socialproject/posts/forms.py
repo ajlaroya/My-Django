@@ -1,12 +1,13 @@
 from django import forms
 from .models import Post, Comment
+from groups.models import Group
 
 class PostForm(forms.ModelForm):
     message = forms.CharField(
         label='',
         widget=forms.Textarea(attrs={
             'rows': '3', 'placeholder':'Say something!',
-            'class': 'is-warning textarea mb-3'
+            'class': 'control is-warning textarea mb-3'
             })
         )
 
@@ -17,16 +18,25 @@ class PostForm(forms.ModelForm):
             })
         )
 
+    group = forms.ModelChoiceField(
+        queryset=Group.objects.all(),
+        label='Group',
+        required=False,
+        widget=forms.Select(attrs={
+            'class': 'mb-3 control'
+            })
+        )
+
     class Meta:
         model = Post
-        fields = ['message','image']
+        fields = ['message','group','image']
 
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(
         label='',
         widget=forms.Textarea(
-            attrs={'rows': '3','placeholder':'Got something to say?',
-            'class': 'is-warning textarea mb-5'}
+            attrs={'rows': '3','placeholder':'Got something to comment?',
+            'class': 'is-warning textarea'}
         ))
     class Meta:
         model = Comment
@@ -37,7 +47,8 @@ class ShareForm(forms.Form):
     body = forms.CharField(
         label='',
         widget=forms.Textarea(attrs={
-            'rows': '3',
+            'rows': '3','placeholder':'Got something to share?',
+            'class': 'is-warning textarea'
             })
         )
 
