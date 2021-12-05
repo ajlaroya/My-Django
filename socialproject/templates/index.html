@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% block title %}<title>Plume - Home</title>{% endblock %}
+
 {% block content %}
 <!-- Hero -->
 <section class="hero is-fullheight">
@@ -17,7 +19,7 @@
         <h1 class="title titled is-2 has-text-light">
           <span id="typewriter"></span>
         </h1>
-        <p class="subtitle">A 'no frills' social media platform for everyone!</p>
+        <p class="subtitle">A 'no frills' online community space for everyone!</p>
         {% if user.is_authenticated %}
         <a class="button" href="{% url 'posts:create' %}">Start posting</a>
         {% else %}
@@ -63,7 +65,7 @@
       is-5-widescreen is-offset-1-widescreen
       is-5-fullhd is-offset-1-fullhd">
       <h1 class="titled title is-1 mb-6 has-text-light">
-        <span class="emoji">🪶</span> Join the conversation
+        Join the conversation
       </h1>
       <h2 class="subtitled subtitle">
         Communicate your ideas. Share what's new. Form your opinions. Spark a heated debate. Get updated on breaking news. Learn something new!
@@ -87,7 +89,7 @@
         is-5-widescreen is-offset-1-widescreen
         is-5-fullhd is-offset-1-fullhd">
         <h1 class="title titled is-1 mb-6 has-text-light">
-          Start your own community 🦆
+          Start your own community
         </h1>
         <h2 class="subtitle subtitled">
           There's nothing like finding a gang of like-minded people who share your interests whether it would be about your favourite cereal, dogs with hats, or even vampires!
@@ -116,14 +118,13 @@
       <div class="columns is-centered">
         <div data-aos="zoom-in-up" class="column is-8">
           <h1 class="title titled is-1 mb-6 has-text-light">
-            Get connected today 🐓
+            Get connected today.
           </h1>
           <h2 class="subtitle subtitled pb-3">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum cupiditate dolorum vitae dolores
-            nesciunt totam magni quas.
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            The world is at your fingertips <br><br>
+            <a class="button mb-5" href="{% url 'account_signup' %}">Sign me up!</a>
           </h2>
-          <img style='max-width:50%;width:auto;height:auto;' src="{% static 'images/pof-pof/instashot.png' %}">
+          <img style='max-width:45%;width:auto;height:auto;' src="{% static 'images/pof-pof/instashot.png' %}">
         </div>
       </div>
 

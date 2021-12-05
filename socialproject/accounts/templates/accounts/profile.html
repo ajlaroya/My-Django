@@ -24,7 +24,9 @@
 
           {% if request.user.is_authenticated %}
             {% if profile.user == request.user %}
-              <a href="{% url 'accounts:profile-edit' profile.pk %}" class="has-text-warning">&nbsp&nbspEdit profile</a>
+              <a href="{% url 'accounts:profile-edit' profile.pk %}" class="has-text-warning">
+                <i class="material-icons">edit</i>
+              </a>
             {% endif %}
           {% endif %}
 
