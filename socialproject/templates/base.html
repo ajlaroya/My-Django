@@ -22,7 +22,11 @@
 	<nav class="navbar is-transparent p-2" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
 			<a class="navbar-item" href="{% url 'home' %}">
-				<span class="has-text-weight-bold is-size-4 has-text-light">Plume <span class="emoji">🦜</span></span>
+				<h1 class="ml6">
+				  <span class="text-wrapper">
+				    <span class="has-text-weight-bold is-size-4 has-text-light letters">Plume</span><span class="is-size-4 emoji"> 🦜</span>
+				  </span>
+				</h1>
 			</a>
 
 			<a class="navbar-item has-text-light has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:explore' %}" data-tooltip="Explore">
@@ -210,13 +214,16 @@
 			<img src="{% static 'images/pof-pof/design.png' %}" alt="">
 		</div>
 		<div class="container copyright">
-			<div class="has-text-centered">
-				<span>© 2021 Arthur Laroya, Inc. All Rights Reserved.</span>
+			<div class="has-text-centered dom-node-dem">
+				<span class="el">© 2021 Arthur Laroya, Inc. All Rights Reserved.</span>
 			</div>
 		</div>
 	</footer>
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js" integrity="sha512-D68mBFX2aQwVh2wV6uCDLmabIveaSQL3uVUo2Ze7VwxIeOcAd4C1/JagkVoObb/NLkYDrdvY3JHK1KOfenHVcA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" src="{% static 'socialproject/js/navbar.js' %}"></script>
 <script type="text/javascript" src="{% static 'socialproject/js/social.js' %}"></script>
 </html>

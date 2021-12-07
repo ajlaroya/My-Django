@@ -7,7 +7,7 @@
 {% block content %}
 <!-- Hero -->
 <section class="hero is-fullheight">
-  <div class="hero-body">
+  <div class="hero-body hero--gallery">
     <div class="container">
       <div class="columns is-vcentered reverse-columns">
         <div data-aos="fade-right" class="column
@@ -20,6 +20,8 @@
           <span id="typewriter"></span>
         </h1>
         <p class="subtitle">A 'no frills' online community space for everyone!</p>
+
+        <br>
         {% if user.is_authenticated %}
         <a class="button" href="{% url 'posts:create' %}">Start posting</a>
         {% else %}
@@ -45,7 +47,7 @@
 </section>
 
 <section class="hero is-fullheight">
-  <div class="hero-body">
+  <div class="hero-body hero--gallery">
     <div class="container">
       <div class="columns is-vcentered">
         <div data-aos="fade-left" class="column
@@ -64,7 +66,7 @@
       is-5-desktop is-offset-1-desktop
       is-5-widescreen is-offset-1-widescreen
       is-5-fullhd is-offset-1-fullhd">
-      <h1 class="titled title is-1 mb-6 has-text-light">
+      <h1 class="titled title is-1 mb-6 has-text-light tricks pop-in">
         Join the conversation
       </h1>
       <h2 class="subtitled subtitle">
@@ -79,7 +81,7 @@
 </section>
 
 <section class="hero is-fullheight">
-  <div class="hero-body">
+  <div class="hero-body hero--gallery">
     <div class="container">
       <div class="columns  is-vcentered reverse-columns">
         <div data-aos="fade-right" class="column
@@ -88,7 +90,7 @@
         is-5-desktop is-offset-1-desktop
         is-5-widescreen is-offset-1-widescreen
         is-5-fullhd is-offset-1-fullhd">
-        <h1 class="title titled is-1 mb-6 has-text-light">
+        <h1 class="title titled is-1 mb-6 has-text-light tricks fade-up">
           Start your own community
         </h1>
         <h2 class="subtitle subtitled">
@@ -113,11 +115,11 @@
 </section>
 
 <section class="hero is-medium has-text-centered">
-  <div class="hero-body">
+  <div class="hero-body hero--gallery">
     <div class="container">
       <div class="columns is-centered">
         <div data-aos="zoom-in-up" class="column is-8">
-          <h1 class="title titled is-1 mb-6 has-text-light">
+          <h1 class="title titled is-1 mb-6 has-text-light tricks rotate-in">
             Get connected today.
           </h1>
           <h2 class="subtitle subtitled pb-3">
@@ -125,6 +127,15 @@
             <a class="button mb-5" href="{% url 'account_signup' %}">Sign me up!</a>
           </h2>
           <img style='max-width:45%;width:auto;height:auto;' src="{% static 'images/pof-pof/instashot.png' %}">
+
+          <!-- random staggering animation -->
+
+          <div class="animation-wrapper pt-5">
+            <div class="stagger-visualizer">
+              <div class="cursor color-red"></div>
+              <div class="dots-wrapper"></div>
+            </div>
+          </div>
         </div>
       </div>
 
