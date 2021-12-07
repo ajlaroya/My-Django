@@ -383,7 +383,7 @@ $('.hero--gallery').on('inview', function(event, isInView) {
     // Put the play below this line
         fadeUp.play();
         popIn.play();
-        rotateIn.play();
+        slideIn.play();
         // fadeUp.restart();
   } else {}
 });
