@@ -1,18 +1,28 @@
 {% extends "posts/post_base.html" %}
 
 {% load bulma_tags %}
+{% load static %}
 
 {% block title %}<title>Plume - New Post</title>{% endblock %}
 
 {% block post_content %}
-  <h2 class="title has-text-light">Create a new post</h2>
-  <form action="{% url 'posts:create' %}" method="post" enctype="multipart/form-data" class="column is-three-quarters">
-    {% csrf_token %}
-    {{ form.message | bulma }}
-    <div class="mb-3">
-      {{ form.group | bulma }}
-    </div>
-    {{ form.image | bulma }}
-    <input type="submit" value="Post!" class='button mt-5'>
-  </form>
+<div class="columns is-vcentered">
+  <div class="card column is-half p-5">
+    <h1 class="title has-text-light tricks pop-in">Create a new post</h1>
+    <form action="{% url 'posts:create' %}" method="post" enctype="multipart/form-data" class="column">
+      {% csrf_token %}
+      {{ form.message | bulma }}
+      <div class="mb-3">
+        {{ form.group | bulma }}
+      </div>
+      {{ form.image | bulma }}
+      <input type="submit" value="Post!" class='button mt-5'>
+    </form>
+  </div>
+  <div class="column is-half px-5 mx-5">
+    <figure class="image">
+      <img src="{% static 'images/pof-pof/presentation.png' %}">
+    </figure>
+  </div>
+</div>
 {% endblock %}

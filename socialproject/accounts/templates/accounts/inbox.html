@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}<title>Plume - Your Conversations</title>{% endblock %}
 
 {% block content %}
@@ -8,16 +10,26 @@
     <form method="GET" action="{% url 'accounts:create-thread' %}">
       <button class="button mb-5" type="submit">Talk with someone!</button>
     </form>
-  {% for thread in threads.all %}
-  <div class="card column is-half-desktop p-5 mb-3 level is-inline-flex">
-      <figure class="image level-left is-64x64">
-				<img src="{{ thread.receiver.profile.picture.url }}" alt="{{ thread.receiver }}">
-			</figure>
-      <span>&nbsp&nbsp</span>
-      <a class="level-item level-left has-text-light" href="{% url 'accounts:thread' thread.pk %}">
-        <i class="material-icons">message</i>&nbsp&nbsp @{{ thread.user }} to @{{ thread.receiver }}
-      </a>
-  </div>
-  {% endfor %}
+    <div class="columns">
+      <div class="column">
+        {% for thread in threads.all %}
+        <div class="card column p-5 mb-3 level is-inline-flex">
+            <figure class="image level-left is-64x64">
+      				<img src="{{ thread.receiver.profile.picture.url }}" alt="{{ thread.receiver }}">
+      			</figure>
+            <span>&nbsp&nbsp</span>
+            <a class="level-item level-left has-text-light" href="{% url 'accounts:thread' thread.pk %}">
+              <i class="material-icons">message</i>&nbsp&nbsp @{{ thread.user }} to @{{ thread.receiver }}
+            </a>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="column is-half p-5 m-5">
+        <figure class="image">
+          <img src="{% static 'images/pof-pof/no messages.png' %}">
+        </figure>
+      </div>
+    </div>
+
 </div>
 {% endblock content %}

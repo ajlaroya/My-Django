@@ -6,7 +6,7 @@ class PostForm(forms.ModelForm):
     message = forms.CharField(
         label='',
         widget=forms.Textarea(attrs={
-            'rows': '3', 'placeholder':'Say something!',
+            'rows': '6', 'placeholder':'Say something!',
             'class': 'control is-warning textarea mb-3'
             })
         )

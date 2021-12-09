@@ -1,6 +1,7 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+{% load static %}
 
 {% block title %}<title>Plume - Signup</title>{% endblock %}
 
@@ -10,13 +11,12 @@
 
 {% block content %}
 
-<section class="section">
-    <div class="row">
+<section class="section columns is-vcentered">
+  <div class="card column is-half p-5">
         <h1 class="title has-text-light">{% trans "Sign Up" %}</h1>
         <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
         <br>
-    </div>
-    <div class="column is-one-quarter">
+    <div class="column is-three-quarters">
       <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
         {{ form|bulma }}
@@ -28,6 +28,12 @@
         </div>
       </form>
     </div>
+  </div>
+  <div class="column is-half p-5 m-5">
+    <figure class="image">
+      <img src="{% static 'images/pof-pof/winner.png' %}">
+    </figure>
+  </div>
 </section>
 
 {% endblock %}

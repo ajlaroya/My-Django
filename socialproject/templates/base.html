@@ -24,14 +24,20 @@
 			<a class="navbar-item" href="{% url 'home' %}">
 				<h1 class="ml6">
 				  <span class="text-wrapper">
-				    <span class="has-text-weight-bold is-size-4 has-text-light letters">Plume</span><span class="is-size-4 emoji"> 🦜</span>
+				    <span class="has-text-weight-bold is-size-4 has-text-light">Plume</span><span class="is-size-4 emoji"> 🦜</span>
 				  </span>
 				</h1>
 			</a>
 
-			<a class="navbar-item has-text-light has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'posts:explore' %}" data-tooltip="Explore">
-				<span class="material-icons">travel_explore</span>
+			<a class="navbar-item has-text-light" href="{% url 'posts:explore' %}">
+				<span class="material-icons">explore</span>
 			</a>
+
+			{% if user.is_authenticated %}
+			<a class="navbar-item has-text-light" href="{% url 'posts:all' %}">
+				<span class="material-icons">dynamic_feed</span>
+			</a>
+			{% endif %}
 
 			<!-- Navbar Burger -->
 			<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
@@ -133,13 +139,13 @@
 						</div>
 
 						{% else %}
-						<a class="navbar-item has-text-light has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'groups:all' %}" data-tooltip="Groups">
+						<a class="navbar-item has-text-light" href="{% url 'groups:all' %}">
 							<span class="material-icons">groups</span>
 						</a>
-						<a class="navbar-item has-text-light has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'account_signup' %}" data-tooltip="Sign up!">
+						<a class="navbar-item has-text-light" href="{% url 'account_signup' %}">
 							<span class="material-icons">person_add</span>
 						</a>
-						<a class="navbar-item has-text-light has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" href="{% url 'account_login' %}" data-tooltip="Log in">
+						<a class="navbar-item has-text-light" href="{% url 'account_login' %}">
 							<span class="material-icons">login</span>
 						</a>
 						{% endif %}
@@ -198,7 +204,7 @@
 				</div>
 				<div class="column is-3 is-6-mobile">
 					<div class="footer-group">
-						<h4>Support 🚁</h4>
+						<h4>Info 🚁</h4>
 						<ul>
 							<li><a>FAQ</a></li>
 							<li><a>About</a></li>
