@@ -10,18 +10,20 @@
 	<!-- Sender/Receiver card title -->
 	<div class="card p-3 has-text-light title">
 		{% if thread.receiver == request.user %}
+		<!-- Thread user -->
 		<div class="level is-inline-flex">
 			<figure class="image is-64x64 level-left">
 				<img src="{{ thread.user.profile.picture.url }}" alt="{{ thread.user }}">
 			</figure>
-			<a class="has-text-light level-item level-left" href="{% url 'accounts:profile' thread.user.pk %}">&nbsp&nbsp@{{ thread.user }} </a>
+			<a class="has-text-light level-item level-left tricks fade-up" href="{% url 'accounts:profile' thread.user.pk %}">&nbsp&nbsp@{{ thread.user }} </a>
 		</div>
 		{% else %}
+		<!-- Thread receiver -->
 		<div class="level is-inline-flex">
 			<figure class="image is-64x64 level-left">
 				<img src="{{ thread.receiver.profile.picture.url }}" alt="{{ thread.receiver }}">
 			</figure>
-			<a class="has-text-light level-item level-left" href="{% url 'accounts:profile' thread.receiver.pk %}">&nbsp&nbsp@{{ thread.receiver }}</a>
+			<a class="has-text-light level-item level-left tricks fade-up" href="{% url 'accounts:profile' thread.receiver.pk %}">&nbsp&nbsp@{{ thread.receiver }}</a>
 		</div>
 		{% endif %}
 	</div>
@@ -59,7 +61,7 @@
 	{% endfor %}
 
 	<!-- Message form -->
-		<div class="card mt-3 p-3">
+		<div class="card mt-3 p-5">
 			<form method="POST" action="{% url 'accounts:create-message' thread.pk %}" enctype="multipart/form-data">
 				{% csrf_token %}
 				{{ form | bulma }}

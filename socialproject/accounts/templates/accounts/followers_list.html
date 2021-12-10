@@ -5,9 +5,9 @@
 {% block content %}
 <div class="section">
   {% if profile.name %}
-  <h3 class="title has-text-light">{{ profile.name }} followers</h3>
+  <h3 class="title has-text-light tricks fade-up">@{{ profile.name }} followers</h3>
   {% else %}
-  <h3 class="title has-text-light">@{{ profile.user.username }} followers</h3>
+  <h3 class="title has-text-light tricks fade-up">@{{ profile.user.username }} followers</h3>
   {% endif %}
   <a class="button" href="{% url 'accounts:profile' profile.pk %}" class="has-text-warning">Back to @{{ profile.user.username }}</a>
   {% for follower in followers %}

@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="section">
-  <h1 class="title has-text-light">Search results for "{{ query }}"</h1>
+  <h1 class="title has-text-light tricks fade-up">Search results for "{{ query }}"</h1>
   <div class="columns is-centered">
     <div class="column">
       {% for profile in profile_list %}
@@ -17,10 +17,10 @@
             <img class="image" height="80" width="80" src="{{ profile.picture.url }}"/>
           </a>
           <p>
-            <a href="{% url 'accounts:profile' profile.pk %}">@{{ profile.user }}</a>
+            <a class="has-text-warning "href="{% url 'accounts:profile' profile.pk %}">@{{ profile.user }}</a>
           </p>
           {% if profile.location %}
-            <p>🗺️ {{ profile.location }}</p>
+          <p class="is-6"><i class="material-icons">place</i> <em>{{ profile.location }}</em></p>
           {% endif %}
           <p>Followers: {{ profile.followers.all.count }}</p>
           <br>

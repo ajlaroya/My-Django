@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="section column is-half-desktop">
-  <h5 class="title has-text-light">Update Your Profile</h5>
+  <h5 class="title has-text-light tricks fade-up">Update Your Profile</h5>
   <a href="{% url 'accounts:profile' object.pk %}" class="button">Return to profile</a>
   <form class="mt-3 mb-5" method="POST" enctype="multipart/form-data">
     {% csrf_token %}

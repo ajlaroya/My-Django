@@ -8,10 +8,10 @@
 
 <div class="section">
     {% if tag %}
-      <h3 class="title has-text-light">Explore #{{ tag.name }} posts</h3>
+      <h3 class="title has-text-light tricks pop-in">Explore #{{ tag.name }} posts</h3>
       <p class="subtitle">Most recent posts tagged with #{{ tag.name }}</p>
     {% else %}
-      <h3 class="title has-text-light">Explore posts</h3>
+      <h3 class="title has-text-light tricks pop-in">Explore posts</h3>
       <p class="subtitle">Explore tags to find new posts</p>
     {% endif %}
 
@@ -21,96 +21,7 @@
     </form>
 
   {% for post in posts %}
-
-  <!-- Post article -->
-  <article class="media">
-    <figure class="media-left">
-      <p class="image is-64x64">
-        <a href="{% url 'accounts:profile' post.author.profile.pk %}"><img src="{{ post.author.profile.picture.url }}" alt="{{ post.author }}"></a>
-      </p>
-    </figure>
-
-    <div class="media-content">
-      <div class="content">
-
-        {% if post.shared_user %}
-        <div class="level">
-          <a class="level-item level-right" href="{% url 'accounts:profile' post.shared_user.profile.pk %}">
-            <img height="30" width="30" src="{{ post.shared_user.profile.picture.url }}" />
-          </a>
-          <p class="post-text">
-            <a class="text-primary post-link" href="{% url 'accounts:profile' post.shared_user.profile.pk %}">&nbsp&nbsp@{{ post.shared_user }}</a>
-            shared this post on {{ post.shared_on }}
-            {% if post.shared_body %}
-              and said: <em>{{ post.shared_body }}</em>
-            {% endif %}
-          </p>
-        </div>
-        {% endif %}
-
-        <div class="post-body">
-          <strong><a class="has-text-warning" href="{% url 'accounts:profile' post.author.profile.pk %}">@{{post.author}}</a></strong>
-          <small>
-            <time class="time">
-            <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">{{post.created_at}}</a>
-            </time>
-          </small>
-          <br>
-          {% if post.image.count > 0 %}
-            {% for img in post.image.all %}
-              <img src="{{ img.image.url }}" class="post-image"/>
-            {% endfor %}
-
-          {% endif %}
-          <div class="post-body">
-            <p>{{ post.message }}</p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Post menu -->
-      <nav class="level is-mobile">
-        <div class="level-left">
-          <a class="level-item has-text-warning has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" data-tooltip="Reply">
-            <span class="material-icons">reply</span>
-          </a>
-          <a class="level-item has-text-warning has-tooltip-bottom has-tooltip-arrow has-tooltip-warning" data-tooltip="Share">
-            <span onclick="shareToggle('{{ post.pk }}')" class="material-icons">share</span>
-          </a>
-          <form class="level-item" method="POST" action="{% url 'posts:like' pk=post.pk %}">
-              {% csrf_token %}
-              <input type="hidden" name="next" value="{{ request.path }}">
-              <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
-                  {% if user in post.likes.all %}
-                  <a class="level-item has-text-warning">
-                    <span class="material-icons">favorite</span>
-                  </a>
-                  {% else %}
-                  <a class="level-item has-text-warning">
-                    <span class="material-icons">favorite_border</span>
-                  </a>
-                  {% endif %}
-              </button>
-            <span class="level-item">{{ post.likes.all.count }}</span>
-          </form>
-      </nav>
-
-      <!-- Share form -->
-      <form method="POST" action="{% url 'posts:share-post' post.pk %}" class="is-hidden" id="{{ post.pk }}">
-        {% csrf_token %}
-        {{ shareform }}
-          <button class="button is-small mb-5">Share this post</button>
-      </form>
-
-    </div>
-
-    <div class="media-right">
-      {% if user.is_authenticated and post.author == request.user %}
-      <a href="{% url 'posts:delete' pk=post.pk %}" title='delete' class="delete"></a>
-      {% endif %}
-    </div>
-  </article>
+  {% include "posts/_post.html" %}
   {% endfor %}
 </div>
 {% endblock content %}

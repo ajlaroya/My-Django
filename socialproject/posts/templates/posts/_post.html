@@ -32,25 +32,25 @@
       {% endif %}
 
       <!-- Post content -->
-      <p>
-        <strong><a class="has-text-warning" href="{% url 'accounts:profile' post.author.profile.pk %}">@{{post.author}}</a></strong>
-        <small>
-          <time class="time">
-          <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">&nbsp{{post.created_at}}</a>
-          </time>
-        </small>
+      <strong><a class="has-text-warning is-size-4" href="{% url 'accounts:profile' post.author.profile.pk %}">@{{post.author}}</a></strong>
+      <small>
+        <time class="time">
+        <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">&nbsp{{post.created_at}}</a>
+        </time>
+      </small>
+      <br>
+
+      <!-- Post image (if) -->
+      {% if post.image.count > 0 %}
+        {% for img in post.image.all %}
+          <img src="{{ img.image.url }}" class="post-image"/>
+        {% endfor %}
         <br>
+      {% endif %}
 
-        <!-- Post image (if) -->
-        {% if post.image.count > 0 %}
-          {% for img in post.image.all %}
-            <img src="{{ img.image.url }}" class="post-image"/>
-          {% endfor %}
-          <br>
-        {% endif %}
-
-        {{ post.message }}
-      </p>
+      <div class="tricks fade-up-cards post-body">
+        <p>{{ post.message }}</p>
+      </div>
     </div>
 
     <!-- Post menu -->
