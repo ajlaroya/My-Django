@@ -1,23 +1,40 @@
 {% extends "groups/group_base.html" %}
 
+{% load bulma_tags %}
+
 {% block title %}<title>Plume - {{group.name}}</title>{% endblock %}
 
 {% block pregroup %}
-  <h1 class="title has-text-light">{{group.name}}</h1>
-  <p class="subtitle"><em>{{ group.description }}</em></p>
+<div class="columns">
+  <div class="card column is-half p-5 mx-5">
+    <h1 class="title has-text-light tricks fade-up">{{group.name}}</h1>
+    <p class="subtitle"><em>{{ group.description }}</em></p>
 
-  <h2>
-    Members&nbsp&nbsp<span class="tag is-warning is-rounded">{{ group.members.count }}</span>
-  </h2>
+    <h2>
+      Members&nbsp&nbsp<span class="tag is-warning is-rounded">{{ group.members.count }}</span>
+    </h2>
 
-  <div class="content mt-5">
-    {% if user in group.members.all %}
-      <a href="{% url 'posts:create' %}" class="button">New Post</a>
-      <a href="{% url 'groups:leave' slug=group.slug %}" class="button">Leave</a>
-    {% else %}
-      <a href="{% url 'groups:join' slug=group.slug %}" class="button">Join</a>
-    {% endif %}
+    <div class="content mt-5">
+      {% if user in group.members.all %}
+        <a href="{% url 'posts:create' %}" class="button">New Post</a>
+        <a href="{% url 'groups:leave' slug=group.slug %}" class="button">Leave</a>
+      {% else %}
+        <a href="{% url 'groups:join' slug=group.slug %}" class="button">Join</a>
+      {% endif %}
+    </div>
   </div>
+
+  <!-- Group post form -->
+  <div class="card column is-half p-5 mb-5">
+      <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.message | bulma }}
+          {{ form.image | bulma }}
+          {{ form.group | bulma }}
+          <button class="button my-3">Submit!</button>
+      </form>
+  </div>
+</div>
 {% endblock %}
 
 {% block group_content %}

@@ -5,7 +5,7 @@
 {% block title %}<title>Plume - New Group</title>{% endblock %}
 
 {% block group_content %}
-  <h2 class="title has-text-light">Create a new group</h2>
+  <h2 class="title has-text-light tricks fade-up">Create a new group</h2>
     <form action="{% url 'groups:create' %}" method="post" id='groupForm'>
       {% csrf_token %}
       {{ form|bulma }}
