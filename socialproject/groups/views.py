@@ -1,21 +1,28 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.views.generic.edit import FormMixin
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from braces.views import SelectRelatedMixin
 from groups.models import Group,GroupMember
 from posts.models import Post, Image
 from posts.forms import PostForm
+from .forms import GroupForm
 from . import models
 
 # Create your views here.
 
 class CreateGroup(LoginRequiredMixin,generic.CreateView):
-    fields = ('name','description')
     model = Group
+    form_class = GroupForm
 
+    def form_valid(self, form):
+        form.instance.admin = self.request.user
+        return super().form_valid(form)
+
+# Might need to add loginrequiredmixin
 class SingleGroup(FormMixin, generic.DetailView):
     model = Group
     template_name = 'groups/group_detail.html'
@@ -33,6 +40,7 @@ class SingleGroup(FormMixin, generic.DetailView):
         if form.is_valid():
             new_post = form.save(commit=False)
             new_post.author = request.user
+            new_post.group = Group.objects.get(slug=self.kwargs.get('slug'))
             new_post.save()
 
             new_post.create_tags()
@@ -92,3 +100,22 @@ class LeaveGroup(LoginRequiredMixin,generic.RedirectView):
             messages.success(self.request,'You have left the group!')
 
         return super().get(request,*args,**kwargs)
+
+class EditGroup(LoginRequiredMixin,SelectRelatedMixin,generic.UpdateView):
+    model = Group
+    select_related = ('admin',)
+    fields = ['name','description']
+    template_name = 'groups/group_edit.html'
+
+class DeleteGroup(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
+    model = Group
+    select_related = ('admin',)
+    success_url = reverse_lazy('groups:all')
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(admin_id = self.request.user.id)
+
+    def delete(self,*args,**kwargs):
+        messages.success(self.request,'Group Deleted')
+        return super().delete(*args,**kwargs)

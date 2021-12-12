@@ -7,12 +7,10 @@
 {% block pregroup %}
 <div class="columns">
   <div class="card column is-half p-5 mx-5">
-    <h1 class="title has-text-light tricks fade-up">{{group.name}}</h1>
+    <h1 class="title has-text-light tricks fade-up"><strong>{{group.name}}</strong></h1>
     <p class="subtitle"><em>{{ group.description }}</em></p>
-
-    <h2>
-      Members&nbsp&nbsp<span class="tag is-warning is-rounded">{{ group.members.count }}</span>
-    </h2>
+    <p class="subtitle is-size-6">admin: {{ group.admin }}</p>
+    <p class="subtitle"><span class="tag is-warning is-rounded">{{ group.members.count }}</span> members</p>
 
     <div class="content mt-5">
       {% if user in group.members.all %}
@@ -20,6 +18,10 @@
         <a href="{% url 'groups:leave' slug=group.slug %}" class="button">Leave</a>
       {% else %}
         <a href="{% url 'groups:join' slug=group.slug %}" class="button">Join</a>
+      {% endif %}
+      {% if request.user == group.admin %}
+      <a href="{% url 'groups:edit' slug=group.slug %}"><i class="material-icons has-text-warning">edit</i></a>
+      <a href="{% url 'groups:delete' slug=group.slug %}"><i class="material-icons has-text-warning">delete</i></a>
       {% endif %}
     </div>
   </div>
@@ -30,7 +32,7 @@
           {% csrf_token %}
           {{ form.message | bulma }}
           {{ form.image | bulma }}
-          {{ form.group | bulma }}
+          <!-- {{ form.group | bulma }} -->
           <button class="button my-3">Submit!</button>
       </form>
   </div>
