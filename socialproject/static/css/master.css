@@ -167,6 +167,10 @@ i {
     max-height: 3rem;
 }
 
+.feed {
+  margin-bottom: 0px;
+}
+
 @media screen and (max-width: 768px) {
   .media-content {
     overflow-x: visible;

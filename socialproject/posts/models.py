@@ -70,7 +70,7 @@ class Comment(models.Model):
     comment = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
     likes = models.ManyToManyField(User, blank=True, related_name='comment_likes')
     parent = models.ForeignKey('Comment', on_delete=models.CASCADE, blank=True,
         null=True, related_name='+')
@@ -101,6 +101,9 @@ class Comment(models.Model):
                     tag.save()
                     self.tags.add(tag.pk)
                 self.save()
+
+    class Meta:
+        ordering = ['-timestamp']
 
 class Image(models.Model):
     image = models.ImageField(upload_to='uploads/post_photos', blank=True, null=True)

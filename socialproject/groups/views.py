@@ -8,7 +8,7 @@ from django.contrib import messages
 from braces.views import SelectRelatedMixin
 from groups.models import Group,GroupMember
 from posts.models import Post, Image
-from posts.forms import PostForm
+from posts.forms import PostForm, CommentForm
 from .forms import GroupForm
 from . import models
 
@@ -31,6 +31,7 @@ class SingleGroup(FormMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['slug'] = self.kwargs.get('slug')
+        context['reply_form'] = CommentForm()
         return context
 
     def post(self, request, *args, **kwargs):

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 
@@ -26,11 +26,13 @@ class PostList(LoginRequiredMixin,generic.View):
         )
         form = PostForm()
         share_form = ShareForm()
+        reply_form = CommentForm()
 
         context = {
             'post_list': posts,
             'form': form,
             'shareform': share_form,
+            'reply_form':reply_form
         }
 
         return render(request, 'posts/post_list.html', context)
@@ -75,12 +77,14 @@ class PostDetail(SelectRelatedMixin,generic.DetailView):
         post = Post.objects.get(pk=pk)
         form = CommentForm()
         share_form = ShareForm()
+        reply_form = CommentForm()
         comments = Comment.objects.filter(post=post).order_by('-timestamp')
         context = {
             'post': post,
             'form': form,
             'comments': comments,
             'shareform':share_form,
+            'reply_form':reply_form
         }
         return render(request, 'posts/post_detail.html', context)
 
@@ -163,8 +167,34 @@ class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
 class EditPost(LoginRequiredMixin,SelectRelatedMixin,generic.UpdateView):
     model = Post
     select_related = ('author',)
-    fields = ['message']
     template_name = 'posts/post_edit.html'
+    form_class = PostForm
+
+    def post(self, request, pk, *args, **kwargs):
+        form = PostForm(request.POST, request.FILES)
+        files = request.FILES.getlist('image')
+
+        if form.is_valid():
+            post = Post.objects.get(pk=pk)
+            form = PostForm(request.POST, instance=post)
+            new_post = form.save(commit=False)
+            new_post.author = request.user
+            new_post.save()
+
+            new_post.create_tags()
+
+            for f in files:
+                img = Image(image=f)
+                img.save()
+                new_post.image.add(img)
+
+            new_post.save()
+
+        context = {
+            'form': form,
+        }
+
+        return redirect('posts:all')
 
     def get_success_url(self):
         pk = self.kwargs['pk']
@@ -188,6 +218,23 @@ class AddLike(LoginRequiredMixin, generic.View):
 
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)
+
+class PostReplyView(LoginRequiredMixin, generic.View):
+    def post(self, request, post_pk, *args, **kwargs):
+        post = Post.objects.get(pk=post_pk)
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.author = request.user
+            new_comment.post = post
+            new_comment.save()
+
+            new_comment.create_tags()
+
+        notification = Notification.objects.create(notification_type=2, from_user=request.user, to_user=post.author, comment=new_comment)
+
+        return redirect('posts:single', username=post.author, pk=post_pk)
 
 class CommentReplyView(LoginRequiredMixin, generic.View):
     def post(self, request, post_pk, pk, *args, **kwargs):
@@ -217,7 +264,7 @@ class CommentDeleteView(LoginRequiredMixin,generic.DeleteView):
         return reverse_lazy('posts:single', kwargs={'pk': pk, 'username':self.request.user})
 
 class AddCommentLike(LoginRequiredMixin, generic.View):
-    def post(self, request, post_pk, pk, *args, **kwargs):
+    def post(self, request, pk, *args, **kwargs):
         comment = Comment.objects.get(pk=pk)
         is_like = False
         for like in comment.likes.all():
@@ -264,6 +311,7 @@ class Explore(generic.View):
     def get(self, request, *args, **kwargs):
         explore_form = ExploreForm()
         share_form = ShareForm()
+        reply_form = CommentForm()
         query = self.request.GET.get('query')
         tag = Tag.objects.filter(name=query).first()
 
@@ -278,7 +326,8 @@ class Explore(generic.View):
           'tag': tag,
           'posts': posts,
           'explore_form': explore_form,
-          'shareform':share_form
+          'shareform':share_form,
+          'reply_form':reply_form
         }
 
         return render(request, 'posts/explore.html', context)
