@@ -167,8 +167,17 @@ i {
     max-height: 3rem;
 }
 
-.feed {
-  margin-bottom: 0px;
+@media (min-width:1025px)  {
+  .feed {
+    margin-top: -90px;
+    margin-bottom: 0px;
+  }
+}
+
+@media (min-width:320px) {
+  .feed {
+    margin-bottom: 0px;
+  }
 }
 
 @media screen and (max-width: 768px) {
