@@ -7,6 +7,16 @@ function commentReplyToggle(parent_id) {
   }
 }
 
+
+function shareToggle(parent_id) {
+  const row = document.getElementById(parent_id);
+  if (row.classList.contains('is-hidden')) {
+    row.classList.remove('is-hidden');
+  } else {
+    row.classList.add('is-hidden');
+  }
+}
+
 function showNotifications() {
   const container = document.getElementById('notification-container');
   if (container.classList.contains('is-hidden')) {
@@ -49,15 +59,6 @@ function removeNotification(removeNotificationURL, redirectURL) {
   xmlhttp.open("DELETE", removeNotificationURL, true);
   xmlhttp.setRequestHeader("X-CSRFToken", csrftoken)
   xmlhttp.send();
-}
-
-function shareToggle(parent_id) {
-  const row = document.getElementById(parent_id);
-  if (row.classList.contains('is-hidden')) {
-    row.classList.remove('is-hidden');
-  } else {
-    row.classList.add('is-hidden');
-  }
 }
 
 // Dynamically finds tags and links them to explore page!

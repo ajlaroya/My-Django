@@ -59,12 +59,12 @@
 
         <!-- Replies -->
         <a class="level-item has-text-warning">
-          <span class="material-icons" onclick="commentReplyToggle('{{ post.pk }}')">reply</span>
+          <span class="material-icons" onclick="commentReplyToggle('reply{{ post.pk }}')">reply</span>
         </a>
 
         <!-- Shares -->
         <a class="level-item has-text-warning">
-          <span onclick="shareToggle('{{ post.pk }}')" class="material-icons">share</span>
+          <span onclick="shareToggle('share{{ post.pk }}')" class="material-icons">share</span>
         </a>
 
         <!-- Likes -->
@@ -94,25 +94,22 @@
     </nav>
 
     <!-- Reply/Comment form (hidden) -->
-    <div class="mt-3 mb-5 is-hidden" id="{{ post.pk }}">
-      <div class="col">
+    <div class="mt-3 mb-5 is-hidden is-reply" id="reply{{ post.pk }}">
         <form method="POST" action="{% url 'posts:post-reply' post.pk %}">
           {% csrf_token %}
           {{ reply_form }}
-          <div class="d-grid gap-2">
             <button class="button mt-3">Reply!</button>
-          </div>
         </form>
-      </div>
     </div>
 
     <!-- Share form (hidden) -->
-    <form method="POST" action="{% url 'posts:share-post' post.pk %}" class="is-hidden" id="{{ post.pk }}">
-      {% csrf_token %}
-      {{ shareform }}
-      <br>
-      <button class="button is-small is-warning mb-5">Share this post</button>
-    </form>
+    <div class="mt-3 mb-5 is-hidden is-share" id="share{{ post.pk }}">
+        <form method="POST" action="{% url 'posts:share-post' post.pk %}">
+          {% csrf_token %}
+          {{ shareform }}
+            <button class="button mt-3">Share!</button>
+        </form>
+    </div>
 
   </div>
 
@@ -121,6 +118,8 @@
     {% if request.user.is_superuser %}
       <a href="{% url 'posts:delete' pk=post.pk %}" title='delete' class="delete"></a>
     {% elif user.is_authenticated and post.author == request.user %}
+      <a href="{% url 'posts:delete' pk=post.pk %}" title='delete' class="delete"></a>
+    {% elif user.is_authenticated and post.shared_user == request.user %}
       <a href="{% url 'posts:delete' pk=post.pk %}" title='delete' class="delete"></a>
     {% endif %}
   </div>
