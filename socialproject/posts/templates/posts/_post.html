@@ -118,8 +118,10 @@
 
   <!-- Delete post -->
   <div class="media-right">
-    {% if user.is_authenticated and post.author == request.user %}
-    <a href="{% url 'posts:delete' pk=post.pk %}" title='delete' class="delete"></a>
+    {% if request.user.is_superuser %}
+      <a href="{% url 'posts:delete' pk=post.pk %}" title='delete' class="delete"></a>
+    {% elif user.is_authenticated and post.author == request.user %}
+      <a href="{% url 'posts:delete' pk=post.pk %}" title='delete' class="delete"></a>
     {% endif %}
   </div>
 </article>
@@ -187,8 +189,10 @@
           </div>
         </div>
         <div class="media-right">
-          {% if request.user == comment.author %}
-          <a href="{% url 'posts:comment-delete' post.pk comment.pk %}" title='delete' class="delete"></a>
+          {% if request.user.is_superuser %}
+            <a href="{% url 'posts:comment-delete' post.pk comment.pk %}" title='delete' class="delete"></a>
+          {% elif user.is_authenticated and request.user == comment.author %}
+            <a href="{% url 'posts:comment-delete' post.pk comment.pk %}" title='delete' class="delete"></a>
           {% endif %}
         </div>
     </article>
@@ -239,10 +243,10 @@
             </nav>
           </div>
           <div class="media-right">
-            {% if request.user == child_comment.author %}
-            <form method='POST'>
+            {% if request.user.is_superuser %}
               <a href="{% url 'posts:comment-delete' post.pk child_comment.pk %}" title='delete' class="delete"></a>
-            </form>
+            {% elif user.is_authenticated and request.user == child_comment.author %}
+              <a href="{% url 'posts:comment-delete' post.pk child_comment.pk %}" title='delete' class="delete"></a>
             {% endif %}
           </div>
         </article>
