@@ -7,7 +7,6 @@ function commentReplyToggle(parent_id) {
   }
 }
 
-
 function shareToggle(parent_id) {
   const row = document.getElementById(parent_id);
   if (row.classList.contains('is-hidden')) {

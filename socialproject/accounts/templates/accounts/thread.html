@@ -42,20 +42,24 @@
 		<div class="my-1">
 			{% if message.image %}
 			<div>
-				<img src="{{ message.image.url }}" class="message-image mb-2" style="float: right" />
+				<span class="is-size-7" style="float: right">{{ message.date|date:"j/n" }} - {{ message.date|time:"P" }}</span>
+				<img src="{{ message.image.url }}" class="message-image mb-2 mr-1" style="float: right" />
 			</div>
 			{% endif %}
 			<div class="my-3 has-text-right" style="clear: right">
 				<p class="tag is-warning is-large">{{ message.body }}</p>
+				<span class="is-size-7">{{ message.date|date:"j/n" }} - {{ message.date|time:"P" }}</span>
 			</div>
 		</div>
 			<!-- Receivers message -->
 			{% elif message.receiver_user == request.user %}
 				{% if message.image %}
+					<span class="is-size-7">{{ message.date|date:"j/n" }} - {{ message.date|time:"P" }}</span>
 					<img src="{{ message.image.url }}" class="message-image" />
 				{% endif %}
 				<div class="my-3">
-					<p class="tag is-light is-large">{{ message.body }}</p>
+					<span class="is-size-7">{{ message.date|date:"j/n" }} - {{ message.date|time:"P" }}</span>
+					<p class="tag is-warning is-light is-large">{{ message.body }}</p>
 				</div>
 			{% endif %}
 	{% endfor %}
