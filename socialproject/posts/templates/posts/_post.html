@@ -31,13 +31,20 @@
       </div>
       {% endif %}
 
-      <!-- Post content -->
+      <!-- Poster details -->
       <strong><a class="has-text-warning is-size-4" href="{% url 'accounts:profile' post.author.profile.pk %}">@{{post.author}}</a></strong>
       <small>
         <time class="time">
         <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">&nbsp{{post.created_at}}</a>
         </time>
       </small>
+      {% if post.group %}
+      <!-- <div class="tags has-addons">
+        <span class="tag">Group</span>
+        <span class="tag is-warning">{{post.group}}</span>
+      </div> -->
+      <a class="tag is-warning is-light" href="{% url 'groups:single' slug=post.group.slug %}" style="float:right;">{{post.group}}</a>
+      {% endif %}
       <br>
 
       <!-- Post image (if) -->
@@ -48,6 +55,7 @@
         <br>
       {% endif %}
 
+      <!-- Post content -->
       <div class="tricks fade-up-cards post-body">
         <p>{{ post.message }}</p>
       </div>
