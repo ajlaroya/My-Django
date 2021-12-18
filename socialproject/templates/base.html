@@ -84,7 +84,7 @@
 
 									<a href="{% url 'accounts:profile' request.user.pk %}">
 										<div class="dropdown-item p-3 mb-0 level">
-											<span class="has-text-light level-left">My Profile</span>
+											<span class="has-text-light level-left">My profile</span>
 											<span class="level-right material-icons has-text-light">badge</span>
 										</div>
 									</a>
@@ -112,8 +112,15 @@
 
 									<a href="{% url 'posts:create' %}">
 										<div class="dropdown-item p-3 mb-0 level">
-											<span class="has-text-light level-left">Create Post</span>
+											<span class="has-text-light level-left">Create post</span>
 											<span class="level-right material-icons has-text-light">post_add</span>
+										</div>
+									</a>
+
+									<a href="{% url 'accounts:profile-search' %}">
+										<div class="dropdown-item p-3 mb-0 level">
+											<span class="has-text-light level-left">Find user</span>
+											<span class="level-right material-icons has-text-light">person_search</span>
 										</div>
 									</a>
 
@@ -123,20 +130,7 @@
 											<span class="level-right material-icons has-text-light">logout</span>
 										</div>
 									</a>
-
-									<!-- User search bar -->
-									<form class="dropdown-item has-text-light p-3" method="GET" action="{% url 'accounts:profile-search' %}">
-										<div class="field has-addons">
-											<div class="control">
-												<input class="input is-small is-rounded" type="text" name='query' value="{{ request.GET.query }}">
-											</div>
-											<div class="control">
-												<button class="button is-warning is-small is-rounded" type="submit">
-													<span class="material-icons">person_search</span>
-												</button>
-											</div>
-										</div>
-									</form>
+									
 								</div>
 							</div>
 						</div>

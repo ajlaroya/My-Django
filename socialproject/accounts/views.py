@@ -74,14 +74,18 @@ class UserSearch(View):
     ''' View for searching user profiles '''
     def get(self, request, *args, **kwargs):
         query = self.request.GET.get('query')
-        profile_list = UserProfile.objects.filter(
-            Q(user__username__icontains=query)
-        )
-        context = {
-            'profile_list': profile_list,
-            'query': query,
-        }
-        return render(request, 'accounts/search.html', context)
+        if query is None:
+            return render(request, 'accounts/search.html')
+
+        else:
+            profile_list = UserProfile.objects.filter(
+                Q(user__username__icontains=query)
+            )
+            context = {
+                'profile_list': profile_list,
+                'query': query,
+            }
+            return render(request, 'accounts/search.html',context)
 
 class ListFollowers(View):
     ''' View for listing a users followers '''

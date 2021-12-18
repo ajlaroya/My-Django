@@ -3,13 +3,29 @@
 {% load bulma_tags %}
 {% load static %}
 
-{% block title %}<title>Plume - Search results for "{{ query }}"</title>{% endblock %}
+{% block title %}<title>Plume - User Search</title>{% endblock %}
 
 {% block content %}
 <div class="section">
+  {% if query == None %}
+  <h1 class="title has-text-light tricks fade-up">User Search!</h1>
+  {% else %}
   <h1 class="title has-text-light tricks fade-up">Search results for "{{ query }}"</h1>
+  {% endif %}
   <div class="columns is-centered">
     <div class="column">
+      <form class="has-text-light p-3 mb-5" method="GET" action="{% url 'accounts:profile-search' %}">
+        <div class="field has-addons">
+          <div class="control">
+            <input class="input is-rounded" type="text" name='query' value="{{ request.GET.query }}" placeholder="Search for user">
+          </div>
+          <div class="control">
+            <button class="button is-warning is-rounded" type="submit">
+              <span class="material-icons">person_search</span>
+            </button>
+          </div>
+        </div>
+      </form>
       {% for profile in profile_list %}
       <div class="card p-5 mb-5">
         <div class="mt-3">
