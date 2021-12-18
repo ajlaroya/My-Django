@@ -9,17 +9,20 @@
   <h5 class="title has-text-light tricks fade-up">Start a Conversation!</h5>
   <a href="{% url 'accounts:inbox' %}" class="button">Return to convos</a>
   <div class="column is-half mt-3 mb-5">
+    {{ query }}
     <form method="POST">
       {% csrf_token %}
-      <p>Enter the username for the person you would like to talk to.</p>
+      <p>Enter the full username to whom you wish to message</p>
       {{ form | bulma }}
 
       {% if messages %}
         {% for message in messages %}
-        <div class="notification is-warning my-3">
-          <button class="delete" onclick="this.parentElement.style.display='none'"></button>
-          {{ message }}
-        </div>
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+          <div class="notification is-warning my-3">
+            <button class="delete" onclick="this.parentElement.style.display='none'"></button>
+            {{ message }}
+          </div>
+          {% endif %}
         {% endfor %}
       {% endif %}
 

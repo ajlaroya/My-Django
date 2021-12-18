@@ -20,6 +20,7 @@ class ProfileView(View):
         posts = Post.objects.filter(author=user).order_by('-created_at')
         followers = profile.followers.all()
         follower_count = len(followers)
+        form = ThreadForm()
 
         if follower_count == 0:
             is_following = False
@@ -168,7 +169,7 @@ class CreateThread(View):
                 thread.save()
                 return redirect('accounts:thread', pk=thread.pk)
         except:
-            messages.error(request, 'Sorry! cannot find user 😓')
+            messages.error(request, f'Sorry! cannot find "{username}" 😭')
             return redirect('accounts:create-thread')
 
 class ListThreads(View):

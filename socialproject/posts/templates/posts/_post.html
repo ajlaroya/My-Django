@@ -39,10 +39,6 @@
         </time>
       </small>
       {% if post.group %}
-      <!-- <div class="tags has-addons">
-        <span class="tag">Group</span>
-        <span class="tag is-warning">{{post.group}}</span>
-      </div> -->
       <a class="tag is-warning is-light" href="{% url 'groups:single' slug=post.group.slug %}" style="float:right;">{{post.group}}</a>
       {% endif %}
       <br>
@@ -147,18 +143,18 @@
       </figure>
       <div class="media-content">
         <div class="content">
-          <p>
-            <strong>
-              <a class="has-text-warning" href="{% url 'accounts:profile' comment.author.profile.pk %}">@{{ comment.author }}</a>
-            </strong>
-            <small>
-              <time class="time">
-                <a class="has-text-warning">&nbsp{{ comment.timestamp }}</a>
-              </time>
-            </small>
-            <br>
-            {{ comment.comment }}
-          </p>
+          <strong>
+            <a class="has-text-warning" href="{% url 'accounts:profile' comment.author.profile.pk %}">@{{ comment.author }}</a>
+          </strong>
+          <small>
+            <time class="time">
+              <a class="has-text-warning">&nbsp{{ comment.timestamp }}</a>
+            </time>
+          </small>
+          <br>
+          <div class="post-body">
+            <p>{{ comment.comment }}</p>
+          </div>
         </div>
         <nav class="level is-mobile">
           <div class="level-left">
@@ -215,18 +211,18 @@
         </figure>
         <div class="media-content">
           <div class="content">
-            <p>
-              <strong>
-                <a class="has-text-warning" href="{% url 'accounts:profile' child_comment.author.profile.pk %}">@{{ child_comment.author }}</a>
-              </strong>
-              <small>
-                <time class="time">
-                  <a class="has-text-warning">&nbsp{{ child_comment.timestamp }}</a>
-                </time>
-              </small>
-              <br>
-              {{ child_comment.comment }}
-            </p>
+            <strong>
+              <a class="has-text-warning" href="{% url 'accounts:profile' child_comment.author.profile.pk %}">@{{ child_comment.author }}</a>
+            </strong>
+            <small>
+              <time class="time">
+                <a class="has-text-warning">&nbsp{{ child_comment.timestamp }}</a>
+              </time>
+            </small>
+            <br>
+            <div class="post-body">
+              <p>{{ child_comment.comment }}</p>
+            </div>
           </div>
           <nav class="level is-mobile">
             <div class="level-left">
