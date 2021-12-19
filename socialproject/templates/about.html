@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}<title>Plume - About</title>{% endblock %}
+
+{% block content %}
+<!-- About -->
+<section class="section is-medium">
+  <div class="columns is-vcentered">
+    <div class="column is-half">
+      <h1 class="title has-text-light has-text-centered pb-3">So what's Plume all about?</h1>
+      <h2 class="subtitle has-text-centered">
+        <em>Plume is home to a trove of communities, endless conversation, and authentic human connection. Whether you're into breaking news, sports, TV fan theories, or a never-ending stream of the internet's cutest animals, there's a community on Plume for you.</em>
+      </h2>
+    </div>
+    <div class="column is-half">
+      <figure class="image">
+        <img src="{% static 'images/pof-pof/product launch.png' %}">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- About Tiles -->
+<section class="section">
+  <div class="columns is-vcentered">
+    <div class="column">
+      <h1 class="title has-text-light has-text-centered pb-5">What can you do with Plume?</h1>
+
+      <div class="tile is-ancestor">
+        <div class="tile is-4 is-vertical is-parent">
+          <div class="tile is-child box">
+            <p class="title has-text-light has-text-centered">Post <span class="material-icons has-text-link">post_add</span></p>
+            <p class="has-text-light has-text-centered">Plume's community can share content by posting stories, links, and images</p>
+          </div>
+          <div class="tile is-child box">
+            <p class="title has-text-light has-text-centered">Comment <span class="material-icons has-text-info">comment</span></p>
+            <p class="has-text-light has-text-centered">Plume's community comments on posts. Comments provide discussion and often humor.</p>
+          </div>
+          <div class="tile is-child box">
+            <p class="title has-text-light has-text-centered">Groups <span class="material-icons has-text-success">groups</span></p>
+            <p class="has-text-light has-text-centered">Plume provides space for people with similar interests to connect and have important conversations. Connect with others or build your network.</p>
+          </div>
+        </div>
+        <div class="tile is-4 is-vertical is-parent">
+          <div class="tile is-child box">
+            <p class="title has-text-light has-text-centered">Likes <span class="material-icons has-text-warning">favorite</span></p>
+            <p class="has-text-light has-text-centered">Comments & posts can be upvoted or downvoted. The most interesting content rises to the top.</p>
+          </div>
+          <div class="tile is-child box">
+            <p class="title has-text-light has-text-centered">Share <span class="material-icons has-text-danger">share</span></p>
+            <p class="has-text-light has-text-centered">Embrace sharing others' ideas, share the limelight and share posts.</p>
+          </div>
+          <div class="tile is-child box">
+            <p class="title has-text-light has-text-centered">Message <span class="material-icons has-text-primary">textsms</span></p>
+            <p class="has-text-light has-text-centered">Have one-on-one private conversations with another user on Plume!</p>
+          </div>
+        </div>
+        <div class="tile is-4 is-vertical is-parent">
+          <div class="tile is-child box">
+            <p class="title has-text-light has-text-centered">Follow <span class="material-icons has-text-success">person_add</span></p>
+            <p class="has-text-light has-text-centered">Follow your friends or other users you find interesting so they can appear on your feed!</p>
+          </div>
+          <div class="tile is-child box">
+            <p class="title has-text-light has-text-centered">Tags <span class="material-icons has-text-info">tag</span></p>
+            <p class="has-text-light has-text-centered">Add hastags to your post to make it easier for others to explore content that catches their eye. Use tags to reach your target audience</p>
+          </div>
+          <div class="tile is-child box">
+            <p class="title has-text-light has-text-centered">Feed <span class="material-icons has-text-link">dynamic_feed</span></p>
+            <p class="has-text-light has-text-centered">Plume's feed is an updating list of posts from users you follow. It includes status updates, photos, posts, and links from followers.</p>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</section>
+
+<section class="section is-medium">
+  <div class="columns is-vcentered">
+    <div class="column">
+      <h1 class="title has-text-light has-text-centered pb-3">Creator of Plume</h1>
+      <h2 class="subtitle has-text-centered">
+        Plume was created in 2021 by a boy named <b>Arthur John Laroya</b>
+      </h2>
+      <figure class="image mb-5">
+        <img src="{% static 'images/pof-pof/coding.png' %}" style="width: 50%;
+          height: auto;display: block;
+          margin-left: auto;
+          margin-right: auto;">
+      </figure>
+      <h2 class="subtitle has-text-centered">
+        <a class="has-text-warning" href="{% url 'accounts:profile' pk=7 %}"><b>@arthurlaroya</b></a>
+      </h2>
+    </div>
+  </div>
+</section>
+{% endblock %}
