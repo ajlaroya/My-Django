@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load bulma_tags %}
+
+{% block title %}<title>Plume - Contact</title>{% endblock %}
+
+{% block content %}
+<section class="section is-medium">
+  <div class="columns is-vcentered">
+    <div class="column">
+      <h1 class="title has-text-light has-text-centered pb-3">Contact</h1>
+      <h2 class="subtitle has-text-centered">
+        Want to get in touch? 👀<br> Have any questions? 🤔<br>I'd love to hear from you! 💌<br>Email me with the form below 👇
+      </h2>
+      <div class="column is-half has-text-centered" style="
+        height: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;">
+        <form action="" method="post">
+           {% csrf_token %}
+           {{ form | bulma }}
+           <button type="submit" name="button" class="button">
+             Send&nbsp&nbsp
+             <span class="material-icons">
+               send
+             </span>
+           </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

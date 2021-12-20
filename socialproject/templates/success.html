@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}<title>Plume - Contact Success</title>{% endblock %}
+
+{% block content %}
+<section class="section is-medium">
+  <div class="columns is-vcentered">
+    <div class="column">
+      <h1 class="title has-text-light has-text-centered pb-3">Thank you for your enquiry!</h1>
+      <h2 class="subtitle has-text-centered pb-5">
+        Your contact information and message was successfully submitted.
+      </h2>
+
+      <figure class="image mb-5">
+        <img src="{% static 'images/pof-pof/Hiring.png' %}" style="width: 50%;
+          height: auto;display: block;
+          margin-left: auto;
+          margin-right: auto;">
+      </figure>
+    </div>
+  </div>
+</section>
+{% endblock %}

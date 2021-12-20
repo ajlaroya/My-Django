@@ -1,6 +1,6 @@
 ''' Forms for our messages '''
 from django import forms
-from .models import MessageModel, UserProfile
+from .models import MessageModel, UserProfile, Contact
 
 class ThreadForm(forms.Form):
     ''' Form to create a thread '''
@@ -34,3 +34,20 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['bio','location','picture']
+
+class ContactForm(forms.ModelForm):
+    email = forms.CharField(label='', max_length=100,
+        widget=forms.TextInput(attrs={'placeholder':'Your email',
+        'class': 'is-warning mb-3'}))
+
+    subject = forms.CharField(label='', max_length=100,
+        widget=forms.TextInput(attrs={'placeholder':'Subject ',
+        'class': 'is-warning mb-3'}))
+
+    message = forms.CharField(label='', max_length=500,
+        widget=forms.Textarea(attrs={'placeholder':'Message','rows': '10',
+        'class':'text-area is-warning mb-3'}))
+
+    class Meta:
+        model = Contact
+        fields = '__all__'

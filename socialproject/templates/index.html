@@ -22,10 +22,11 @@
         <p class="subtitle">A 'no frills' online community space for everyone!</p>
         <br>
         {% if user.is_authenticated %}
+        <a class="button" href="{% url 'about' %}">Learn more</a>
         <a class="button" href="{% url 'posts:create' %}">Start posting</a>
         {% else %}
-        <a class="button" href="{% url 'account_login' %}">Log in</a>
-        <a class="button" href="{% url 'account_signup' %}">Get started</a>
+        <a class="button" href="{% url 'about' %}">Learn more</a>
+        <a class="button" href="{% url 'account_login' %}">Get started</a>
         {% endif %}
 
         </div>
