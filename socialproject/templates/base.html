@@ -4,16 +4,43 @@
 <html lang="en">
 <head>
 	{% block title %}<title>Plume</title>{% endblock %}
+	<meta name="description" content="Plume - The best 'no frills' 2021 online community space for everyone!">
+	<meta name="author" content="Arthur Laroya">
+	<meta name="keywords" content="plume,social,media,post,community,reddit,twitter,facebook,groups">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦚</text></svg>">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+	<meta name="robots" content="index, follow">
+
+	<!-- Open Graph -->
+	<meta property="og:title" content="Plume 2021">
+	<meta property="og:type" content="social media">
+	<meta property="og:url" content="plu.me">
+	<meta property="og:description" content="A 'no frills' online community space for everyone!">
+	<meta property="og:image" content="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/joypixels/291/parrot_1f99c.png">
+	<meta property="og:site_name" content="Plume" />
+
+	<!-- Twitter Cards -->
+	<meta name="twitter:title" content="Plume">
+	<meta name="twitter:description" content="A 'no frills' online community space for everyone!">
+	<meta name="twitter:image" content="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/joypixels/291/parrot_1f99c.png">
+	<meta name="twitter:site" content="plu.me">
+	<meta name="twitter:creator" content="@arthurlaroya">
+
+	<!-- Favicon -->
+	<link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/joypixels/291/parrot_1f99c.png">
+
+	<!-- Google Fonts/Icons -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Poppins:wght@200;300;400&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Poppins:wght@200;300;400&display=swap">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
+
+	<!-- Bulma CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+	<!-- My CSS -->
 	<link rel="stylesheet" href="{% static 'css/master.css' %}">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body class="has-text-light">
@@ -24,7 +51,10 @@
 			<a class="navbar-item" href="{% url 'home' %}">
 				<h1 class="ml6">
 				  <span class="text-wrapper">
-				    <span class="has-text-weight-bold is-size-4 has-text-light tricks slide-up">Plume</span><span class="is-size-4"> 🦚</span>
+				    <span class="has-text-weight-bold is-size-4 has-text-light tricks slide-up">Plume</span>
+						<figure class="image is-24x24 pt-1 mx-1" style="display:inline-block">
+  						<img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/joypixels/291/parrot_1f99c.png" alt="plume logo">
+						</figure>
 				  </span>
 				</h1>
 			</a>
@@ -69,9 +99,9 @@
 						<div class="dropdown is-right navbar-item">
 							<div class="dropdown-trigger">
 								<figure class="navbar-item image ">
-									<a href="{% url 'accounts:profile' request.user.pk %}"><img src="{{ request.user.profile.picture.url }}" class="is-rounded"/></a>
+									<a href="{% url 'accounts:profile' request.user.pk %}"><img src="{{ request.user.profile.picture.url }}" class="is-rounded" alt="{{ request.user }}'s profile picture"/></a>
 									<span>&nbsp</span>
-									<a class="material-icons has-text-light">expand_more</a>
+									<a href="#" class="material-icons has-text-light">expand_more</a>
 								</figure>
 							</div>
 							<div class="dropdown-menu" role="menu">
@@ -170,42 +200,42 @@
 			<div class="columns is-multiline is-flex-tablet is-flex-mobile">
 				<div class="column is-3 is-6-mobile">
 					<div class="footer-group">
-						<h4>Plume 🦚</h4>
+						<h2 class="is-size-4">Plume 🦜</h2>
 						<ul>
-							<li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-							<li><a href="{% url 'account_login' %}">Login</a></li>
-							<li><a href="{% url 'posts:all' %}">Feed</a></li>
-							<li><a href="{% url 'groups:all' %}">Groups</a></li>
+							<li><a class="has-text-light" href="{% url 'account_signup' %}">Sign Up</a></li>
+							<li><a class="has-text-light" href="{% url 'account_login' %}">Login</a></li>
+							<li><a class="has-text-light" href="{% url 'posts:all' %}">Feed</a></li>
+							<li><a class="has-text-light" href="{% url 'groups:all' %}">Groups</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="column is-3 is-6-mobile">
 					<div class="footer-group">
-						<h4>Discover 🐧</h4>
+						<h2 class="is-size-4">Discover 👀</h2>
 						<ul>
-							<li><a href="{% url 'posts:explore' %}">Explore</a></li>
-							<li><a href="{% url 'posts:create' %}">New post</a></li>
-							<li><a href="{% url 'groups:create' %}">New group</a></li>
+							<li><a class="has-text-light" href="{% url 'posts:explore' %}">Explore</a></li>
+							<li><a class="has-text-light" href="{% url 'posts:create' %}">New post</a></li>
+							<li><a class="has-text-light" href="{% url 'groups:create' %}">New group</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="column is-3 is-6-mobile">
 					<div class="footer-group">
-						<h4>Arthur L. 👨‍💻</h4>
+						<h2 class="is-size-4">Arthur L ‍😷</h2>
 						<ul>
-							<li><a href="https://github.com/ajlaroya">Github</a></li>
-							<li><a href="https://www.linkedin.com/in/arthurlaroya/">LinkedIn</a></li>
-							<li><a href="https://mysarisari.herokuapp.com/">sari-sari (my blog) ✨</a></li>
+							<li><a class="has-text-light" href="https://github.com/ajlaroya">Github</a></li>
+							<li><a class="has-text-light" href="https://www.linkedin.com/in/arthurlaroya/">LinkedIn</a></li>
+							<li><a class="has-text-light" href="https://mysarisari.herokuapp.com/">sari-sari (my blog) ✨</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="column is-3 is-6-mobile">
 					<div class="footer-group">
-						<h4>Info 🚁</h4>
+						<h2 class="is-size-4">Info 💫</h2>
 						<ul>
-							<li><a href="{% url 'about' %}">About</a></li>
-							<li><a href="{% url 'contact' %}">Contact</a></li>
-							<li><a>Privacy policy</a></li>
+							<li><a class="has-text-light" href="{% url 'about' %}">About</a></li>
+							<li><a class="has-text-light" href="{% url 'contact' %}">Contact</a></li>
+							<li><a class="has-text-light" href="#">Privacy policy</a></li>
 						</ul>
 					</div>
 				</div>
@@ -213,10 +243,10 @@
 
 		</div>
 		<div class="footer-img" role="presentation">
-			<img src="{% static 'images/pof-pof/design.png' %}" alt="">
+			<img src="{% static 'images/pof-pof/design.png' %}" alt="pof-pof design">
 		</div>
 		<div class="container copyright">
-			<div class="has-text-centered dom-node-dem">
+			<div class="has-text-centered">
 				<span class="el">© 2021 Arthur Laroya, Inc. All Rights Reserved.</span>
 			</div>
 		</div>

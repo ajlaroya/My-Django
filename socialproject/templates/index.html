@@ -22,7 +22,7 @@
         <p class="subtitle">A 'no frills' online community space for everyone!</p>
         <br>
         {% if user.is_authenticated %}
-        <a class="button" href="{% url 'about' %}">Learn more</a>
+        <a class="button" href="{% url 'about' %}">About us</a>
         <a class="button" href="{% url 'posts:create' %}">Start posting</a>
         {% else %}
         <a class="button" href="{% url 'about' %}">Learn more</a>
@@ -36,8 +36,8 @@
       is-4-desktop is-offset-1-desktop
       is-4-widescreen is-offset-1-widescreen
       is-4-fullhd is-offset-1-fullhd" data-aos="fade-up">
-      <figure class="image is-square">
-        <img src="{% static 'images/pof-pof/no comments yet.png' %}">
+      <figure class="image ">
+        <img src="{% static 'images/pof-pof/no comments yet.png' %}" alt="pof-pof no comments yet">
       </figure>
       </div>
 
@@ -56,8 +56,8 @@
         is-4-desktop is-offset-1-desktop
         is-4-widescreen is-offset-1-widescreen
         is-4-fullhd is-offset-1-fullhd">
-        <figure class="image is-square">
-          <img src="{% static 'images/pof-pof/messages.png' %}">
+        <figure class="image ">
+          <img src="{% static 'images/pof-pof/messages.png' %}" alt="pof-pof messages">
         </figure>
       </div>
       <div data-aos="fade-down" class="column
@@ -104,8 +104,8 @@
       is-4-desktop is-offset-1-desktop
       is-4-widescreen is-offset-1-widescreen
       is-4-fullhd is-offset-1-fullhd" data-aos="fade-up">
-      <figure class="image is-square">
-        <img src="{% static 'images/pof-pof/coding.png' %}">
+      <figure class="image">
+        <img src="{% static 'images/pof-pof/coding.png' %}" alt="pof-pof coding">
       </figure>
     </div>
 
@@ -126,7 +126,7 @@
             The world is at your fingertips <br><br>
             <a class="button mb-5" href="{% url 'account_signup' %}">Sign me up!</a>
           </h2>
-          <img style='max-width:45%;width:auto;height:auto;' src="{% static 'images/pof-pof/instashot.png' %}">
+          <img style='max-width:45%;width:auto;height:auto;' src="{% static 'images/pof-pof/instashot.png' %}" alt="pof-pof instashot">
 
           <!-- random staggering animation -->
 
@@ -143,7 +143,7 @@
   </div>
 </section>
 
-
+<!-- Typerwriter JS effect -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/TypewriterJS/2.13.1/core.min.js"></script>
 <script>
   new Typewriter('#typewriter', {
