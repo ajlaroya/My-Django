@@ -9,6 +9,8 @@ from django.shortcuts import redirect
 from django.db.models import Q
 from django.http import HttpResponse
 from posts.models import Post
+from rest_framework import viewsets
+from .serializers import ProfileSerializer
 from .models import UserProfile, Notification, ThreadModel, MessageModel
 from .forms import ThreadForm, MessageForm, ProfileEditForm
 
@@ -222,3 +224,7 @@ class ThreadView(View):
               'message_list': message_list
         }
         return render(request, 'accounts/thread.html', context)
+
+class UserProfileView(viewsets.ModelViewSet):
+    serializer_class = ProfileSerializer
+    queryset = UserProfile.objects.all()

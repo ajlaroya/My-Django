@@ -1,7 +1,11 @@
-from django.urls import path
-from .import views
+from django.urls import path, include
+from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'userprofile', views.UserProfileView, 'userprofile')
 
 app_name = 'accounts'
 
@@ -19,7 +23,8 @@ urlpatterns = [
     path('inbox/', views.ListThreads.as_view(), name='inbox'),
     path('inbox/create-thread', views.CreateThread.as_view(), name='create-thread'),
     path('inbox/<int:pk>/', views.ThreadView.as_view(), name='thread'),
-    path('inbox/<int:pk>/create-message/', views.CreateMessage.as_view(), name='create-message')
+    path('inbox/<int:pk>/create-message/', views.CreateMessage.as_view(), name='create-message'),
+    path('api/', include(router.urls)),
 ]
 
 if settings.DEBUG:
