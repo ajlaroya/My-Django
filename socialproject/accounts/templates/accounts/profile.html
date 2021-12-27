@@ -23,7 +23,11 @@
           <a href="{% url 'accounts:followers-list' profile.pk%}" class="has-text-warning">Followers: {{ follower_count }}</a>
 
           {% if request.user.is_authenticated %}
-            {% if profile.user == request.user %}
+            {% if request.user.is_superuser %}
+              <a href="{% url 'accounts:profile-edit' profile.pk %}" class="has-text-warning">
+                <i class="material-icons">edit</i>
+              </a>
+            {% elif profile.user == request.user %}
               <a href="{% url 'accounts:profile-edit' profile.pk %}" class="has-text-warning">
                 <i class="material-icons">edit</i>
               </a>

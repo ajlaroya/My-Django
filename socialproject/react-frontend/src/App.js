@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Avatar, { genConfig } from 'react-nice-avatar';
-import axios from "axios";
+import * as htmlToImage from 'html-to-image';
+import download from 'downloadjs'
 
 function NFT() {
   const config = genConfig({
@@ -19,6 +20,7 @@ class App extends Component {
     super(props);
     this.state = {
       viewCompleted: false,
+      modal: false,
       activeItem: {
         user: "",
         bio: "",
@@ -42,13 +44,13 @@ class App extends Component {
   }
 
   renderItems = () => {
-      const { viewCompleted } = this.state;
+
       const newItems = this.state.userProfile
       return newItems.map(item => (
         <li
           className="list-group-item d-flex justify-content-between align-items-center p-3"
         >
-        <div className="App">
+        <div className="App" id='avatar'>
             <NFT />
         </div>
           <span>
@@ -56,11 +58,23 @@ class App extends Component {
               {item.bio} <br/>
               {item.location} <br/>
               {item.picture} <br/>
+
+
             </span>
             <br/>
         </li>
       ));
     };
+
+  renderDom = () => {
+    var node = document.getElementById('avatar');
+
+    htmlToImage.toPng(node)
+      .then(function (dataUrl) {
+        download(dataUrl, 'my-node.png');
+      });
+    }
+
 
   render() {
       return (
@@ -71,6 +85,7 @@ class App extends Component {
               <div className="card p-0">
                 <ul className="list-group list-group-flush">
                   {this.renderItems()}
+                  {this.renderDom()}
                 </ul>
               </div>
             </div>
