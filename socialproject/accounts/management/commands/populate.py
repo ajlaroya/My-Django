@@ -1,23 +1,27 @@
+import io
 from django.core.management.base import BaseCommand
 from faker import Faker
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from django.db import IntegrityError
+from django.core.files.images import ImageFile
 from accounts.models import UserProfile
 from posts.models import Post
 from groups.models import Group
+from convokit import Corpus, download
 
 class Command(BaseCommand):
     help = "Command information"
 
     def handle(self,*args,**kwargs):
         fake = Faker()
+        print('Downloading corpus')
+        corpus = Corpus(filename=download("reddit-corpus-small"))
 
-        # print(fake.user_name())
-        # print(fake.free_email())
-        # print(fake.password())
-        # print(fake.paragraph(nb_sentences=5))
+        for _ in range(20):
+            utt = corpus.random_utterance()
+            text = utt.text
 
-        for _ in range(9):
             # Generating User
             email = fake.unique.free_email()
             username = fake.unique.user_name()
@@ -25,20 +29,36 @@ class Command(BaseCommand):
             User.objects.create(email=email,username=username,password=password)
             userobj = User.objects.get(username=username)
 
+            print(f'User: {username} created')
+
             # Generating Profile
-            bio = fake.catch_phrase()
-            location = fake.location_on_land()[2]
-            # picture = make_password('password')
-            profile = UserProfile(user_id=userobj.pk,bio=bio,location=location)
+            catch_phrase = fake.catch_phrase()
+            bio = f'[hi, im a generated user] {catch_phrase}'
+            location = fake.location_on_land()[2] + ', ' + fake.location_on_land()[3]
+            picture = fake.image()
+            avatar = ImageFile(io.BytesIO(picture), name='foo.jpg')
+            profile = UserProfile(user_id=userobj.pk,bio=bio,location=location,picture=avatar)
             profile.save()
 
-            # Generating Posts
-            message = fake.paragraph(nb_sentences=5)
-            Post.objects.create(author=userobj,message=message)
+            print(f'Bio: {bio}')
+            print(f'Location: {location}')
 
             # Generating Groups
-            print(f'{username} created')
-            print(message)
+            subreddit = utt.meta['subreddit']
+            try:
+                Group.objects.create(name=subreddit)
+            except IntegrityError:
+                print(f"{subreddit} already exists")
+
+            group = Group.objects.get(name=subreddit)
+
+            print(f'Group: {subreddit} created')
+
+            # Generating Posts
+            Post.objects.create(author=userobj,message=text,group=group)
+
+            print(f'Post: {text} \n')
+
 
         check_users = User.objects.all().count()
         check_posts = Post.objects.all().count()

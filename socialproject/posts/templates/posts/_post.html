@@ -7,7 +7,7 @@
   <!-- Poster details -->
   <figure class="media-left">
     <p class="image is-64x64">
-      <a href="{% url 'accounts:profile' post.author.profile.pk %}"><img src="{{ post.author.profile.picture.url }}" alt="{{ post.author }}"></a>
+      <a href="{% url 'accounts:profile' post.author.profile.pk %}"><img src="{{ post.author.profile.picture.url }}" alt="{{ post.author }}" class="is-rounded"></a>
     </p>
   </figure>
 
@@ -19,7 +19,7 @@
       {% if post.shared_user %}
       <div class="level">
         <a class="level-item level-right" href="{% url 'accounts:profile' post.shared_user.profile.pk %}">
-          <img height="30" width="30" src="{{ post.shared_user.profile.picture.url }}" />
+          <img height="30" width="30" src="{{ post.shared_user.profile.picture.url }}" class="is-rounded"/>
         </a>
         <p class="post-text">
           <a class="text-primary post-link" href="{% url 'accounts:profile' post.shared_user.profile.pk %}">&nbsp&nbsp@{{ post.shared_user }}</a>
@@ -46,7 +46,7 @@
       <!-- Post image (if) -->
       {% if post.image.count > 0 %}
         {% for img in post.image.all %}
-          <img src="{{ img.image.url }}" class="post-image"/>
+          <img src="{{ img.image.url }}" class="post-image" />
         {% endfor %}
         <br>
       {% endif %}
@@ -138,7 +138,7 @@
     <article class="media pb-2">
       <figure class="media-left">
         <a href="{% url 'accounts:profile' comment.author.profile.pk %}">
-          <img class="image" height="40" width="40" src="{{ comment.author.profile.picture.url }}" />
+          <img class="image is-rounded" height="40" width="40" src="{{ comment.author.profile.picture.url }}" />
         </a>
       </figure>
       <div class="media-content">
@@ -206,7 +206,7 @@
       <article class="media pb-2">
         <figure class="media-left">
           <a href="{% url 'accounts:profile' child_comment.author.profile.pk %}">
-            <img class="image" height="40" width="40" src="{{ child_comment.author.profile.picture.url }}" />
+            <img class="image is-rounded" height="40" width="40" src="{{ child_comment.author.profile.picture.url }}" />
           </a>
         </figure>
         <div class="media-content">

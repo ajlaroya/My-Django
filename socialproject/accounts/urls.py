@@ -25,7 +25,4 @@ urlpatterns = [
     path('inbox/<int:pk>/', views.ThreadView.as_view(), name='thread'),
     path('inbox/<int:pk>/create-message/', views.CreateMessage.as_view(), name='create-message'),
     path('api/', include(router.urls)),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

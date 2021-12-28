@@ -11,8 +11,6 @@ class Migration(migrations.Migration):
         ('posts', '0010_auto_20211115_2041'),
         ('admin', '0003_logentry_add_action_flag_choices'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('account', '0003_auto_20211115_2123'),
-        ('socialaccount', '0004_auto_20211115_2123'),
         ('groups', '0001_initial'),
         ('accounts', '0006_userprofile_followers'),
     ]
