@@ -14,12 +14,10 @@
   {% endif %}
 </h1>
 
-<a href="{{request.META.HTTP_REFERER|escape}}"><input type="submit" class="button mb-5" value="Go back"></a>
-
 <div class="mt-3 column is-three-quarters">
 
   <!-- Singular post -->
   {% include "posts/_post.html" %}
-  
+
 </div>
 {% endblock %}

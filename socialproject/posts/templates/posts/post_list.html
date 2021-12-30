@@ -36,4 +36,18 @@
   {% include "posts/_post.html" %}
 	{% endfor %}
 </div>
+
+<!-- Remember scroll position JS -->
+<script type="text/javascript">
+  let sidebar = document.querySelector(".sidebar");
+
+  let tops = localStorage.getItem("sidebar-scroll");
+  if (tops !== null) {
+    sidebar.scrollTop = parseInt(top, 10);
+  }
+
+  window.addEventListener("beforeunload", () => {
+    localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+  });
+</script>
 {% endblock %}

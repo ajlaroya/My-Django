@@ -11,15 +11,21 @@
       <button class="button mb-5" type="submit">Talk with someone!</button>
     </form>
     <div class="columns">
-      <div class="column">
+      <div class="column is-mobile">
         {% for thread in threads.all %}
         <div class="card column p-5 mb-3 level is-inline-flex">
-            <figure class="image level-left is-64x64">
+            {% if thread.receiver != request.user %}
+            <figure class="image level-left is-64x64 mr-5">
       				<img src="{{ thread.receiver.profile.picture.url }}" alt="{{ thread.receiver }}">
       			</figure>
+            {% else %}
+            <figure class="image level-left is-64x64 mr-5">
+      				<img src="{{ thread.user.profile.picture.url }}" alt="{{ thread.user }}">
+      			</figure>
+            {% endif %}
             <span>&nbsp&nbsp</span>
-            <a class="level-item level-left has-text-light" href="{% url 'accounts:thread' thread.pk %}">
-              <i class="material-icons">message</i>&nbsp&nbsp @{{ thread.user }} to @{{ thread.receiver }}
+            <a class="level-item level-left has-text-light word-break" href="{% url 'accounts:thread' thread.pk %}">
+              <i class="material-icons">message</i>&nbsp&nbsp @{{ thread.user }}<br>&nbsp&nbsp @{{ thread.receiver }}
             </a>
         </div>
         {% endfor %}

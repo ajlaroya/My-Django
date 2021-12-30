@@ -22,7 +22,6 @@ class ProfileView(View):
         posts = Post.objects.filter(author=user).order_by('-created_at')
         followers = profile.followers.all()
         follower_count = len(followers)
-        form = ThreadForm()
 
         if follower_count == 0:
             is_following = False

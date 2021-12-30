@@ -20,9 +20,12 @@
     <div class="tile">
       <div class="card m-3 p-3">
         <header class="card-header level">
-          <p class="card-header-title level-left">
-            <a class="is-size-4 has-text-light tricks pop-in" href="{% url 'groups:single' slug=group.slug %}">{{ group.name }}</a>
-          </p>
+          <div class="column is-half">
+            <p class="card-header-title level-left">
+              <a class="is-size-4 has-text-light" href="{% url 'groups:single' slug=group.slug %}">{{ group.name }}</a>
+            </p>
+          </div>
+
           <div class="level-right">
             <a class="has-text-warning p-2" href="#">{{ group.members.count }}
               <i class="material-icons">groups</i>

@@ -8,7 +8,7 @@
 {% block content %}
 <div class="section">
   {% if query == None %}
-  <h1 class="title has-text-light tricks fade-up">User Search!</h1>
+  <h1 class="title has-text-light tricks fade-up">User Search</h1>
   {% else %}
   <h1 class="title has-text-light tricks fade-up">Search results for "{{ query }}"</h1>
   {% endif %}
@@ -27,19 +27,41 @@
         </div>
       </form>
       {% for profile in profile_list %}
-      <div class="card p-5 mb-5">
-        <div class="mt-3">
-          <a href="{% url 'accounts:profile' profile.pk %}">
-            <img class="image" height="80" width="80" src="{{ profile.picture.url }}"/>
-          </a>
-          <p>
-            <a class="has-text-warning "href="{% url 'accounts:profile' profile.pk %}">@{{ profile.user }}</a>
-          </p>
-          {% if profile.location %}
-          <p class="is-6"><i class="material-icons">place</i> <em>{{ profile.location }}</em></p>
-          {% endif %}
-          <p>Followers: {{ profile.followers.all.count }}</p>
-          <br>
+
+      <div class="card my-5">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <a href="{% url 'accounts:profile' profile.pk %}">
+                  <figure class="image is-96x96 is-mobile">
+                    <img src="{{ profile.picture.url }}" class="is-rounded"/>
+                  </figure>
+              </a>
+            </div>
+            <div class="media-content">
+              <p class="title is-4"><a class="has-text-warning is-size-5-mobile" href="{% url 'accounts:profile' profile.pk %}">@{{ profile.user }}
+              {{ is_following }}</a></p>
+              {% if profile.location %}
+              <p class="subtitle is-6 mb-2"><i class="material-icons">place</i>&nbsp{{ profile.location }}</p>
+              {% endif %}
+              <p class="subtitle is-6">Followers: {{ profile.followers.all.count }}</p>
+            </div>
+          </div>
+
+          <div class="content">
+            {% if is_following %}
+            <form method="POST" action="{% url 'accounts:remove-follower' profile.pk %}">
+              {% csrf_token %}
+              <button class="button" type=submit>Unfollow</button>
+            </form>
+            <em class="has-text-light">You are following {{ user }}</em>
+            {% else %}
+            <form method="POST" action="{% url 'accounts:add-follower' profile.pk %}">
+              {% csrf_token %}
+              <button class="button" type=submit>Follow</button>
+            </form>
+            {% endif %}
+          </div>
         </div>
       </div>
       {% endfor %}

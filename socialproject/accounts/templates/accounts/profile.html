@@ -11,14 +11,14 @@
     <div class="card-content">
       <div class="media">
         <div class="media-left">
-          <figure class="image is-128x128">
+          <figure class="image is-128x128 is-mobile">
             <img src="{{ profile.picture.url }}" class="is-rounded"/>
           </figure>
         </div>
         <div class="media-content mt-5">
-          <p class="title is-3 has-text-light tricks fade-up">@{{ profile.user }}</p>
+          <p class="title is-3 has-text-light is-size-4-mobile">@{{ profile.user }}</p>
           {% if profile.location %}
-          <p class="subtitle is-6"><i class="material-icons has-text-warning">place</i> <em>{{ profile.location }}</em></p>
+          <p class="subtitle is-6 is-size-6-mobile"><i class="material-icons has-text-warning">place</i> <em>{{ profile.location }}</em></p>
           {% endif %}
           <a href="{% url 'accounts:followers-list' profile.pk%}" class="has-text-warning">Followers: {{ follower_count }}</a>
 
@@ -45,7 +45,7 @@
         <div class="level">
             <a href="{% url 'accounts:create-thread' %}" method="post">
               <button class="button" type="submit" value="{{ profile.user }}">
-                <span class="material-icons">message</span>
+                DM&nbsp<span class="material-icons">message</span>
               </button>
             </a>
             {% if is_following %}

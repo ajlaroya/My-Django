@@ -158,6 +158,12 @@ i {
   left: 5px;
 }
 
+@media only screen {
+  .dd-icon {
+    margin-top: 5px;
+  }
+}
+
 .dropdown-content {
   width: 200px;
   border-bottom: 0px;
@@ -299,4 +305,16 @@ i {
 
 .fade-up {
   overflow: hidden;
+}
+
+/* mobile css */
+@media (max-width: 768px) {
+  .level-left+.level-right {
+      margin-top: 0rem;
+  }
+}
+
+.word-break {
+  word-break: break-word;
+  flex-basis: 50%;
 }

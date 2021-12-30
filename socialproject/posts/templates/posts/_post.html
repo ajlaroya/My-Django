@@ -22,8 +22,8 @@
           <img height="30" width="30" src="{{ post.shared_user.profile.picture.url }}" class="is-rounded"/>
         </a>
         <p class="post-text">
-          <a class="text-primary post-link" href="{% url 'accounts:profile' post.shared_user.profile.pk %}">&nbsp&nbsp@{{ post.shared_user }}</a>
-          shared this post on {{ post.shared_on }}
+          <a class="text-primary post-link has-text-warning" href="{% url 'accounts:profile' post.shared_user.profile.pk %}">&nbsp&nbsp@{{ post.shared_user }}</a>
+          shared this post on {{ post.shared_on|date:"j/n/y, f A"}}
           {% if post.shared_body %}
             and said: <em>{{ post.shared_body }}</em>
           {% endif %}
@@ -35,7 +35,7 @@
       <strong><a class="has-text-warning is-size-4" href="{% url 'accounts:profile' post.author.profile.pk %}">@{{post.author}}</a></strong>
       <small>
         <time class="time">
-        <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">&nbsp{{post.created_at}}</a>
+        <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">&nbsp{{post.created_at|date:"M n, f A"}}</a>
         </time>
       </small>
       {% if post.group %}
@@ -52,7 +52,7 @@
       {% endif %}
 
       <!-- Post content -->
-      <div class="tricks fade-up-cards post-body">
+      <div class="post-body">
         <p>{{ post.message }}</p>
       </div>
     </div>
