@@ -32,6 +32,7 @@ urlpatterns = [
     path('',views.HomePage.as_view(),name='home'),
     path('about/',views.AboutPage.as_view(),name='about'),
     path('contact/',views.ContactPage.as_view(),name='contact'),
+    path('privacy/',views.PrivacyPage.as_view(),name='privacy'),
     path('accounts/', include('allauth.urls')),
     path('accounts/',include('accounts.urls',namespace='accounts')),
     path('posts/',include('posts.urls',namespace='posts')),

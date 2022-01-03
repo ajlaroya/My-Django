@@ -41,6 +41,17 @@
 
 	<!-- My CSS -->
 	<link rel="stylesheet" href="{% static 'css/master.css' %}">
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-KRD3E3GBMY"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-KRD3E3GBMY');
+	</script>
+
 </head>
 
 <body class="has-text-light">
@@ -235,7 +246,7 @@
 						<ul>
 							<li><a class="has-text-light" href="{% url 'about' %}">About</a></li>
 							<li><a class="has-text-light" href="{% url 'contact' %}">Contact</a></li>
-							<li><a class="has-text-light" href="#">Privacy policy</a></li>
+							<li><a class="has-text-light" href="{% url 'privacy' %}">Privacy policy</a></li>
 						</ul>
 					</div>
 				</div>
@@ -243,7 +254,7 @@
 
 		</div>
 		<div class="footer-img" role="presentation">
-			<img src="{% static 'images/pof-pof/Design.png' %}" alt="pof-pof design">
+			<img src="{% static 'images/pof-pof/Design.webp' %}" alt="pof-pof design">
 		</div>
 		<div class="container copyright">
 			<div class="has-text-centered">

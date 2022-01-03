@@ -27,3 +27,6 @@ class ContactPage(TemplateView):
                 email_message = form.cleaned_data['message']
                 send_mail(email_subject, email_message, settings.CONTACT_EMAIL, settings.ADMIN_EMAIL, fail_silently=False,)
                 return render(request, 'success.html')
+
+class PrivacyPage(TemplateView):
+    template_name = 'privacy.html'
