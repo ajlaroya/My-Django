@@ -106,14 +106,16 @@
 						  <a href="{% url 'accounts:inbox' %}" class="has-text-light"><i class="material-icons">message</i></a>
 						</div>
 
-						<!-- Dropdown User Menu -->
-						<div class="dropdown is-right navbar-item">
-							<div class="dropdown-trigger">
-								<figure class="navbar-item image ">
+						<div class="navbar-item pl-5">
+								<figure class="image is-48x48 is-square">
 									<a href="{% url 'accounts:profile' request.user.pk %}"><img src="{{ request.user.profile.picture.url }}" class="is-rounded" alt="{{ request.user }}'s profile picture"/></a>
-									<span>&nbsp</span>
-									<a href="#" class="material-icons has-text-light">expand_more</a>
 								</figure>
+						</div>
+
+						<!-- Dropdown User Menu -->
+						<div class="dropdown is-right navbar-item p-0">
+							<div class="dropdown-trigger">
+								<a href="#" class="material-icons has-text-light navbar-item p-0">expand_more</a>
 							</div>
 							<div class="dropdown-menu" role="menu">
 								<div class="dropdown-content py-0">
