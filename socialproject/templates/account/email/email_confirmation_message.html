@@ -1,0 +1,8 @@
+{% load account %}
+{% load i18n %}
+{% user_display user as user_display %}
+
+<h1>👋 Welcome to Plume @{{ user_display }}!</h1>
+<h3>You're receiving this e-mail because you have given your e-mail address to register an account on Plume. <br>
+To confirm this is correct, please confirm your e-mail with the link below 💌 </h3> <br>
+<h4>{{ activate_url }}</h4>
