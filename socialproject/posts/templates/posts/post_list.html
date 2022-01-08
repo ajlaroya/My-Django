@@ -2,16 +2,22 @@
 
 {% load bulma_tags %}
 {% load static %}
+{% load account %}
 
 {% block title %}<title>Plume - My Feed</title>{% endblock %}
 
 {% block pre_post_content %}
 <h1 class="title has-text-light tricks pop-in">My feed</h1>
 {% if request.user.is_authenticated %}
-<p class="subtitle has-text-light">Welcome 👋 <strong class="has-text-warning">@{{ user }}</strong>, here are posts from users you follow!</p>
+<p class="subtitle has-text-light mb-0">Welcome 👋 <strong><a class="has-text-warning" href="{% url 'accounts:profile' request.user.pk %}">@{{ user }}</a></strong>, here are posts from users you follow!</p>
 {% endif %}
 
-<div class="columns is-vcentered feed">
+<!-- {% if confirmation %}
+{% else %}
+<p><i>An e-mail confirmation link has been sent to your email. Otherwise, please <a class="has-text-warning" href="{% url 'account_email' %}">issue a new e-mail confirmation request</a></i></p>
+{% endif %} -->
+
+<div class="pt-5 columns is-vcentered feed">
 
   <div class="card column is-half p-5 mb-5">
       <form method="POST" enctype="multipart/form-data">

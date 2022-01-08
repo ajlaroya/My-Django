@@ -20,11 +20,11 @@ class MessageForm(forms.ModelForm):
         fields = ['body', 'image']
 
 class ProfileEditForm(forms.ModelForm):
-    bio = forms.CharField(label='Bio:', max_length=500,
+    bio = forms.CharField(required=False,label='Bio:', max_length=500,
         widget=forms.Textarea(attrs={'rows': '10',
         'class':'text-area is-warning mb-5'}))
 
-    location = forms.CharField(label='Location:', max_length=100,
+    location = forms.CharField(required=False,label='Location:', max_length=100,
         widget=forms.TextInput(attrs={'placeholder':'Location',
         'class':'is-warning mb-5'}))
 

@@ -44,8 +44,8 @@
         {% if request.user.is_authenticated %}
         <div class="level">
             <a href="{% url 'accounts:create-thread' %}" method="post">
-              <button class="button" type="submit" value="{{ profile.user }}">
-                DM&nbsp<span class="material-icons">message</span>
+              <button class="button mr-2" type="submit" value="{{ profile.user }}">
+                Message&nbsp<span class="material-icons">message</span>
               </button>
             </a>
             {% if is_following %}
@@ -57,7 +57,7 @@
             {% else %}
             <form class="level-item level-left" method="POST" action="{% url 'accounts:add-follower' profile.pk %}">
               {% csrf_token %}
-              <button class="button" type=submit>Follow</button>
+              <button class="button" type=submit>Follow&nbsp <span class="material-icons">person_add</span></button>
             </form>
             {% endif %}
         </div>

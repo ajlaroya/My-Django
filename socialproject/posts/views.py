@@ -18,12 +18,12 @@ from .forms import PostForm, CommentForm, ShareForm, ExploreForm
 # Create your views here.
 class PostList(LoginRequiredMixin,generic.View):
     def get(self, request, *args, **kwargs):
-        logged_in_user = request.user
-
         # shows only posts from users that are followed
-        posts = Post.objects.filter(
-            author__profile__followers__in=[logged_in_user.id]
-        )
+        feed_posts = Post.objects.filter(
+            author__profile__followers__in=[request.user.id]
+        ).order_by('-created_at')
+        user_posts = Post.objects.filter(author=request.user)
+        posts = feed_posts | user_posts
         form = PostForm()
         share_form = ShareForm()
         reply_form = CommentForm()
@@ -38,7 +38,12 @@ class PostList(LoginRequiredMixin,generic.View):
         return render(request, 'posts/post_list.html', context)
 
     def post(self, request, *args, **kwargs):
-        posts = Post.objects.all().order_by('-created_at')
+        # shows only posts from users that are followed
+        feed_posts = Post.objects.filter(
+            author__profile__followers__in=[request.user.id]
+        ).order_by('-created_at')
+        user_posts = Post.objects.filter(author=request.user)
+        posts = feed_posts | user_posts
         form = PostForm(request.POST, request.FILES)
         files = request.FILES.getlist('image')
         share_form = ShareForm()
