@@ -22,8 +22,8 @@ class PostList(LoginRequiredMixin,generic.View):
         feed_posts = Post.objects.filter(
             author__profile__followers__in=[request.user.id]
         ).order_by('-created_at')
-        user_posts = Post.objects.filter(author=request.user)
-        posts = feed_posts | user_posts
+        # user_posts = Post.objects.filter(author=request.user.id)
+        posts = feed_posts
         form = PostForm()
         share_form = ShareForm()
         reply_form = CommentForm()
@@ -42,8 +42,8 @@ class PostList(LoginRequiredMixin,generic.View):
         feed_posts = Post.objects.filter(
             author__profile__followers__in=[request.user.id]
         ).order_by('-created_at')
-        user_posts = Post.objects.filter(author=request.user)
-        posts = feed_posts | user_posts
+        # user_posts = Post.objects.filter(author=request.user)
+        posts = feed_posts
         form = PostForm(request.POST, request.FILES)
         files = request.FILES.getlist('image')
         share_form = ShareForm()

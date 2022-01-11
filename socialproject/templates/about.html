@@ -11,12 +11,15 @@
     <div class="column is-half">
       <h1 class="title has-text-light has-text-centered pb-3">So what's Plume all about?</h1>
       <h2 class="subtitle has-text-centered">
-        <em>Plume is home to a trove of communities, endless conversation, and authentic human connection. Whether you're into breaking news, sports, TV fan theories, or a never-ending stream of the internet's cutest animals, there's a community on Plume for you.</em>
+        Plume is home to a trove of communities, endless conversation, and authentic human connection. Whether you're into breaking news, sports, TV fan theories, or a never-ending stream of the internet's cutest animals, there's a community on Plume for you.
       </h2>
     </div>
     <div class="column is-half">
       <figure class="image">
-        <img src="{% static 'images/pof-pof/Product Launch.png' %}">
+        <img src="{% static 'images/pof-pof/Product Launch.png' %}" style="width: 70%;
+          height: auto;display: block;
+          margin-left: auto;
+          margin-right: auto;">
       </figure>
     </div>
   </div>
@@ -76,21 +79,57 @@
   </div>
 </section>
 
+<!-- Arthur, The Creator -->
 <section class="section is-medium">
   <div class="columns is-vcentered">
     <div class="column">
       <h1 class="title has-text-light has-text-centered pb-3">Creator of Plume</h1>
       <h2 class="subtitle has-text-centered">
-        Plume was created in 2021 by a boy named <b>Arthur John Laroya</b>
+        Plume was solely designed and programmed in 2021 by a boy named <b><a class="has-text-warning" href="www.linkedin.com/in/arthurlaroya">Arthur John Laroya</a></b>
       </h2>
       <figure class="image mb-5">
-        <img src="{% static 'images/pof-pof/Coding.png' %}" style="width: 50%;
+        <img src="{% static 'images/pof-pof/Coding.png' %}" style="width: 40%;
           height: auto;display: block;
           margin-left: auto;
           margin-right: auto;">
       </figure>
       <h2 class="subtitle has-text-centered">
         <a class="has-text-warning" href="{% url 'accounts:profile' pk=7 %}"><b>@arthurlaroya</b></a>
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section is-medium">
+  <div class="columns is-vcentered">
+    <div class="column is-half">
+      <h1 class="title has-text-light has-text-centered pb-3">Tech Stack 🤖</h1>
+      <h2 class="subtitle has-text-centered">
+          <ul>
+            <li>Django (backend)</li>
+            <li>HTML (frontend)</li>
+            <li>Bulma / CSS (frontend)</li>
+            <li>JavaScript / React (frontend)</li>
+            <li>Anime.js (frontend)</li>
+            <li>SQLite3 (database)</li>
+            <li>AWS EB/S3/EC2 (deployment)</li>
+            <li>Google Analytics/Search Console (analytics)</li>
+          </ul>
+      </h2>
+    </div>
+    <div class="column is-half">
+      <h1 class="title has-text-light has-text-centered pb-3">Big Thanks 🙏</h1>
+      <h2 class="subtitle has-text-centered">
+          <ul>
+            <li>@ruslanlatypov for pof-pof illustrations</li>
+            <li>@JosePortilla's Django course</li>
+            <li>@dapiok's react lib for the placeholder avatars</li>
+            <li>Stackoverflow for the guidance</li>
+            <li>family and friends for motivating me</li>
+            <li>lockdown/isolation for giving me time</li>
+            <li>The endless resources/guides on the net</li>
+          </ul>
       </h2>
     </div>
   </div>
