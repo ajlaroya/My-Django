@@ -18,4 +18,6 @@ urlpatterns = [
     path('<int:post_pk>/comment/like/<int:pk>/', views.AddCommentLike.as_view(), name='comment-like'),
     path('<int:pk>/share', views.SharedPostView.as_view(), name='share-post'),
     path('explore/', views.Explore.as_view(), name='explore'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+# if settings.DEBUG: #add this
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

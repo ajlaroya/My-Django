@@ -9,7 +9,7 @@ from groups.models import Group
 class Post(models.Model):
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
-    message = models.TextField()
+    message = models.CharField(max_length=10000)
     group = models.ForeignKey(Group,related_name='posts',null=True,blank=True,
         on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, blank=True, related_name='likes')

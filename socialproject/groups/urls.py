@@ -13,4 +13,7 @@ urlpatterns = [
     re_path(r'leave/(?P<slug>[-\w]+)/$',views.LeaveGroup.as_view(),name='leave'),
     re_path(r'edit/(?P<slug>[-\w]+)/', views.EditGroup.as_view(), name='edit'),
     re_path(r'delete/(?P<slug>[-\w]+)/',views.DeleteGroup.as_view(),name='delete'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+# if settings.DEBUG: #add this
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

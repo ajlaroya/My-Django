@@ -18,7 +18,7 @@ class Command(BaseCommand):
         print('Downloading corpus')
         corpus = Corpus(filename=download("reddit-corpus-small"))
 
-        for _ in range(20):
+        for _ in range(25):
             utt = corpus.random_utterance()
             text = utt.text
 
@@ -35,9 +35,9 @@ class Command(BaseCommand):
             catch_phrase = fake.catch_phrase()
             bio = f'[hi, im a generated user] {catch_phrase}'
             location = fake.location_on_land()[2] + ', ' + fake.location_on_land()[3]
-            picture = fake.image()
-            avatar = ImageFile(io.BytesIO(picture), name='foo.jpg')
-            profile = UserProfile(user_id=userobj.pk,bio=bio,location=location,picture=avatar)
+            # picture = fake.image()
+            # avatar = ImageFile(io.BytesIO(picture), name='foo.jpg')
+            profile = UserProfile(user_id=userobj.pk,bio=bio,location=location)
             profile.save()
 
             print(f'Bio: {bio}')

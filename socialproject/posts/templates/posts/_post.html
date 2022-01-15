@@ -35,7 +35,7 @@
       <strong><a class="has-text-warning is-size-4" href="{% url 'accounts:profile' post.author.profile.pk %}">@{{post.author}}</a></strong>
       <small>
         <time class="time">
-        <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">&nbsp{{post.created_at|date:"M n, f A"}}</a>
+        <a class="has-text-warning" href="{% url 'posts:single' username=post.author pk=post.pk %}">&nbsp{{post.created_at|date:"M j, f A"}}</a>
         </time>
       </small>
       {% if post.group %}
